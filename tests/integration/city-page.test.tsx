@@ -132,9 +132,10 @@ describe('Miami city comparison', () => {
     expect(screen.getByRole('radio', { name: /live receptionist & phone/i })).toBeInTheDocument()
     expect(screen.getByRole('radio', { name: /full virtual office/i })).toBeInTheDocument()
     expect(screen.getByRole('radio', { name: /i'm not sure/i })).toBeInTheDocument()
-    expect(screen.getByRole('tab', { name: /address & mail/i })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('group', { name: /comparison ranking tracks/i })).toBeInTheDocument()
+    expect(screen.queryByRole('tab')).not.toBeInTheDocument()
 
-    await user.click(screen.getByRole('tab', { name: /live receptionist & phone/i }))
+    await user.click(screen.getByRole('button', { name: /live receptionist & phone/i }))
     expect(mocked.replace).toHaveBeenLastCalledWith('/cities/miami?need=receptionist-phone', { scroll: false })
 
     await user.click(screen.getByRole('checkbox', { name: /mail forwarding/i }))
@@ -150,6 +151,7 @@ describe('Miami city comparison', () => {
     )
     expect(screen.getByText(/mail forwarding is an add-on/i)).toBeInTheDocument()
     expect(screen.getByRole('region', { name: /offers not ranked/i })).toHaveTextContent(/quote office/i)
+    expect(screen.getByRole('region', { name: /offers not ranked/i })).toHaveTextContent(/insufficient verified data/i)
     expect(screen.getByRole('link', { name: /ranking methodology/i })).toBeInTheDocument()
 
     expect(results.closest('.glass-surface')).toBeNull()

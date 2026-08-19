@@ -258,7 +258,7 @@ button, input, select, textarea { font: inherit; }
 .need-choice small { color: var(--color-muted); font-size: var(--text-xs); line-height: 1.35; }
 .ranking-tabs { display: flex; flex-wrap: wrap; gap: 0; margin-top: var(--space-5); border-bottom: var(--border-width) solid var(--color-line); }
 .ranking-tabs button { cursor: pointer; border: 0; border-bottom: 3px solid transparent; background: transparent; color: var(--color-ink); padding: var(--space-3) var(--space-4); font-weight: 800; }
-.ranking-tabs button[aria-selected="true"] { border-bottom-color: var(--color-accent); color: var(--color-accent-strong); }
+.ranking-tabs button.is-current { border-bottom-color: var(--color-accent); color: var(--color-accent-strong); }
 .filter-controls { display: flex; flex-wrap: wrap; align-items: end; gap: var(--space-3) var(--space-5); margin-top: var(--space-3); }
 .filter-controls label { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); font-weight: 700; }
 .filter-controls select { min-height: 2.5rem; border: var(--border-width) solid var(--color-line); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); padding-inline: var(--space-2); }
@@ -286,6 +286,7 @@ button, input, select, textarea { font: inherit; }
 .unranked-offers { margin-top: var(--space-5); }
 .unranked-offers h2 { margin: 0; font-size: var(--text-lg); }
 .unranked-offers > p, .unranked-offers li { color: var(--color-muted); }
+.unranked-reason { display: block; margin-top: var(--space-1); font-size: var(--text-sm); }
 
 .comparison-table-wrap { overflow-x: auto; border: var(--border-width) solid var(--color-line); background: var(--color-surface); }
 .comparison-table-wrap table { width: 100%; min-width: 44rem; border-collapse: collapse; text-align: left; }

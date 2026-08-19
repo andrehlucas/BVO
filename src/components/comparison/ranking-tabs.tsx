@@ -17,14 +17,13 @@ export function RankingTabs({ activeTrack }: RankingTabsProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   return (
-    <div aria-label="Comparison ranking tracks" className="ranking-tabs" role="tablist">
+    <div aria-label="Comparison ranking tracks" className="ranking-tabs" role="group">
       {tabs.map((tab) => (
         <button
-          aria-controls="ranked-offers"
-          aria-selected={activeTrack === tab.track}
+          aria-pressed={activeTrack === tab.track}
+          className={activeTrack === tab.track ? 'is-current' : undefined}
           key={tab.track}
           onClick={() => router.replace(replaceQueryValue(pathname, searchParams, 'need', tab.track), { scroll: false })}
-          role="tab"
           type="button"
         >{tab.label}</button>
       ))}

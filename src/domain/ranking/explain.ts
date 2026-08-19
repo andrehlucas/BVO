@@ -124,6 +124,37 @@ const verifiedAtFor = (offer: RankedOffer, catalog: Catalog): string => {
   return dates.sort().at(-1) ?? ''
 }
 
+const scoredFallbackStrengths = (offer: RankedOffer, catalog: Catalog): string[] => {
+  const plans = offer.planIds
+    .map((id) => catalog.plans.find((plan) => plan.id === id))
+    .filter((plan): plan is NonNullable<typeof plan> => plan !== undefined)
+  const terms = plans.map((plan) => plan.minimumTermMonths)
+  const minimumTerm = terms.every((term): term is number => term !== null) ? Math.max(...terms) : null
+  const receptionistMinutes = plans[0]?.includedReceptionistMinutes
+
+  return [...offer.breakdown]
+    .filter((item) => item.points > 0)
+    .sort((first, second) => dimensionRatio(second.points, second.maxPoints) - dimensionRatio(first.points, first.maxPoints)
+      || second.points - first.points
+      || first.dimension.localeCompare(second.dimension))
+    .flatMap((item) => {
+      if (item.dimension === 'comparableTotalCost' || item.dimension === 'totalPackageCost') {
+        return offer.normalizedPrice.recurringMonthlyCents === null
+          ? []
+          : [`Verified recurring price: ${formatDollars(offer.normalizedPrice.recurringMonthlyCents)}/month`]
+      }
+      if (item.dimension === 'totalCostAndMinuteAllowance') {
+        return offer.normalizedPrice.recurringMonthlyCents === null || receptionistMinutes === null || receptionistMinutes === undefined
+          ? []
+          : [`Verified recurring price: ${formatDollars(offer.normalizedPrice.recurringMonthlyCents)}/month with ${receptionistMinutes} included receptionist minute(s)`]
+      }
+      if (item.dimension === 'addressAndLocalConvenience' || item.dimension === 'workspaceAndLocalPresence') return ['Verified local availability']
+      if (item.dimension === 'contractFlexibility') return minimumTerm === null ? [] : [`Verified minimum term: ${minimumTerm} month(s)`]
+      if (item.dimension === 'transparencyAndEvidence') return [`Linked evidence confidence: ${Math.round(offer.evidenceConfidence * 100)}%`]
+      return []
+    })
+}
+
 export function explainRecommendation(
   result: RecommendationResult,
   catalog: Catalog,
@@ -144,7 +175,7 @@ export function explainRecommendation(
     .filter((plan): plan is NonNullable<typeof plan> => plan !== undefined)
   const features = plans.flatMap((plan) => plan.features)
   const dimensionByName = new Map(offer.breakdown.map((item) => [item.dimension, item]))
-  const strengths = featuresForTrack[offer.track]
+  const includedStrengths = featuresForTrack[offer.track]
     .map((key) => ({ key, state: featureState(features, key), dimension: featureDimensions[offer.track][key] }))
     .filter((feature): feature is { key: FeatureKey; state: 'included'; dimension: string } =>
       feature.state === 'included' && feature.dimension !== undefined && dimensionByName.has(feature.dimension),
@@ -158,6 +189,7 @@ export function explainRecommendation(
     })
     .slice(0, 3)
     .map(({ key }) => `${featureLabels[key]} is included`)
+  const strengths = [...new Set([...includedStrengths, ...scoredFallbackStrengths(offer, catalog)])].slice(0, 3)
   const monthlyPrice = offer.normalizedPrice.recurringMonthlyCents
   const upfront = offer.normalizedPrice.mandatoryUpfrontCents
 

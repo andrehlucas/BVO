@@ -12,6 +12,9 @@ const formatMoney = (amountCents: number | null): string => amountCents === null
 const formatDate = (value: string): string => value === '' ? 'Date unavailable' : new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(value))
 const planName = (catalog: Catalog, planIds: string[]): string => planIds.map((id) => catalog.plans.find((plan) => plan.id === id)?.name ?? id).join(' + ')
 const stateLabel = (feature: FeatureKey, state: FeatureState): string => `${featureLabels[feature]} is ${state === 'included' ? 'included' : state === 'paid_add_on' ? 'an add-on' : state === 'usage_based' ? 'usage-based' : state === 'not_available' ? 'not available' : 'not confirmed'}`
+const unrankedReasons: Record<RankingResult['unranked'][number]['reason'], string> = {
+  insufficient_verified_data: 'Insufficient verified data for a numbered ranking.',
+}
 
 interface RankingResultsProps { catalog: Catalog; citySlug: string; ranking: RankingResult; track: Track }
 
@@ -43,7 +46,7 @@ export function RankingResults({ catalog, citySlug, ranking, track }: RankingRes
           </ol>
         )}
       </section>
-      {ranking.unranked.length > 0 && <section aria-label="Offers not ranked" className="unranked-offers"><h2>Offers not ranked</h2><p>These eligible offers remain separate because a price, term, availability, or linked evidence record is incomplete.</p><ul>{ranking.unranked.map(({ candidate }) => <li key={`${candidate.providerId}-${candidate.planIds.join('-')}`}><strong>{providers.get(candidate.providerId)?.name ?? candidate.providerId}</strong> — {planName(catalog, candidate.planIds)}</li>)}</ul></section>}
+      {ranking.unranked.length > 0 && <section aria-label="Offers not ranked" className="unranked-offers"><h2>Offers not ranked</h2><p>These eligible offers remain separate because a price, term, availability, or linked evidence record is incomplete.</p><ul>{ranking.unranked.map(({ candidate, reason }) => <li key={`${candidate.providerId}-${candidate.planIds.join('-')}`}><strong>{providers.get(candidate.providerId)?.name ?? candidate.providerId}</strong> — {planName(catalog, candidate.planIds)}<span className="unranked-reason">Reason: {unrankedReasons[reason]}</span></li>)}</ul></section>}
     </>
   )
 }

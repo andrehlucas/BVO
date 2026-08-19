@@ -1,21 +1,42 @@
-import type { Catalog } from '@/domain/catalog/types'
+import type { Catalog, FeatureKey, FeatureState, Track } from '@/domain/catalog/types'
 import type { RankedOffer } from '@/domain/ranking/types'
+
+const featureLabels: Record<FeatureKey, string> = {
+  business_address: 'Business address', mail_receiving: 'Mail receiving', mail_forwarding: 'Mail forwarding', mail_scanning: 'Mail scanning', local_mail_pickup: 'Local mail pickup', live_receptionist: 'Live receptionist', business_phone_number: 'Business phone number', call_forwarding: 'Call forwarding', appointment_scheduling: 'Appointment scheduling', business_email: 'Business email', administrative_support: 'Administrative support', meeting_rooms: 'Meeting rooms', coworking_access: 'Coworking access', private_office_access: 'Private office access', guest_reception: 'Guest reception', registered_agent: 'Registered agent', company_formation_assistance: 'Company formation assistance',
+}
+
+const criteriaByTrack: Record<Track, FeatureKey[]> = {
+  'address-mail': ['business_address', 'mail_receiving', 'mail_forwarding', 'mail_scanning', 'local_mail_pickup'],
+  'receptionist-phone': ['live_receptionist', 'business_phone_number', 'call_forwarding', 'appointment_scheduling', 'administrative_support'],
+  'full-office': ['business_address', 'mail_receiving', 'live_receptionist', 'call_forwarding', 'meeting_rooms', 'coworking_access', 'private_office_access', 'guest_reception'],
+}
 
 const money = (amount: number | null) => amount === null ? 'Not verified' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount / 100)
 const plansFor = (catalog: Catalog, offer: RankedOffer) => offer.planIds.map((id) => catalog.plans.find((plan) => plan.id === id)?.name ?? id).join(' + ')
-const forwardingState = (offer: RankedOffer) => offer.features.find((feature) => feature.feature === 'mail_forwarding')?.state ?? 'not_confirmed'
-const displayState = (state: string) => state === 'paid_add_on' ? 'Add-on' : state === 'included' ? 'Included' : state.replaceAll('_', ' ')
+const stateFor = (offer: RankedOffer, feature: FeatureKey): FeatureState | undefined => offer.features.find((item) => item.feature === feature)?.state
+const displayState = (state: FeatureState) => state === 'paid_add_on' ? 'Add-on' : state === 'included' ? 'Included' : state === 'usage_based' ? 'Usage-based' : state === 'not_available' ? 'Not available' : 'Not confirmed'
 
-interface ComparisonTableProps { catalog: Catalog; offers: RankedOffer[] }
+interface ComparisonTableProps { catalog: Catalog; offers: RankedOffer[]; track: Track }
 
-export function ComparisonTable({ catalog, offers }: ComparisonTableProps) {
+export function ComparisonTable({ catalog, offers, track }: ComparisonTableProps) {
   const providers = new Map(catalog.providers.map((provider) => [provider.id, provider]))
+  const criteria = criteriaByTrack[track].filter((feature) => offers.some((offer) => stateFor(offer, feature) !== undefined))
+  const fields = [
+    { key: 'plan', label: 'Qualifying plan', value: (offer: RankedOffer) => plansFor(catalog, offer) },
+    { key: 'price', label: 'Recurring cost', value: (offer: RankedOffer) => money(offer.normalizedPrice.recurringMonthlyCents) },
+    ...criteria.map((feature) => ({ key: feature, label: featureLabels[feature], value: (offer: RankedOffer) => {
+      const state = stateFor(offer, feature)
+      return state === undefined ? '—' : displayState(state)
+    } })),
+    { key: 'evidence', label: 'Evidence', value: (offer: RankedOffer) => `${Math.round(offer.evidenceConfidence * 100)}% confidence` },
+  ]
+
   return (
     <section className="comparison-table-section" aria-labelledby="comparison-table-heading">
       <div className="section-heading"><p className="eyebrow">Evidence ledger</p><h2 id="comparison-table-heading">Compare ranked offers</h2></div>
       {offers.length === 0 ? <p className="empty-state">No complete offers are available to compare yet.</p> : <>
-        <div className="comparison-table-wrap"><table aria-label="Compare ranked offers"><thead><tr><th scope="col">Provider</th><th scope="col">Qualifying plan</th><th scope="col">Recurring cost</th><th scope="col">Mail forwarding</th><th scope="col">Evidence</th></tr></thead><tbody>{offers.map((offer) => <tr key={`${offer.providerId}-${offer.planIds.join('-')}`}><th scope="row">{providers.get(offer.providerId)?.name ?? offer.providerId}</th><td>{plansFor(catalog, offer)}</td><td>{money(offer.normalizedPrice.recurringMonthlyCents)}</td><td>{displayState(forwardingState(offer))}</td><td>{Math.round(offer.evidenceConfidence * 100)}% confidence</td></tr>)}</tbody></table></div>
-        <div className="comparison-mobile-list" aria-label="Ranked offer comparison cards">{offers.map((offer) => <article key={`${offer.providerId}-${offer.planIds.join('-')}`}><h3>{providers.get(offer.providerId)?.name ?? offer.providerId}</h3><dl><div><dt>Qualifying plan</dt><dd>{plansFor(catalog, offer)}</dd></div><div><dt>Recurring cost</dt><dd>{money(offer.normalizedPrice.recurringMonthlyCents)}</dd></div><div><dt>Mail forwarding</dt><dd>{displayState(forwardingState(offer))}</dd></div><div><dt>Evidence</dt><dd>{Math.round(offer.evidenceConfidence * 100)}% confidence</dd></div></dl></article>)}</div>
+        <div className="comparison-table-wrap"><table aria-label="Compare ranked offers"><thead><tr><th scope="col">Provider</th>{fields.map((field) => <th key={field.key} scope="col">{field.label}</th>)}</tr></thead><tbody>{offers.map((offer) => <tr key={`${offer.providerId}-${offer.planIds.join('-')}`}><th scope="row">{providers.get(offer.providerId)?.name ?? offer.providerId}</th>{fields.map((field) => <td key={field.key}>{field.value(offer)}</td>)}</tr>)}</tbody></table></div>
+        <div className="comparison-mobile-list" aria-label="Ranked offer comparison cards">{offers.map((offer) => <article key={`${offer.providerId}-${offer.planIds.join('-')}`}><h3>{providers.get(offer.providerId)?.name ?? offer.providerId}</h3><dl>{fields.map((field) => <div key={field.key}><dt>{field.label}</dt><dd>{field.value(offer)}</dd></div>)}</dl></article>)}</div>
       </>}
     </section>
   )

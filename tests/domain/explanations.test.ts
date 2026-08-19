@@ -137,4 +137,15 @@ describe('recommendation explanations', () => {
       'addressAndLocalConvenience is less strong than the other verified factors',
     )
   })
+
+  it('supplies three truthful, score-grounded strengths for a sparse but valid offer', () => {
+    const catalog = structuredClone(validCatalogFixture) as Catalog
+    const result = rankOffers(catalog, 'miami', 'address-mail', {}).ranked[0]!
+
+    expect(explainRecommendation(result, catalog).strengths).toEqual([
+      'Business address is included',
+      'Mail receiving is included',
+      'Verified recurring price: $99/month',
+    ])
+  })
 })

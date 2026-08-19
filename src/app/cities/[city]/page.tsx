@@ -58,7 +58,7 @@ export default async function CityPage({ params, searchParams }: CityPageProps) 
       <header className="city-heading"><p className="eyebrow">Florida city comparison</p><h1>Virtual offices in {city!.name}</h1><p>Start with the service you need, then inspect the evidence, price assumptions, and limitations behind each eligible offer.</p><p className="city-evidence-count">{overall.length} provider profile{overall.length === 1 ? '' : 's'} currently has enough verified city evidence for a secondary overview.</p></header>
       <section className="comparison-workflow" aria-labelledby="comparison-workflow-heading"><div className="workflow-heading"><p className="eyebrow">Decision tool</p><h2 id="comparison-workflow-heading">Match your need</h2><p>{trackDescription[track]}</p></div><NeedSelector selectedNeed={query.need} /><RankingTabs activeTrack={track} /><RefinementFilters query={query} track={track} /></section>
       <RankingResults catalog={catalog} citySlug={citySlug} ranking={ranking} track={track} />
-      <ComparisonTable catalog={catalog} offers={ranking.ranked} />
+      <ComparisonTable catalog={catalog} offers={ranking.ranked} track={track} />
       <LocationList catalog={catalog} citySlug={citySlug} />
       <aside className="comparison-limitations" aria-labelledby="comparison-limitations-heading"><h2 id="comparison-limitations-heading">Important limits</h2><p>A business address is not the same as registered-agent service. Whether an address works for registration, banking, licensing, or platform listings depends on your facts and the relevant rules; confirm with the appropriate authority or professional.</p></aside>
     </>
