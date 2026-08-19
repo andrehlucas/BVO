@@ -51,6 +51,12 @@ describe('shared site layout', () => {
     render(<SiteFooter />)
 
     expect(
+      within(screen.getByRole('navigation', { name: /footer navigation/i })).getByRole('link', {
+        name: /privacy/i,
+      }),
+    ).toHaveAttribute('href', '/privacy')
+
+    expect(
       screen.getByText(
         /we may earn a commission if you purchase through a link on this page/i,
       ),

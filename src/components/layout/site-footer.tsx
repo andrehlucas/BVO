@@ -9,6 +9,7 @@ export function SiteFooter() {
           <ul className="footer-nav-list">
             <li><Link href="/methodology">Methodology</Link></li>
             <li><Link href="/affiliate-disclosure">Affiliate disclosure</Link></li>
+            <li><Link href="/privacy">Privacy</Link></li>
             <li><Link href="/corrections">Corrections</Link></li>
           </ul>
         </nav>
