@@ -23,6 +23,9 @@
 - The product captures no names, email addresses, phone numbers, accounts, leads, or checkout data.
 - All public copy, disclosures, privacy language, and sensitive address-use claims require human editorial review before launch.
 - No executable n8n workflow is part of this plan.
+- The web UI adapts the `liquid-glass-design` principles selectively; it does not use or imitate SwiftUI/UIKit APIs.
+- Glass is reserved for navigation and interactive controls. Comparison tables, prices, disclosures, limitations, and long-form content use solid high-contrast surfaces.
+- Every glass surface has an opaque CSS fallback, readable light/dark appearances, visible focus state, and reduced-motion behavior.
 - Every task ends with tests and a focused commit.
 
 ---
@@ -744,6 +747,8 @@ git commit -m "feat: isolate affiliate redirects from editorial ranking"
 - Create: `src/components/layout/site-header.tsx`
 - Create: `src/components/layout/site-footer.tsx`
 - Create: `src/components/ui/button-link.tsx`
+- Create: `src/components/ui/glass-surface.tsx`
+- Create: `src/components/ui/glass-surface.module.css`
 - Create: `src/components/ui/status-badge.tsx`
 - Create: `src/components/disclosure/affiliate-disclosure.tsx`
 - Test: `tests/integration/site-layout.test.tsx`
@@ -754,7 +759,7 @@ git commit -m "feat: isolate affiliate redirects from editorial ranking"
 
 - [ ] **Step 1: Write failing layout tests**
 
-Assert a skip link, unique navigation label, Cities/Providers/Guides/Methodology links, visible affiliate disclosure text, and keyboard-focusable controls.
+Assert a skip link, unique navigation label, Cities/Providers/Guides/Methodology links, visible affiliate disclosure text, keyboard-focusable controls, and semantic glass surfaces that retain an explicit solid fallback class.
 
 - [ ] **Step 2: Run tests to verify failure**
 
@@ -764,11 +769,13 @@ Expected: FAIL because shared components do not exist.
 
 - [ ] **Step 3: Implement design tokens and responsive primitives**
 
-Define CSS custom properties for color, type scale, spacing, radius, border, shadow, content width, focus ring, success, warning, and muted text. Respect `prefers-reduced-motion`. Keep text contrast at WCAG AA levels and never use color alone for status.
+Define CSS custom properties for color, type scale, spacing, radius, border, shadow, content width, focus ring, success, warning, muted text, glass tint, glass border, blur, and opaque fallback. Respect `prefers-reduced-motion`. Keep text contrast at WCAG AA levels and never use color alone for status.
+
+Implement `GlassSurface` as a semantic wrapper that defaults to an opaque readable background. Inside `@supports (backdrop-filter: blur(1px))`, enhance it with controlled translucency, blur, border highlight, and shadow. Provide `interactive` only for elements that actually respond to input. Do not nest glass surfaces.
 
 - [ ] **Step 4: Implement shared components**
 
-Use native links for navigation and external destinations. The disclosure copy is:
+Use native links for navigation and external destinations. Apply glass only to the site header, need selector container, ranking-tab control, and compact floating actions. Keep result cards, comparison table, disclosures, prices, and articles on solid surfaces. The disclosure copy is:
 
 > We may earn a commission if you purchase through a link on this page. This never affects our rankings or recommendations.
 
@@ -804,7 +811,7 @@ git commit -m "feat: add accessible site layout and trust components"
 
 - [ ] **Step 1: Write failing city-page integration tests**
 
-Test that Miami shows the four need choices, defaults to address/mail, changes tabs, filters results, shows included versus add-on status, displays price verification date, renders unranked offers separately, and creates `/go/` links with city/track/position context.
+Test that Miami shows the four need choices, defaults to address/mail, changes tabs, filters results, shows included versus add-on status, displays price verification date, renders unranked offers separately, creates `/go/` links with city/track/position context, and keeps comparison/result content outside glass wrappers.
 
 - [ ] **Step 2: Run tests to verify failure**
 
