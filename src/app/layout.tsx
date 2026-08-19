@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
+import { GeistMono } from 'geist/font/mono'
+import { GeistSans } from 'geist/font/sans'
 import { VercelAnalytics } from '@/analytics/vercel-analytics'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
@@ -20,7 +22,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en">
+    <html className={`${GeistSans.variable} ${GeistMono.variable}`} lang="en">
       <body>
         <JsonLd data={{
           '@context': 'https://schema.org',

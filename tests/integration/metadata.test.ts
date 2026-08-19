@@ -41,6 +41,8 @@ describe('public metadata', () => {
     expect(urls).toEqual(expect.arrayContaining([
       `${siteUrl}/`,
       `${siteUrl}/florida`,
+      `${siteUrl}/providers`,
+      `${siteUrl}/guides`,
       ...['orlando', 'tampa', 'fort-lauderdale', 'miami', 'boca-raton'].map((city) => `${siteUrl}/cities/${city}`),
       ...['regus', 'opus-virtual-offices', 'alliance-virtual-offices', 'davinci-virtual'].map((slug) => `${siteUrl}/providers/${slug}`),
       ...[

@@ -11,7 +11,7 @@ export function LocationList({ catalog, citySlug, track }: LocationListProps) {
   const [isOpen, setIsOpen] = useState(false)
   const providers = new Map(catalog.providers.map((provider) => [provider.id, provider]))
   const locations = catalog.locations.filter((location) => location.citySlug === citySlug)
-  return <section className="location-list" aria-labelledby="location-list-heading"><div className="section-heading"><p className="eyebrow">Verified local presence</p><h2 id="location-list-heading">Where these providers operate</h2></div><button aria-expanded={isOpen} onClick={() => {
+  return <section className="location-list" aria-labelledby="location-list-heading"><div className="section-heading"><h2 id="location-list-heading">Where these providers operate</h2></div><button aria-expanded={isOpen} onClick={() => {
     if (!isOpen) {
       setIsOpen(true)
       trackProductEvent({ name: 'provider_location_viewed', properties: { city: citySlug, journey: track } })

@@ -8,7 +8,7 @@ reviewer: Project editorial reviewer (owner-approved methodology)
 status: reviewed
 ---
 
-## Start with the job—not the provider
+## Start with the job, not the provider
 
 Do not begin with “Which provider is best?” Begin with “What must this service do for my business?” An address with mail receipt solves a different problem from live phone answering. A plan with both still may not include the workspace you expect.
 

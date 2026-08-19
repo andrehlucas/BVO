@@ -60,7 +60,7 @@ describe('comparison table', () => {
     expect(screen.getByRole('columnheader', { name: /call forwarding/i })).toBeInTheDocument()
     expect(screen.queryByRole('columnheader', { name: /mail forwarding/i })).not.toBeInTheDocument()
     expect(screen.getAllByText('Add-on')).not.toHaveLength(0)
-    expect(screen.getAllByText('—')).not.toHaveLength(0)
+    expect(screen.getAllByText('Not listed')).not.toHaveLength(0)
     expect(screen.queryByText(/not confirmed/i)).not.toBeInTheDocument()
   })
 })

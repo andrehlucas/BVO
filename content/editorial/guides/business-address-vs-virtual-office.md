@@ -10,7 +10,7 @@ status: reviewed
 
 ## The difference in one sentence
 
-A business address gives your company a place to receive mail and present itself publicly. A broader virtual-office plan may add phone handling, live reception, and workspace. The plan details—not the product name—tell you what you are buying.
+A business address gives your company a place to receive mail and present itself publicly. A broader virtual-office plan may add phone handling, live reception, and workspace. The plan details, not the product name, tell you what you are buying.
 
 Regus’s Miami page makes the distinction directly. It describes its Business Address as an address where mail can be collected or forwarding arranged, while its Virtual Office adds local phone and call-handling services. Its Virtual Office Plus adds five days of workspace access each month.
 
