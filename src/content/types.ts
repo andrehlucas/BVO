@@ -1,6 +1,7 @@
 export const editorialKinds = ['guides', 'providers', 'cities'] as const
 
 export type EditorialKind = (typeof editorialKinds)[number]
+export type EditorialStatus = 'draft' | 'reviewed'
 
 export interface EditorialPage {
   title: string
@@ -9,6 +10,6 @@ export interface EditorialPage {
   publishedAt: string
   reviewedAt: string
   reviewer: string
-  status: string
+  status: EditorialStatus
   html: string
 }

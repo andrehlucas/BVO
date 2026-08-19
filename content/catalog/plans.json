@@ -23,38 +23,63 @@
       { "feature": "mail_forwarding", "state": "usage_based", "details": "Terms say forwarding and related service charges are the client's responsibility." }
     ],
     "limits": [{ "feature": "live_receptionist", "description": "Unlimited answering is advertised; the provider does not state a comparable included-minute allowance." }],
-    "evidenceIds": ["opus-florida-package", "opus-terms-term-and-mail"]
+    "evidenceIds": ["opus-florida-package", "opus-terms-term-and-mail"],
+    "evidenceByField": {
+      "basePrice": ["opus-florida-package"],
+      "mandatoryFees": ["opus-florida-package"],
+      "minimumTermMonths": ["opus-florida-package", "opus-terms-term-and-mail"],
+      "renewalTerms": ["opus-terms-term-and-mail"],
+      "cancellationTerms": ["opus-terms-term-and-mail"],
+      "features.business_address": ["opus-florida-package"],
+      "features.live_receptionist": ["opus-florida-package"],
+      "features.business_phone_number": ["opus-florida-package"],
+      "features.call_forwarding": ["opus-florida-package"],
+      "features.mail_forwarding": ["opus-terms-term-and-mail"],
+      "limits.live_receptionist": ["opus-florida-package"]
+    }
   },
   {
     "id": "regus-miami-virtual-office",
     "providerId": "regus",
     "locationIds": ["regus-miami-flagler"],
-    "name": "Miami virtual office",
-    "tracks": ["address-mail", "receptionist-phone", "full-office"],
+    "name": "Miami business address",
+    "tracks": ["address-mail"],
     "basePrice": null,
-    "quoteRequired": true,
+    "publishedStartingPrice": { "amountCents": 300, "currency": "USD", "billingPeriod": "day", "qualifier": "from", "comparisonStatus": "not_comparable" },
+    "quoteRequired": false,
     "mandatoryFees": [{ "name": "Activation fee", "quoteRequired": true }],
     "deposit": null,
     "promotion": null,
     "includedReceptionistMinutes": null,
-    "minimumTermMonths": 1,
-    "renewalTerms": null,
-    "cancellationTerms": "Regus says to provide 30 days' notice to cancel a virtual-office plan.",
+    "minimumTermMonths": null,
+    "renewalTerms": "Agreements renew automatically for successive periods equal to the current term; renewal fees are at the then-prevailing market rate.",
+    "cancellationTerms": "Notice depends on the agreement term: month-to-month requires at least one month from the first day of a calendar month; a three-month term requires at least two months before term end; a term longer than three months requires at least three months before term end.",
     "features": [
       { "feature": "business_address", "state": "included" },
       { "feature": "mail_receiving", "state": "included" },
       { "feature": "mail_forwarding", "state": "paid_add_on", "quoteRequired": true },
       { "feature": "mail_scanning", "state": "paid_add_on", "quoteRequired": true },
       { "feature": "local_mail_pickup", "state": "included" },
-      { "feature": "live_receptionist", "state": "not_confirmed" },
-      { "feature": "business_phone_number", "state": "not_confirmed" },
-      { "feature": "call_forwarding", "state": "not_confirmed" },
       { "feature": "meeting_rooms", "state": "paid_add_on", "quoteRequired": true },
       { "feature": "coworking_access", "state": "paid_add_on", "quoteRequired": true },
       { "feature": "private_office_access", "state": "paid_add_on", "quoteRequired": true }
     ],
     "limits": [],
-    "evidenceIds": ["regus-miami-package", "regus-global-terms"]
+    "evidenceIds": ["regus-miami-package", "regus-global-terms"],
+    "evidenceByField": {
+      "publishedStartingPrice": ["regus-miami-package"],
+      "mandatoryFees": ["regus-global-terms"],
+      "renewalTerms": ["regus-global-terms"],
+      "cancellationTerms": ["regus-global-terms"],
+      "features.business_address": ["regus-miami-package"],
+      "features.mail_receiving": ["regus-miami-package"],
+      "features.mail_forwarding": ["regus-miami-package"],
+      "features.mail_scanning": ["regus-miami-package"],
+      "features.local_mail_pickup": ["regus-miami-package"],
+      "features.meeting_rooms": ["regus-miami-package"],
+      "features.coworking_access": ["regus-miami-package"],
+      "features.private_office_access": ["regus-miami-package"]
+    }
   },
   {
     "id": "alliance-boca-virtual-office",
@@ -82,7 +107,18 @@
       { "feature": "coworking_access", "state": "not_confirmed" }
     ],
     "limits": [],
-    "evidenceIds": ["alliance-product-definition", "alliance-terms"]
+    "evidenceIds": ["alliance-boca-plan-features", "alliance-terms"],
+    "evidenceByField": {
+      "minimumTermMonths": ["alliance-terms"],
+      "renewalTerms": ["alliance-terms"],
+      "cancellationTerms": ["alliance-terms"],
+      "features.business_address": ["alliance-boca-plan-features"],
+      "features.mail_receiving": ["alliance-boca-plan-features"],
+      "features.mail_forwarding": ["alliance-terms"],
+      "features.mail_scanning": ["alliance-terms"],
+      "features.meeting_rooms": ["alliance-boca-plan-features"],
+      "features.coworking_access": ["alliance-boca-plan-features"]
+    }
   },
   {
     "id": "davinci-orlando-alafaya-virtual-office",
@@ -104,12 +140,27 @@
       { "feature": "mail_receiving", "state": "included" },
       { "feature": "mail_forwarding", "state": "paid_add_on", "quoteRequired": true },
       { "feature": "local_mail_pickup", "state": "included" },
-      { "feature": "meeting_rooms", "state": "paid_add_on", "quoteRequired": true },
+      { "feature": "meeting_rooms", "state": "included" },
       { "feature": "private_office_access", "state": "paid_add_on", "quoteRequired": true },
       { "feature": "guest_reception", "state": "included" },
       { "feature": "live_receptionist", "state": "not_confirmed" }
     ],
-    "limits": [{ "feature": "meeting_rooms", "description": "Rates vary by location; the location page says conference rooms and private day offices are charged hourly." }],
-    "evidenceIds": ["davinci-orlando-location", "davinci-location-terms"]
+    "limits": [{ "feature": "meeting_rooms", "description": "The reviewed Orlando location page lists 2 hours of conference-room time included; it does not state the allowance period." }],
+    "evidenceIds": ["davinci-orlando-plan", "davinci-location-terms"],
+    "evidenceByField": {
+      "basePrice": ["davinci-orlando-plan"],
+      "mandatoryFees": ["davinci-orlando-plan"],
+      "minimumTermMonths": ["davinci-orlando-plan", "davinci-location-terms"],
+      "renewalTerms": ["davinci-location-terms"],
+      "cancellationTerms": ["davinci-location-terms"],
+      "features.business_address": ["davinci-orlando-plan"],
+      "features.mail_receiving": ["davinci-orlando-plan"],
+      "features.mail_forwarding": ["davinci-orlando-plan"],
+      "features.local_mail_pickup": ["davinci-orlando-plan"],
+      "features.meeting_rooms": ["davinci-orlando-plan"],
+      "features.private_office_access": ["davinci-orlando-plan"],
+      "features.guest_reception": ["davinci-orlando-plan"],
+      "limits.meeting_rooms": ["davinci-orlando-plan"]
+    }
   }
 ]

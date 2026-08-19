@@ -10,7 +10,7 @@ vi.mock('node:fs/promises', () => ({
   default: fileSystem,
 }))
 
-import { loadEditorialPage } from '@/content/load-editorial-page'
+import { listEditorialPages, loadEditorialPage } from '@/content/load-editorial-page'
 
 function markdown(frontmatter: Record<string, string>, body = '## Editorial body\n\nUseful **detail**.') {
   return [
@@ -28,7 +28,7 @@ const validFrontmatter = {
   publishedAt: '2026-08-19',
   reviewedAt: '2026-08-19',
   reviewer: 'Editorial team',
-  status: 'published',
+  status: 'reviewed',
 }
 
 function setFiles(files: Record<string, string>) {
@@ -116,5 +116,17 @@ describe('loadEditorialPage', () => {
     ).rejects.toThrow(/invalid option/i)
 
     expect(fileSystem.readdir).not.toHaveBeenCalled()
+  })
+
+  it('excludes draft pages from public lists and direct public loads', async () => {
+    setFiles({
+      'reviewed.md': markdown(validFrontmatter),
+      'draft.md': markdown({ ...validFrontmatter, slug: 'draft-guide', status: 'draft' }),
+    })
+
+    await expect(listEditorialPages('guides')).resolves.toMatchObject([
+      { slug: 'what-is-a-virtual-office', status: 'reviewed' },
+    ])
+    await expect(loadEditorialPage('guides', 'draft-guide')).rejects.toThrow(/not found/i)
   })
 })

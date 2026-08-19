@@ -34,6 +34,14 @@ export interface Money {
   billingPeriod: BillingPeriod
 }
 
+export interface PublishedStartingPrice {
+  amountCents: number
+  currency: 'USD'
+  billingPeriod: 'day'
+  qualifier: 'from'
+  comparisonStatus: 'not_comparable'
+}
+
 export interface Provider {
   id: string
   name: string
@@ -56,6 +64,7 @@ export interface Location {
   physicalFeatures: FeatureKey[]
   availability: 'available' | 'unavailable' | 'not_confirmed'
   evidenceIds: string[]
+  evidenceByField?: Record<string, string[]>
 }
 
 export interface PlanFeature {
@@ -91,6 +100,7 @@ export interface Plan {
   name: string
   tracks: Track[]
   basePrice: Money | null
+  publishedStartingPrice?: PublishedStartingPrice
   quoteRequired: boolean
   mandatoryFees: PlanFee[]
   deposit: Money | null
@@ -102,6 +112,7 @@ export interface Plan {
   features: PlanFeature[]
   limits: PlanLimit[]
   evidenceIds: string[]
+  evidenceByField?: Record<string, string[]>
 }
 
 export interface Evidence {

@@ -14,6 +14,7 @@ import type {
   PlanLimit,
   PlanPromotion,
   Provider,
+  PublishedStartingPrice,
   Track,
 } from './types'
 
@@ -60,6 +61,18 @@ export const moneySchema: z.ZodType<Money> = z
   })
   .strict()
 
+export const publishedStartingPriceSchema: z.ZodType<PublishedStartingPrice> = z
+  .object({
+    amountCents: z.number().int().nonnegative(),
+    currency: z.literal('USD'),
+    billingPeriod: z.literal('day'),
+    qualifier: z.literal('from'),
+    comparisonStatus: z.literal('not_comparable'),
+  })
+  .strict()
+
+const evidenceByFieldSchema = z.record(nonEmptyStringSchema, z.array(nonEmptyStringSchema).min(1))
+
 export const providerSchema: z.ZodType<Provider> = z
   .object({
     id: nonEmptyStringSchema,
@@ -85,6 +98,7 @@ export const locationSchema: z.ZodType<Location> = z
     physicalFeatures: z.array(z.enum(featureKeyValues)),
     availability: z.enum(['available', 'unavailable', 'not_confirmed']),
     evidenceIds: z.array(nonEmptyStringSchema),
+    evidenceByField: evidenceByFieldSchema.optional(),
   })
   .strict()
 
@@ -148,6 +162,7 @@ export const planSchema: z.ZodType<Plan> = z
     name: nonEmptyStringSchema,
     tracks: z.array(z.enum(trackValues)).min(1),
     basePrice: moneySchema.nullable(),
+    publishedStartingPrice: publishedStartingPriceSchema.optional(),
     quoteRequired: z.boolean(),
     mandatoryFees: z.array(planFeeSchema),
     deposit: moneySchema.nullable(),
@@ -160,14 +175,22 @@ export const planSchema: z.ZodType<Plan> = z
     limits: z.array(planLimitSchema),
     // Plans feed factual rankings, so every one must link to at least one source record.
     evidenceIds: z.array(nonEmptyStringSchema).min(1),
+    evidenceByField: evidenceByFieldSchema.optional(),
   })
   .strict()
   .superRefine((plan, context) => {
-    if (plan.basePrice === null && !plan.quoteRequired) {
+    if (plan.basePrice === null && !plan.quoteRequired && plan.publishedStartingPrice === undefined) {
       context.addIssue({
         code: z.ZodIssueCode.custom,
         message: 'Plans without a base price require quoteRequired: true',
         path: ['quoteRequired'],
+      })
+    }
+    if (plan.basePrice !== null && plan.publishedStartingPrice !== undefined) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Plans cannot contain both a comparable base price and a non-comparable published starting price',
+        path: ['publishedStartingPrice'],
       })
     }
   })

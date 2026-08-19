@@ -5,7 +5,7 @@ slug: business-address-vs-registered-agent
 publishedAt: 2026-08-19
 reviewedAt: 2026-08-19
 reviewer: Project editorial reviewer (owner-approved methodology; no legal review represented)
-status: reviewed
+status: draft
 ---
 
 ## The short answer

@@ -8,7 +8,11 @@
     "address": "848 Brickell Avenue, PH5, Miami, FL 33131",
     "physicalFeatures": [],
     "availability": "available",
-    "evidenceIds": ["opus-miami-location"]
+    "evidenceIds": ["opus-miami-location"],
+    "evidenceByField": {
+      "address": ["opus-miami-location"],
+      "availability": ["opus-miami-location"]
+    }
   },
   {
     "id": "opus-orlando-200-robinson",
@@ -19,7 +23,11 @@
     "address": "200 E Robinson Street, Suite 1120, Orlando, FL 32801",
     "physicalFeatures": [],
     "availability": "available",
-    "evidenceIds": ["opus-orlando-location"]
+    "evidenceIds": ["opus-orlando-location"],
+    "evidenceByField": {
+      "address": ["opus-orlando-location"],
+      "availability": ["opus-orlando-location"]
+    }
   },
   {
     "id": "opus-tampa-401-jackson",
@@ -30,7 +38,11 @@
     "address": "401 East Jackson Street, Suite 2340, Tampa, FL 33602",
     "physicalFeatures": [],
     "availability": "available",
-    "evidenceIds": ["opus-tampa-location"]
+    "evidenceIds": ["opus-tampa-location"],
+    "evidenceByField": {
+      "address": ["opus-tampa-location"],
+      "availability": ["opus-tampa-location"]
+    }
   },
   {
     "id": "opus-fort-lauderdale-515-las-olas",
@@ -41,7 +53,11 @@
     "address": "515 E Las Olas Boulevard, Suite 1301, Fort Lauderdale, FL 33301",
     "physicalFeatures": [],
     "availability": "available",
-    "evidenceIds": ["opus-fort-lauderdale-location"]
+    "evidenceIds": ["opus-fort-lauderdale-location"],
+    "evidenceByField": {
+      "address": ["opus-fort-lauderdale-location"],
+      "availability": ["opus-fort-lauderdale-location"]
+    }
   },
   {
     "id": "opus-boca-raton-1825-corporate",
@@ -52,7 +68,11 @@
     "address": "1825 NW Corporate Blvd, Suite 110, Boca Raton, FL 33431",
     "physicalFeatures": [],
     "availability": "available",
-    "evidenceIds": ["opus-boca-raton-location"]
+    "evidenceIds": ["opus-boca-raton-location"],
+    "evidenceByField": {
+      "address": ["opus-boca-raton-location"],
+      "availability": ["opus-boca-raton-location"]
+    }
   },
   {
     "id": "regus-miami-flagler",
@@ -63,7 +83,14 @@
     "address": "28 W Flagler Street, Miami, FL 33130",
     "physicalFeatures": ["meeting_rooms", "coworking_access", "private_office_access"],
     "availability": "available",
-    "evidenceIds": ["regus-miami-location"]
+    "evidenceIds": ["regus-miami-location"],
+    "evidenceByField": {
+      "address": ["regus-miami-location"],
+      "availability": ["regus-miami-location"],
+      "physicalFeatures.meeting_rooms": ["regus-miami-location"],
+      "physicalFeatures.coworking_access": ["regus-miami-location"],
+      "physicalFeatures.private_office_access": ["regus-miami-location"]
+    }
   },
   {
     "id": "alliance-boca-raton-n-federal",
@@ -74,7 +101,13 @@
     "address": "4800 N Federal Hwy, Suite B200, Boca Raton, FL 33431",
     "physicalFeatures": ["meeting_rooms", "coworking_access"],
     "availability": "available",
-    "evidenceIds": ["alliance-boca-location"]
+    "evidenceIds": ["alliance-boca-location"],
+    "evidenceByField": {
+      "address": ["alliance-boca-location"],
+      "availability": ["alliance-boca-location"],
+      "physicalFeatures.meeting_rooms": ["alliance-boca-location"],
+      "physicalFeatures.coworking_access": ["alliance-boca-location"]
+    }
   },
   {
     "id": "davinci-orlando-alafaya",
@@ -85,6 +118,13 @@
     "address": "626 N Alafaya Trail, Suite 206, Orlando, FL 32828",
     "physicalFeatures": ["meeting_rooms", "private_office_access", "guest_reception"],
     "availability": "available",
-    "evidenceIds": ["davinci-orlando-location"]
+    "evidenceIds": ["davinci-orlando-location"],
+    "evidenceByField": {
+      "address": ["davinci-orlando-location"],
+      "availability": ["davinci-orlando-location"],
+      "physicalFeatures.meeting_rooms": ["davinci-orlando-location"],
+      "physicalFeatures.private_office_access": ["davinci-orlando-location"],
+      "physicalFeatures.guest_reception": ["davinci-orlando-location"]
+    }
   }
 ]

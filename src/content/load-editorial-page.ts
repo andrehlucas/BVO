@@ -20,7 +20,7 @@ const editorialFrontmatterSchema = z.object({
   publishedAt: dateSchema,
   reviewedAt: dateSchema,
   reviewer: z.string().trim().min(1),
-  status: z.string().trim().min(1),
+  status: z.enum(['draft', 'reviewed']),
 }).strict()
 
 const editorialDirectories: Record<EditorialKind, string> = {
@@ -93,11 +93,12 @@ async function readPages(kind: EditorialKind): Promise<EditorialPage[]> {
 }
 
 export async function listEditorialPages(kind: EditorialKind): Promise<EditorialPage[]> {
-  return readPages(editorialKindSchema.parse(kind))
+  const pages = await readPages(editorialKindSchema.parse(kind))
+  return pages.filter((page) => page.status === 'reviewed')
 }
 
 export async function loadEditorialPage(kind: EditorialKind, slug: string): Promise<EditorialPage> {
-  const pages = await readPages(editorialKindSchema.parse(kind))
+  const pages = await listEditorialPages(editorialKindSchema.parse(kind))
   const page = pages.find((candidate) => candidate.slug === slug)
 
   if (!page) {

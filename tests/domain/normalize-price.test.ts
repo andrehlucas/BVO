@@ -87,4 +87,22 @@ describe('normalizePlanPrice', () => {
       isComplete: false,
     })
   })
+
+  it('preserves a non-comparable daily published starting price without inventing a monthly total', () => {
+    expect(normalizePlanPrice(plan({
+      basePrice: null,
+      quoteRequired: false,
+      publishedStartingPrice: {
+        amountCents: 300,
+        currency: 'USD',
+        billingPeriod: 'day',
+        qualifier: 'from',
+        comparisonStatus: 'not_comparable',
+      },
+    }))).toMatchObject({
+      advertisedMonthlyCents: null,
+      recurringMonthlyCents: null,
+      isComplete: false,
+    })
+  })
 })

@@ -17,10 +17,10 @@
     "entityId": "regus-miami-flagler",
     "field": "address_and_availability",
     "sourceUrl": "https://www.regus.com/en/us/florida/miami/virtual-offices",
-    "capturedAt": "2026-08-19T13:00:00-04:00",
-    "observedValue": "28 W Flagler Street, Miami, FL 33130; the Miami page says it has 29 locations.",
-    "supportingExcerpt": "The official Miami page lists 28 W Flagler Street, Miami, FL, 33130 and presents virtual-office options in Miami.",
-    "verificationMethod": "Read current official Regus Miami virtual-offices page.",
+    "capturedAt": "2026-08-19T13:20:00-04:00",
+    "observedValue": "28 W Flagler Street, Miami, FL 33130; the Miami page says it has 29 locations and lists meeting rooms, coworking, and office-access categories.",
+    "supportingExcerpt": "The current official Miami page lists the Flagler address and identifies meeting rooms, coworking access, and office access as Miami product categories.",
+    "verificationMethod": "Freshly read current official Regus Miami virtual-offices page.",
     "confidence": "high"
   },
   {
@@ -29,10 +29,10 @@
     "entityId": "regus-miami-virtual-office",
     "field": "package_features_and_price_disclosure",
     "sourceUrl": "https://www.regus.com/en/us/florida/miami/virtual-offices",
-    "capturedAt": "2026-08-19T13:00:00-04:00",
-    "observedValue": "The Miami page lists Business Address from $3 per day, Virtual Office from $3 per day, and Call Answering from $4 per day; it does not publish a single comparable monthly package total.",
-    "supportingExcerpt": "The page distinguishes Business Address, Virtual Office, and Virtual Office Plus; it says forwarding incurs additional charges and Plus includes five days of workspace access each month.",
-    "verificationMethod": "Read current official Regus Miami virtual-offices page; no search snippet used as final evidence.",
+    "capturedAt": "2026-08-19T13:20:00-04:00",
+    "observedValue": "The Miami page publishes Business Address and Virtual Office starting from $3 per day, Call Answering from $4 per day, and does not publish a comparable fixed monthly total.",
+    "supportingExcerpt": "The current page says mail forwarding incurs additional charges, identifies Business Address mail collection, and lists on-demand meeting rooms, coworking, and private-office access for a fee.",
+    "verificationMethod": "Freshly read current official Regus Miami virtual-offices page; no search snippet used as final evidence.",
     "confidence": "high"
   },
   {
@@ -41,10 +41,10 @@
     "entityId": "regus-miami-virtual-office",
     "field": "contract_and_fee_terms",
     "sourceUrl": "https://assets.regus.com/terms-and-conditions/en-us-global-terms-and-conditions.pdf",
-    "capturedAt": "2026-08-19T13:00:00-04:00",
-    "observedValue": "An activation fee is payable for each agreement and Virtual Office plans are charged per location; monthly fees are payable monthly in advance.",
-    "supportingExcerpt": "The March 2026 terms say virtual-office activation is per location and that pay-as-you-use services are payable monthly in arrears.",
-    "verificationMethod": "Read current official Regus US global-terms PDF.",
+    "capturedAt": "2026-08-19T13:20:00-04:00",
+    "observedValue": "An activation fee is payable per Virtual Office location. Agreements renew automatically for periods equal to the current term; notice depends on the term length.",
+    "supportingExcerpt": "The March 2026 terms require at least one month for month-to-month agreements, two months before a three-month term ends, and three months before a term longer than three months ends.",
+    "verificationMethod": "Freshly read current official Regus US global-terms PDF.",
     "confidence": "high"
   },
   {
@@ -168,15 +168,27 @@
     "confidence": "high"
   },
   {
+    "id": "alliance-boca-plan-features",
+    "entityType": "plan",
+    "entityId": "alliance-boca-virtual-office",
+    "field": "address_mail_and_related_service_categories",
+    "sourceUrl": "https://www.alliancevirtualoffices.com/documents/virtual-office-product-guide.pdf",
+    "capturedAt": "2026-08-19T13:20:00-04:00",
+    "observedValue": "Alliance describes a virtual office as a recognized business address with onsite mail processing and lists forwarding, scanning, meeting room rental, and coworking among add-ons or complementary services.",
+    "supportingExcerpt": "The official product guide distinguishes the core address/mail model from add-ons; the Boca Raton location page separately lists the related service categories.",
+    "verificationMethod": "Freshly read current official Alliance product guide and Boca Raton location page.",
+    "confidence": "high"
+  },
+  {
     "id": "davinci-orlando-location",
     "entityType": "location",
     "entityId": "davinci-orlando-alafaya",
     "field": "address_features_price_and_promotion",
     "sourceUrl": "https://www.davincivirtual.com/loc/us/florida/orlando-virtual-offices/facility-7353",
-    "capturedAt": "2026-08-19T13:00:00-04:00",
+    "capturedAt": "2026-08-19T13:20:00-04:00",
     "observedValue": "626 N Alafaya Trail, Suite 206, Orlando, FL 32828; $79/month promotional price and $50 one-time setup fee displayed.",
-    "supportingExcerpt": "The page lists a local business address, mail receipt, mail forwarding for an additional fee, client pickup point, lobby greeter, and hourly private day office and conference-room access.",
-    "verificationMethod": "Read current official Davinci Orlando location page.",
+    "supportingExcerpt": "The freshly reviewed page lists the address, availability for reservation, mail receipt, client pickup, lobby greeter, and related workspace facilities.",
+    "verificationMethod": "Freshly read current official Davinci Orlando location page.",
     "confidence": "high"
   },
   {
@@ -189,6 +201,18 @@
     "observedValue": "Location solutions require a six-month commitment, roll month to month afterward, and require 30 days' written notice after the term; setup fees start at $150 but promotions may apply.",
     "supportingExcerpt": "The FAQ says most locations offer meeting rooms by the hour and that price depends on location.",
     "verificationMethod": "Read current official Davinci location-services FAQ.",
+    "confidence": "high"
+  },
+  {
+    "id": "davinci-orlando-plan",
+    "entityType": "plan",
+    "entityId": "davinci-orlando-alafaya-virtual-office",
+    "field": "price_features_and_included_meeting_room_allowance",
+    "sourceUrl": "https://www.davincivirtual.com/loc/us/florida/orlando-virtual-offices/facility-7353",
+    "capturedAt": "2026-08-19T13:20:00-04:00",
+    "observedValue": "The named Orlando page displays a $79/month promo, $50 one-time setup fee, mail receipt, add-on forwarding, client pickup, lobby greeter, and 2 hours conference room time included.",
+    "supportingExcerpt": "The page says “2 Hours Conference Room Time Included”; it does not state the allowance period or a rate for use beyond that allowance.",
+    "verificationMethod": "Freshly read current official Davinci Orlando location page.",
     "confidence": "high"
   }
 ]

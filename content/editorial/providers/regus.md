@@ -20,13 +20,13 @@ Regus describes call answering, call forwarding, message taking, and local phone
 
 ## Full-office path and price structure
 
-Regus lists meeting rooms, coworking, private offices, and office-access products in Miami. A Virtual Office Plus plan can include five days of workspace access per month; other workspace access may be on demand or an add-on. The Miami page shows daily starting prices but no fixed comparable monthly total for a single virtual-office configuration, so this catalog keeps the plan quote-required.
+Regus lists meeting rooms, coworking, private offices, and office-access products in Miami. A Virtual Office Plus plan can include five days of workspace access per month; other workspace access may be on demand or an add-on. The Miami page publishes a **from $3/day** starting price. The catalog preserves that as a non-comparable published starting price rather than inventing a monthly equivalent, so the entry stays unranked until a fixed comparable total is verified.
 
 The US global terms state that an activation fee is payable for each agreement and that the Virtual Office fee is per location; the amount is not published in the reviewed terms. They also describe monthly advance payment for standard services and variable service charges in arrears.
 
 ## Contract observations
 
-Regus says most plans start from one month and asks for 30 days’ notice to cancel on its virtual-office product page. Its Miami page says longer terms can receive discounted pricing. Renewal terms for the cataloged configuration were not captured, so it is not given a numeric rank.
+Regus’s current US terms say agreements renew automatically for periods equal to the current term at the then-prevailing market rate. Notice is term-dependent: at least one month for month-to-month agreements, two months before a three-month term ends, and three months before a term longer than three months ends. The specific term for the recorded Miami business-address configuration was not captured, so it is not given a numeric rank.
 
 ## Verified strengths and limits
 

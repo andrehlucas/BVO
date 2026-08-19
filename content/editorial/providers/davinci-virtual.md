@@ -20,7 +20,7 @@ The provider FAQ says a completed and notarized CMRA mail form is required befor
 
 ## Full-office path and price structure
 
-The captured location page displayed a promotional $79/month price and $50 one-time setup fee. The catalog keeps the promotion distinct from the recurring price. The same page says conference-room and private-day-office rates vary by location; the FAQ says most locations offer conference room time by the hour.
+The captured location page displayed a promotional $79/month price and $50 one-time setup fee. The catalog keeps the promotion distinct from the recurring price. That page also lists **two hours of conference-room time included**, but does not state the allowance period or a charge for time beyond it. Private-day-office rates vary by location; the FAQ says most locations offer conference room time by the hour.
 
 No included live receptionist or compatible full-office bundle was confirmed for the named plan. Optional space should not be recast as an included full virtual office.
 
