@@ -15,3 +15,25 @@ export interface OfferCandidate {
   features: PlanFeature[]
   evidenceIds: string[]
 }
+
+export interface ScoreBreakdownItem {
+  dimension: string
+  points: number
+  maxPoints: number
+  reason: string
+}
+
+export interface RankedOffer extends OfferCandidate {
+  score: number
+  breakdown: ScoreBreakdownItem[]
+  evidenceConfidence: number
+  closeAlternative: boolean
+}
+
+export interface RankingResult {
+  ranked: RankedOffer[]
+  unranked: Array<{
+    candidate: OfferCandidate
+    reason: 'insufficient_verified_data'
+  }>
+}
