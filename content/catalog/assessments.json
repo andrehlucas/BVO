@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "id": "regus-miami-assessment",
+    "providerId": "regus",
+    "planId": "regus-miami-virtual-office",
+    "recommendedFor": ["Businesses comparing a Miami business-address package with optional mail and workspace services."],
+    "strengths": ["The Miami page lists business-address, virtual-office, call-answering, meeting-room, coworking, and office-access categories."],
+    "limitations": ["The reviewed sources did not provide a fixed comparable Miami package price or a published activation-fee amount."],
+    "rationale": "Editorial interpretation based only on the published product categories and evidence state; it is not a ranking claim.",
+    "reviewedBy": "Project editorial reviewer (owner-approved methodology)",
+    "reviewedAt": "2026-08-19T13:00:00-04:00"
+  },
+  {
+    "id": "opus-florida-assessment",
+    "providerId": "opus-virtual-offices",
+    "planId": "opus-florida-virtual-office",
+    "recommendedFor": ["Businesses seeking a published Florida package that combines call answering, a phone/fax number, and call transferring."],
+    "strengths": ["The reviewed Florida page publishes the same $99 monthly price for the five named launch-city entries."],
+    "limitations": ["The published package does not state a comparable included receptionist-minute allowance, so it is not numerically ranked."],
+    "rationale": "Editorial interpretation based only on the published package and terms; it does not assess service quality.",
+    "reviewedBy": "Project editorial reviewer (owner-approved methodology)",
+    "reviewedAt": "2026-08-19T13:00:00-04:00"
+  },
+  {
+    "id": "alliance-boca-assessment",
+    "providerId": "alliance-virtual-offices",
+    "planId": "alliance-boca-virtual-office",
+    "recommendedFor": ["Businesses checking a Boca Raton address-and-mail option before obtaining a quote."],
+    "strengths": ["The product guide explicitly describes a recognized city address with onsite mail processing."],
+    "limitations": ["No location-specific published price was captured for this entry; forwarding and several add-ons may carry extra charges."],
+    "rationale": "Editorial interpretation based on the product guide, city entry, and terms; it does not make third-party acceptance claims.",
+    "reviewedBy": "Project editorial reviewer (owner-approved methodology)",
+    "reviewedAt": "2026-08-19T13:00:00-04:00"
+  },
+  {
+    "id": "davinci-orlando-assessment",
+    "providerId": "davinci-virtual",
+    "planId": "davinci-orlando-alafaya-virtual-office",
+    "recommendedFor": ["Businesses comparing an Orlando address-and-mail entry with a displayed promotional price."],
+    "strengths": ["The location page publishes the address, price, setup promotion, term, mail receipt, pickup point, and hourly workspace options."],
+    "limitations": ["The displayed price is labeled promotional and mail forwarding has an additional charge; verify current checkout terms before purchase."],
+    "rationale": "Editorial interpretation based on the named location and provider FAQ; it is not a service-quality assessment.",
+    "reviewedBy": "Project editorial reviewer (owner-approved methodology)",
+    "reviewedAt": "2026-08-19T13:00:00-04:00"
+  }
+]

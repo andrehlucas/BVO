@@ -1,1 +1,90 @@
-[]
+[
+  {
+    "id": "opus-miami-848-brickell",
+    "providerId": "opus-virtual-offices",
+    "city": "Miami",
+    "citySlug": "miami",
+    "state": "FL",
+    "address": "848 Brickell Avenue, PH5, Miami, FL 33131",
+    "physicalFeatures": [],
+    "availability": "available",
+    "evidenceIds": ["opus-miami-location"]
+  },
+  {
+    "id": "opus-orlando-200-robinson",
+    "providerId": "opus-virtual-offices",
+    "city": "Orlando",
+    "citySlug": "orlando",
+    "state": "FL",
+    "address": "200 E Robinson Street, Suite 1120, Orlando, FL 32801",
+    "physicalFeatures": [],
+    "availability": "available",
+    "evidenceIds": ["opus-orlando-location"]
+  },
+  {
+    "id": "opus-tampa-401-jackson",
+    "providerId": "opus-virtual-offices",
+    "city": "Tampa",
+    "citySlug": "tampa",
+    "state": "FL",
+    "address": "401 East Jackson Street, Suite 2340, Tampa, FL 33602",
+    "physicalFeatures": [],
+    "availability": "available",
+    "evidenceIds": ["opus-tampa-location"]
+  },
+  {
+    "id": "opus-fort-lauderdale-515-las-olas",
+    "providerId": "opus-virtual-offices",
+    "city": "Fort Lauderdale",
+    "citySlug": "fort-lauderdale",
+    "state": "FL",
+    "address": "515 E Las Olas Boulevard, Suite 1301, Fort Lauderdale, FL 33301",
+    "physicalFeatures": [],
+    "availability": "available",
+    "evidenceIds": ["opus-fort-lauderdale-location"]
+  },
+  {
+    "id": "opus-boca-raton-1825-corporate",
+    "providerId": "opus-virtual-offices",
+    "city": "Boca Raton",
+    "citySlug": "boca-raton",
+    "state": "FL",
+    "address": "1825 NW Corporate Blvd, Suite 110, Boca Raton, FL 33431",
+    "physicalFeatures": [],
+    "availability": "available",
+    "evidenceIds": ["opus-boca-raton-location"]
+  },
+  {
+    "id": "regus-miami-flagler",
+    "providerId": "regus",
+    "city": "Miami",
+    "citySlug": "miami",
+    "state": "FL",
+    "address": "28 W Flagler Street, Miami, FL 33130",
+    "physicalFeatures": ["meeting_rooms", "coworking_access", "private_office_access"],
+    "availability": "available",
+    "evidenceIds": ["regus-miami-location"]
+  },
+  {
+    "id": "alliance-boca-raton-n-federal",
+    "providerId": "alliance-virtual-offices",
+    "city": "Boca Raton",
+    "citySlug": "boca-raton",
+    "state": "FL",
+    "address": "4800 N Federal Hwy, Suite B200, Boca Raton, FL 33431",
+    "physicalFeatures": ["meeting_rooms", "coworking_access"],
+    "availability": "available",
+    "evidenceIds": ["alliance-boca-location"]
+  },
+  {
+    "id": "davinci-orlando-alafaya",
+    "providerId": "davinci-virtual",
+    "city": "Orlando",
+    "citySlug": "orlando",
+    "state": "FL",
+    "address": "626 N Alafaya Trail, Suite 206, Orlando, FL 32828",
+    "physicalFeatures": ["meeting_rooms", "private_office_access", "guest_reception"],
+    "availability": "available",
+    "evidenceIds": ["davinci-orlando-location"]
+  }
+]

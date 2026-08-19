@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "id": "regus",
+    "name": "Regus",
+    "slug": "regus",
+    "websiteUrl": "https://www.regus.com/en/virtual-offices",
+    "description": "Regus publishes business-address, virtual-office, call-answering, and workspace-access options.",
+    "evidenceIds": ["regus-product-definition"],
+    "lastReviewedAt": "2026-08-19T13:00:00-04:00"
+  },
+  {
+    "id": "opus-virtual-offices",
+    "name": "Opus Virtual Offices",
+    "slug": "opus-virtual-offices",
+    "websiteUrl": "https://www.opusvirtualoffices.com/virtualoffices/florida/",
+    "description": "Opus publishes a Florida virtual-office package with a business address, live call answering, phone/fax number, and call transferring.",
+    "evidenceIds": ["opus-florida-package"],
+    "lastReviewedAt": "2026-08-19T13:00:00-04:00"
+  },
+  {
+    "id": "alliance-virtual-offices",
+    "name": "Alliance Virtual Offices",
+    "slug": "alliance-virtual-offices",
+    "websiteUrl": "https://www.alliancevirtualoffices.com/virtual-office/us/fl/boca-raton/n-federal-hwy-5717",
+    "description": "Alliance publishes virtual-office locations and describes a virtual office as a recognized city address with onsite mail processing.",
+    "evidenceIds": ["alliance-product-definition"],
+    "lastReviewedAt": "2026-08-19T13:00:00-04:00"
+  },
+  {
+    "id": "davinci-virtual",
+    "name": "Davinci Virtual",
+    "slug": "davinci-virtual",
+    "websiteUrl": "https://www.davincivirtual.com/loc/us/florida/orlando-virtual-offices/facility-7353",
+    "description": "Davinci publishes location-specific virtual-office addresses, mail receipt, forwarding options, and bookable workspace information.",
+    "evidenceIds": ["davinci-orlando-location"],
+    "lastReviewedAt": "2026-08-19T13:00:00-04:00"
+  }
+]
