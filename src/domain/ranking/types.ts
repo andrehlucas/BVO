@@ -37,3 +37,21 @@ export interface RankingResult {
     reason: 'insufficient_verified_data'
   }>
 }
+
+export interface OverallProviderResult {
+  providerId: string
+  citySlug: string
+  score: number
+  breakdown: ScoreBreakdownItem[]
+  supportingOffers: Partial<Record<Track, RankedOffer>>
+  evidenceConfidence: number
+  closeAlternative: boolean
+}
+
+export interface RecommendationExplanation {
+  headline: string
+  strengths: string[]
+  limitation: string
+  priceSummary: string
+  verifiedAt: string
+}
