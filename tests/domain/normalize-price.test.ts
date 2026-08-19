@@ -12,6 +12,7 @@ const plan = (overrides: Partial<Plan> = {}): Plan => ({
   mandatoryFees: [],
   deposit: null,
   promotion: null,
+  includedReceptionistMinutes: null,
   minimumTermMonths: null,
   renewalTerms: null,
   cancellationTerms: null,

@@ -29,6 +29,43 @@ const featureState = (candidate: OfferCandidate, key: FeatureKey): FeatureState 
 
 const wholePoints = (value: number): number => Math.round(value)
 
+const plansFor = (candidate: OfferCandidate, catalog: Catalog) =>
+  candidate.planIds.map((id) => catalog.plans.find((plan) => plan.id === id))
+
+const hasLinkedEvidence = (evidenceIds: string[], catalog: Catalog): boolean => {
+  const knownEvidenceIds = new Set(catalog.evidence.map((evidence) => evidence.id))
+  return evidenceIds.length > 0 && evidenceIds.every((id) => knownEvidenceIds.has(id))
+}
+
+export const hasSufficientTrackData = (candidate: OfferCandidate, catalog: Catalog): boolean => {
+  if (!candidate.normalizedPrice.isComplete || candidate.normalizedPrice.recurringMonthlyCents === null) {
+    return false
+  }
+
+  const plans = plansFor(candidate, catalog)
+  if (plans.some((plan) =>
+    plan === undefined
+    || plan.minimumTermMonths === null
+    || plan.renewalTerms === null
+    || plan.cancellationTerms === null,
+  )) {
+    return false
+  }
+
+  if (!hasLinkedEvidence(candidate.evidenceIds, catalog)) return false
+
+  if (candidate.track === 'receptionist-phone') {
+    return plans.every((plan) =>
+      plan?.includedReceptionistMinutes !== null && plan?.includedReceptionistMinutes !== undefined,
+    )
+  }
+
+  const location = candidate.locationId
+    ? catalog.locations.find((value) => value.id === candidate.locationId)
+    : undefined
+  return location?.availability === 'available' && hasLinkedEvidence(location.evidenceIds, catalog)
+}
+
 const scoreFeatures = (
   candidate: OfferCandidate,
   dimension: string,
@@ -85,6 +122,42 @@ const numericScore = (
   }
 }
 
+const numericPoints = (
+  value: number,
+  values: number[],
+  maxPoints: number,
+  higherIsBetter = false,
+): number => {
+  const lowest = Math.min(...values)
+  const highest = Math.max(...values)
+  if (lowest === highest) return maxPoints
+  return higherIsBetter
+    ? wholePoints(maxPoints * (value - lowest) / (highest - lowest))
+    : wholePoints(maxPoints * (highest - value) / (highest - lowest))
+}
+
+const receptionistCostAndMinutesScore = (
+  candidate: OfferCandidate,
+  context: TrackScoringContext,
+  maxPoints: number,
+): ScoreBreakdownItem => {
+  const price = candidate.normalizedPrice.recurringMonthlyCents!
+  const minutes = plansFor(candidate, context.catalog)[0]!.includedReceptionistMinutes!
+  const prices = context.candidates.map((value) => value.normalizedPrice.recurringMonthlyCents!)
+  const allowances = context.candidates.map((value) =>
+    plansFor(value, context.catalog)[0]!.includedReceptionistMinutes!,
+  )
+  const costPoints = numericPoints(price, prices, maxPoints / 2)
+  const allowancePoints = numericPoints(minutes, allowances, maxPoints / 2, true)
+
+  return {
+    dimension: 'totalCostAndMinuteAllowance',
+    points: costPoints + allowancePoints,
+    maxPoints,
+    reason: `Verified recurring cost is ${price} cents per month and the included receptionist allowance is ${minutes} minute(s) per month.`,
+  }
+}
+
 const evidenceConfidence = (candidate: OfferCandidate, catalog: Catalog): number => {
   const evidenceById = new Map(catalog.evidence.map((evidence) => [evidence.id, evidence]))
   const values = candidate.evidenceIds
@@ -118,7 +191,7 @@ const contractScore = (
   dimension: string,
   maxPoints: number,
 ): ScoreBreakdownItem => {
-  const plans = candidate.planIds.map((id) => context.catalog.plans.find((plan) => plan.id === id))
+  const plans = plansFor(candidate, context.catalog)
   const terms = plans.map((plan) => plan?.minimumTermMonths)
   if (terms.some((term) => term === null || term === undefined)) {
     return { dimension, points: 0, maxPoints, reason: 'Minimum contract term is not confirmed.' }
@@ -207,7 +280,7 @@ const scoreReceptionistPhone = (
   preferences: RankingPreferences,
   weights: Weights,
 ): ScoreBreakdownItem[] => [
-  numericScore(candidate, context.candidates, 'totalCostAndMinuteAllowance', weights.totalCostAndMinuteAllowance!),
+  receptionistCostAndMinutesScore(candidate, context, weights.totalCostAndMinuteAllowance!),
   scoreFeatures(candidate, 'humanAnsweringScope', weights.humanAnsweringScope!, ['live_receptionist', 'administrative_support']),
   scoreFeatures(candidate, 'phoneFeaturesAndForwarding', weights.phoneFeaturesAndForwarding!, [
     ...(preferences.needsCallForwarding ? ['call_forwarding' as const] : []),
@@ -249,9 +322,7 @@ export function scoreTrackOffer(
   context: TrackScoringContext,
   preferences: RankingPreferences,
 ): RankedOffer | null {
-  if (!candidate.normalizedPrice.isComplete || candidate.normalizedPrice.recurringMonthlyCents === null) {
-    return null
-  }
+  if (!hasSufficientTrackData(candidate, context.catalog)) return null
 
   const weights = methodology.tracks[candidate.track] as Weights
   const breakdown = candidate.track === 'address-mail'

@@ -1,6 +1,10 @@
 import type { Catalog, Track } from '@/domain/catalog/types'
 import { buildOfferCandidates } from './build-candidates'
-import { scoreTrackOffer, type RankingPreferences } from './score-track'
+import {
+  hasSufficientTrackData,
+  scoreTrackOffer,
+  type RankingPreferences,
+} from './score-track'
 import type { RankedOffer, RankingResult } from './types'
 
 const compareOffers = (first: RankedOffer, second: RankedOffer): number =>
@@ -16,7 +20,8 @@ export function rankOffers(
   preferences: RankingPreferences,
 ): RankingResult {
   const candidates = buildOfferCandidates(catalog, citySlug, track)
-  const context = { catalog, candidates }
+  const verifiedCandidates = candidates.filter((candidate) => hasSufficientTrackData(candidate, catalog))
+  const context = { catalog, candidates: verifiedCandidates }
   const ranked: RankedOffer[] = []
   const unranked: RankingResult['unranked'] = []
 

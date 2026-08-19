@@ -95,6 +95,7 @@ export interface Plan {
   mandatoryFees: PlanFee[]
   deposit: Money | null
   promotion: PlanPromotion | null
+  includedReceptionistMinutes: number | null
   minimumTermMonths: number | null
   renewalTerms: string | null
   cancellationTerms: string | null

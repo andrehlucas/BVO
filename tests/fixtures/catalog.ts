@@ -39,6 +39,7 @@ export const validCatalogFixture = {
       mandatoryFees: [],
       deposit: null,
       promotion: null,
+      includedReceptionistMinutes: null,
       minimumTermMonths: 1,
       renewalTerms: 'Renews monthly.',
       cancellationTerms: 'Cancel before the next billing cycle.',

@@ -27,6 +27,7 @@ const plan = (id: string, providerId: string, track: Track, overrides: Partial<P
   mandatoryFees: [],
   deposit: null,
   promotion: null,
+  includedReceptionistMinutes: 100,
   minimumTermMonths: 1,
   renewalTerms: 'Renews monthly.',
   cancellationTerms: 'Cancel before the next billing cycle.',
@@ -84,6 +85,18 @@ const fullOfficeFeatures = () => [
   feature('live_receptionist'),
   feature('call_forwarding'),
   feature('meeting_rooms'),
+]
+
+interface IncompleteRankingOverride {
+  minimumTermMonths?: number | null
+  locationAvailability?: Catalog['locations'][number]['availability']
+  evidenceIds?: string[]
+}
+
+const incompleteRankingCases: Array<[string, IncompleteRankingOverride]> = [
+  ['an unconfirmed contract term', { minimumTermMonths: null }],
+  ['an unconfirmed local availability', { locationAvailability: 'not_confirmed' }],
+  ['missing linked evidence', { evidenceIds: ['missing-evidence'] }],
 ]
 
 describe('track ranking', () => {
@@ -166,6 +179,68 @@ describe('track ranking', () => {
     expect(rankOffers(catalog, 'miami', 'address-mail', {}).unranked).toEqual([
       { candidate, reason: 'insufficient_verified_data' },
     ])
+  })
+
+  it.each(incompleteRankingCases)('keeps offers with %s out of numbered rankings', (_description, override) => {
+    const incompletePlan = plan('incomplete', 'provider-b', 'address-mail', {
+      features: addressMailFeatures(),
+      ...(override.minimumTermMonths === undefined ? {} : { minimumTermMonths: override.minimumTermMonths }),
+      ...(override.evidenceIds === undefined ? {} : { evidenceIds: override.evidenceIds }),
+    })
+    const catalog = catalogWithPlans([
+      plan('complete', 'provider-a', 'address-mail', { features: addressMailFeatures() }),
+      incompletePlan,
+    ])
+    if (override.locationAvailability) {
+      catalog.locations.find((location) => location.providerId === 'provider-b')!.availability = override.locationAvailability
+    }
+
+    const result = rankOffers(catalog, 'miami', 'address-mail', {})
+
+    expect(result.ranked.map((offer) => offer.providerId)).toEqual(['provider-a'])
+    expect(result.unranked).toMatchObject([
+      { candidate: { providerId: 'provider-b' }, reason: 'insufficient_verified_data' },
+    ])
+  })
+
+  it('combines verified price and receptionist minute allowance in the receptionist cost dimension', () => {
+    const catalog = catalogWithPlans([
+      plan('more-minutes', 'provider-a', 'receptionist-phone', {
+        basePrice: money(10000),
+        includedReceptionistMinutes: 200,
+        features: receptionistFeatures(),
+      }),
+      plan('fewer-minutes', 'provider-b', 'receptionist-phone', {
+        basePrice: money(10000),
+        includedReceptionistMinutes: 50,
+        features: receptionistFeatures(),
+      }),
+    ])
+
+    const result = rankOffers(catalog, 'miami', 'receptionist-phone', {})
+    const points = (providerId: string) => result.ranked.find((offer) => offer.providerId === providerId)?.breakdown
+      .find((item) => item.dimension === 'totalCostAndMinuteAllowance')?.points
+
+    expect(result.ranked[0]?.providerId).toBe('provider-a')
+    expect(points('provider-a')).toBeGreaterThan(points('provider-b') ?? -1)
+  })
+
+  it('keeps receptionist offers with an unverified minute allowance unranked', () => {
+    const catalog = catalogWithPlans([
+      plan('known-minutes', 'provider-a', 'receptionist-phone', {
+        includedReceptionistMinutes: 100,
+        features: receptionistFeatures(),
+      }),
+      plan('unknown-minutes', 'provider-b', 'receptionist-phone', {
+        includedReceptionistMinutes: null,
+        features: receptionistFeatures(),
+      }),
+    ])
+
+    expect(rankOffers(catalog, 'miami', 'receptionist-phone', {})).toMatchObject({
+      ranked: [{ providerId: 'provider-a' }],
+      unranked: [{ candidate: { providerId: 'provider-b' }, reason: 'insufficient_verified_data' }],
+    })
   })
 
   it('sorts equal scores deterministically by provider ID after equal evidence and price', () => {

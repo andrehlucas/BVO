@@ -152,6 +152,7 @@ export const planSchema: z.ZodType<Plan> = z
     mandatoryFees: z.array(planFeeSchema),
     deposit: moneySchema.nullable(),
     promotion: planPromotionSchema.nullable(),
+    includedReceptionistMinutes: z.number().int().nonnegative().nullable(),
     minimumTermMonths: z.number().int().nonnegative().nullable(),
     renewalTerms: nonEmptyStringSchema.nullable(),
     cancellationTerms: nonEmptyStringSchema.nullable(),
