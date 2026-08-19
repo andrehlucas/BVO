@@ -1,0 +1,20 @@
+:root {
+  color-scheme: light;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+header,
+main,
+footer {
+  margin: 0 auto;
+  max-width: 70rem;
+  padding: 1.5rem;
+}
