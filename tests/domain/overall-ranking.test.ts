@@ -124,6 +124,14 @@ describe('overall provider ranking', () => {
     expect(rankOverallProviders(catalog, 'miami')).toEqual([])
   })
 
+  it('does not treat evidence for a different location as verification for this city location', () => {
+    const catalog = catalogWithProviders([completePlan('provider-a-plan', 'provider-a')])
+    catalog.evidence.find((evidence) => evidence.id === 'provider-a-city-location')!.entityId =
+      'another-miami-location'
+
+    expect(rankOverallProviders(catalog, 'miami')).toEqual([])
+  })
+
   it('excludes providers whose available city offers lack verified ranking data', () => {
     const catalog = catalogWithProviders([
       completePlan('complete-plan', 'complete-provider'),
