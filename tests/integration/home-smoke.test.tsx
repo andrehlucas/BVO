@@ -4,6 +4,6 @@ import HomePage from '@/app/page'
 it('introduces the Florida virtual office comparison', () => {
   render(<HomePage />)
   expect(
-    screen.getByRole('heading', { name: /compare virtual offices in florida/i }),
+    screen.getByRole('heading', { name: /a “virtual office” can mean three different things/i }),
   ).toBeInTheDocument()
 })

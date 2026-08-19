@@ -12,7 +12,7 @@ export function SiteHeader() {
   return (
     <GlassSurface as="header" className="site-header" aria-label="Site header">
       <div className="site-frame site-header-content">
-        <Link className="site-brand" href="/">Florida virtual office comparison</Link>
+        <Link className="site-brand" href="/">Florida Virtual Office Guide</Link>
         <nav aria-label="Primary navigation">
           <ul className="site-nav-list">
             {primaryLinks.map((link) => <li key={link.href}><Link href={link.href}>{link.label}</Link></li>)}

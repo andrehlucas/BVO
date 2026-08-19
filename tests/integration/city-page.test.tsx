@@ -144,17 +144,17 @@ describe('Miami city comparison', () => {
     const results = screen.getByRole('region', { name: /^ranked offers$/i })
     expect(within(results).getByText('Example Office')).toBeInTheDocument()
     expect(within(results).getAllByText(/mail forwarding is included/i)).not.toHaveLength(0)
-    expect(within(results).getAllByText(/last checked/i)).not.toHaveLength(0)
-    expect(within(results).getByRole('link', { name: /view Example Office offer/i })).toHaveAttribute(
+    expect(within(results).getAllByText(/information checked/i)).not.toHaveLength(0)
+    expect(within(results).getByRole('link', { name: /visit Example Office/i })).toHaveAttribute(
       'href',
       '/go/example-office?city=miami&track=address-mail&plan=example-office-plan&position=1',
     )
     expect(screen.getByText(/mail forwarding is an add-on/i)).toBeInTheDocument()
     expect(screen.getByRole('region', { name: /offers not ranked/i })).toHaveTextContent(/quote office/i)
-    expect(screen.getByRole('region', { name: /offers not ranked/i })).toHaveTextContent(/insufficient verified data/i)
-    expect(screen.getByRole('link', { name: /ranking methodology/i })).toBeInTheDocument()
+    expect(screen.getByRole('region', { name: /offers not ranked/i })).toHaveTextContent(/could not verify every number needed/i)
+    expect(screen.getByRole('link', { name: /how we rank these offers/i })).toBeInTheDocument()
 
-    await user.click(screen.getByRole('button', { name: /open offer comparison/i }))
+    await user.click(screen.getByRole('button', { name: /compare offer details/i }))
     expect(results.closest('.glass-surface')).toBeNull()
     expect(screen.getByRole('table', { name: /compare ranked offers/i }).closest('.glass-surface')).toBeNull()
   })

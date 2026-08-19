@@ -7,10 +7,10 @@ import type { NeedChoice } from './url-state'
 import { replaceQueryValue } from './url-state'
 
 const choices: Array<{ value: NeedChoice; label: string; detail: string }> = [
-  { value: 'address-mail', label: 'Address & mail', detail: 'A local business address and mail handling.' },
-  { value: 'receptionist-phone', label: 'Live receptionist & phone', detail: 'Human call answering and business phone support.' },
-  { value: 'full-office', label: 'Full virtual office', detail: 'Address, mail, phone, and workspace options together.' },
-  { value: 'unsure', label: "I'm not sure", detail: 'Start with a guided default you can refine.' },
+  { value: 'address-mail', label: 'Address & mail', detail: 'Receive business mail without publishing your home address.' },
+  { value: 'receptionist-phone', label: 'Live receptionist & phone', detail: 'Have calls answered in your business name and routed to you.' },
+  { value: 'full-office', label: 'Full virtual office', detail: 'Combine address, call handling, and occasional workspace.' },
+  { value: 'unsure', label: "I'm not sure yet", detail: 'Start with address and mail, then adjust what matters.' },
 ]
 
 interface NeedSelectorProps { selectedNeed: NeedChoice; city: ProductCity }
@@ -27,8 +27,8 @@ export function NeedSelector({ selectedNeed, city }: NeedSelectorProps) {
 
   return (
     <fieldset className="need-selector" aria-describedby="need-selector-note">
-      <legend>What do you need most?</legend>
-      <p id="need-selector-note">Choose a starting point. This choice stays only in this page’s URL.</p>
+      <legend>What do you need your virtual office to do?</legend>
+      <p id="need-selector-note">Pick the closest match. You can change it without creating an account or sharing contact details.</p>
       <div className="need-selector-options" role="radiogroup" aria-label="What do you need most?">
         {choices.map((choice) => (
           <label className="need-choice" key={choice.value}>

@@ -43,7 +43,7 @@ describe('shared site layout', () => {
 
     await user.tab()
     expect(
-      screen.getByRole('link', { name: /florida virtual office comparison/i }),
+      screen.getByRole('link', { name: /florida virtual office guide/i }),
     ).toHaveFocus()
   })
 
@@ -58,11 +58,11 @@ describe('shared site layout', () => {
 
     expect(
       screen.getByText(
-        /we may earn a commission if you purchase through a link on this page/i,
+        /if you buy through a provider link, we may earn a commission/i,
       ),
     ).toBeVisible()
     expect(
-      screen.getByText(/this never affects our rankings or recommendations/i),
+      screen.getByText(/provider compensation never changes a score, rank, or recommendation/i),
     ).toBeVisible()
   })
 

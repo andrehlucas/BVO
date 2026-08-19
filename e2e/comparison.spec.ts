@@ -8,14 +8,14 @@ test.describe('Miami comparison', () => {
 
     await page.getByRole('radio', { name: 'Live receptionist & phone' }).click()
     await expect(page).toHaveURL(/\/cities\/miami\?need=receptionist-phone$/)
-    await expect(page.getByRole('heading', { name: /virtual offices in miami: live receptionist & phone/i })).toBeVisible()
+    await expect(page.getByRole('heading', { name: /compare virtual offices in miami by what you actually need/i })).toBeVisible()
 
     const unranked = page.getByRole('region', { name: 'Offers not ranked' })
     await expect(unranked).toContainText('Opus Virtual Offices')
-    await expect(unranked).toContainText('Insufficient verified data for a numbered ranking.')
+    await expect(unranked).toContainText('We could not verify every number needed for a fair ranking.')
     await expect(unranked.getByRole('list', { name: 'Opus Virtual Offices recorded feature statuses' })).toContainText('Live receptionist is included')
     await expect(unranked.getByRole('list', { name: 'Opus Virtual Offices recorded feature statuses' })).toContainText('Mail forwarding is usage-based')
-    await expect(page.getByRole('link', { name: /view .* offer/i })).toHaveCount(0)
+    await expect(page.getByRole('link', { name: /visit .*$/i })).toHaveCount(0)
     await expect(page.locator('.comparison-disclosure')).toBeVisible()
 
     await page.getByRole('radio', { name: 'Address & mail' }).click()

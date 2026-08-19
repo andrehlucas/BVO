@@ -11,10 +11,10 @@ export function LocationList({ catalog, citySlug, track }: LocationListProps) {
   const [isOpen, setIsOpen] = useState(false)
   const providers = new Map(catalog.providers.map((provider) => [provider.id, provider]))
   const locations = catalog.locations.filter((location) => location.citySlug === citySlug)
-  return <section className="location-list" aria-labelledby="location-list-heading"><div className="section-heading"><p className="eyebrow">Local evidence</p><h2 id="location-list-heading">Locations in this comparison</h2></div><button aria-expanded={isOpen} onClick={() => {
+  return <section className="location-list" aria-labelledby="location-list-heading"><div className="section-heading"><p className="eyebrow">Verified local presence</p><h2 id="location-list-heading">Where these providers operate</h2></div><button aria-expanded={isOpen} onClick={() => {
     if (!isOpen) {
       setIsOpen(true)
       trackProductEvent({ name: 'provider_location_viewed', properties: { city: citySlug, journey: track } })
     }
-  }} type="button">Show provider locations</button>{isOpen && (locations.length === 0 ? <p className="empty-state">No verified local locations have been published for this city yet.</p> : <ul>{locations.map((location) => <li key={location.id}><strong>{providers.get(location.providerId)?.name ?? location.providerId}</strong><span>{location.address}</span><span>{location.availability === 'available' ? 'Verified available location' : location.availability === 'not_confirmed' ? 'Availability not confirmed' : 'Unavailable'}</span></li>)}</ul>)}</section>
+  }} type="button">See provider addresses</button>{isOpen && (locations.length === 0 ? <p className="empty-state">We have not verified a local provider address for this city yet.</p> : <ul>{locations.map((location) => <li key={location.id}><strong>{providers.get(location.providerId)?.name ?? location.providerId}</strong><span>{location.address}</span><span>{location.availability === 'available' ? 'Location confirmed by a current source' : location.availability === 'not_confirmed' ? 'Current availability not confirmed' : 'Currently unavailable'}</span></li>)}</ul>)}</section>
 }

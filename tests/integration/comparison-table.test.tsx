@@ -54,7 +54,7 @@ describe('comparison table', () => {
     catalog.plans.push({ ...catalog.plans[0]!, id: 'sparse-phone', providerId: 'sparse-office' })
 
     render(<ComparisonTable catalog={catalog} city="miami" offers={[receptionistOffer, sparsePhoneOffer]} track="receptionist-phone" />)
-    await user.click(screen.getByRole('button', { name: /open offer comparison/i }))
+    await user.click(screen.getByRole('button', { name: /compare offer details/i }))
 
     expect(screen.getByRole('columnheader', { name: /live receptionist/i })).toBeInTheDocument()
     expect(screen.getByRole('columnheader', { name: /call forwarding/i })).toBeInTheDocument()

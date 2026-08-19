@@ -2,8 +2,8 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Florida virtual office city comparisons',
-  description: 'Choose a Florida city to inspect verified virtual office availability, features, and limitations.',
+  title: 'Compare Virtual Offices by Florida City',
+  description: 'Choose a Florida city and compare virtual office plans by service, price, add-ons, contract terms, and verified local availability.',
   alternates: { canonical: '/florida' },
 }
 
@@ -18,9 +18,9 @@ const cities = [
 export default function FloridaHubPage() {
   return (
     <>
-      <header className="hub-heading"><p className="eyebrow">Florida coverage</p><h1>Florida virtual office comparisons</h1><p>Open a city comparison to choose a need and inspect published evidence for qualifying offers. Coverage appears only where a city route is available.</p></header>
-      <section className="hub-city-list" aria-labelledby="hub-city-heading"><div className="section-heading"><p className="eyebrow">City routes</p><h2 id="hub-city-heading">Compare by city</h2></div><ul>{cities.map((city) => <li key={city.slug}><Link href={`/cities/${city.slug}`}><strong>{city.name}</strong><span>Open comparison →</span></Link></li>)}</ul></section>
-      <section className="hub-note" aria-labelledby="hub-note-heading"><h2 id="hub-note-heading">How city coverage works</h2><p>Each comparison keeps local availability, plan details, pricing, and supporting evidence together. A missing offer is not a claim that no provider exists; it means the evidence needed for this comparison has not been published.</p><p><Link href="/methodology">See the ranking methodology</Link>.</p></section>
+      <header className="hub-heading"><p className="eyebrow">Start with the city</p><h1>Where do you need your virtual office?</h1><p>Prices, addresses, and available services can change by location. Choose a Florida city first, then compare providers that document what they offer there.</p></header>
+      <section className="hub-city-list" aria-labelledby="hub-city-heading"><div className="section-heading"><p className="eyebrow">Five local comparisons</p><h2 id="hub-city-heading">Choose your market</h2></div><ul>{cities.map((city) => <li key={city.slug}><Link href={`/cities/${city.slug}`}><strong>{city.name}</strong><span>Compare {city.name} options →</span></Link></li>)}</ul></section>
+      <section className="hub-note" aria-labelledby="hub-note-heading"><h2 id="hub-note-heading">No evidence, no assumption</h2><p>If an offer is missing, we are not saying the provider does not operate there. We are saying we could not verify enough location, plan, or pricing information to compare it responsibly.</p><p><Link href="/methodology">See how that rule shapes the rankings</Link>.</p></section>
     </>
   )
 }

@@ -10,5 +10,5 @@ interface MethodologyLinkProps {
 }
 
 export function MethodologyLink({ city, track }: MethodologyLinkProps) {
-  return <Link href="/methodology" onClick={() => trackProductEvent({ name: 'methodology_viewed', properties: { city, journey: track } })}>Ranking methodology</Link>
+  return <Link href="/methodology" onClick={() => trackProductEvent({ name: 'methodology_viewed', properties: { city, journey: track } })}>How we rank these offers</Link>
 }

@@ -64,8 +64,8 @@ describe('anonymous funnel analytics', () => {
     const catalog = { providers: [], locations: [], plans: [], evidence: [], assessments: [] } as Catalog
     render(<><ComparisonTable catalog={catalog} city="miami" offers={[]} track="address-mail" /><LocationList catalog={catalog} citySlug="miami" track="address-mail" /></>)
 
-    await user.click(screen.getByRole('button', { name: /open offer comparison/i }))
-    await user.click(screen.getByRole('button', { name: /show provider locations/i }))
+    await user.click(screen.getByRole('button', { name: /compare offer details/i }))
+    await user.click(screen.getByRole('button', { name: /see provider addresses/i }))
 
     expect(analytics.track).toHaveBeenCalledWith('comparison_opened', { city: 'miami', journey: 'address-mail' })
     expect(analytics.track).toHaveBeenCalledWith('provider_location_viewed', { city: 'miami', journey: 'address-mail' })
@@ -75,7 +75,7 @@ describe('anonymous funnel analytics', () => {
     render(<><MethodologyLink city="miami" track="address-mail" /><GuideCityNavigationTelemetry guideSlug="what-is-a-virtual-office"><Link href="/cities/miami">Compare Miami</Link></GuideCityNavigationTelemetry></>)
 
     for (const link of [
-      screen.getByRole('link', { name: /ranking methodology/i }),
+      screen.getByRole('link', { name: /how we rank these offers/i }),
       screen.getByRole('link', { name: /compare miami/i }),
     ]) {
       const click = createEvent.click(link)

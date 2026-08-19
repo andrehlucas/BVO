@@ -7,8 +7,8 @@ export const cities = [
 ] as const
 
 export const trustRoutes = [
-  { pathname: '/methodology', title: 'Ranking methodology', description: 'Inspect the published weights and evidence rules used in Florida virtual office comparisons.' },
-  { pathname: '/affiliate-disclosure', title: 'Affiliate disclosure', description: 'Understand how affiliate relationships are disclosed and kept separate from rankings.' },
-  { pathname: '/privacy', title: 'Privacy', description: 'Learn how the comparison works without accounts, lead forms, or personal contact details.' },
-  { pathname: '/corrections', title: 'Corrections', description: 'Read the process for reporting evidence-backed factual corrections.' },
+  { pathname: '/methodology', title: 'Virtual Office Ranking Methodology', description: 'See the exact weights, evidence rules, and eligibility requirements behind each Florida virtual office comparison.' },
+  { pathname: '/affiliate-disclosure', title: 'Affiliate Disclosure and Editorial Independence', description: 'See how affiliate links fund this site while remaining technically separate from provider scores and rankings.' },
+  { pathname: '/privacy', title: 'Privacy: Compare Without Becoming a Lead', description: 'Compare virtual offices without an account, lead form, or sharing your name, email address, or phone number.' },
+  { pathname: '/corrections', title: 'Report a Virtual Office Listing Correction', description: 'Report outdated prices, plan details, locations, or missing context using current supporting evidence.' },
 ] as const

@@ -19,8 +19,8 @@ export function RefinementFilters({ query, track }: RefinementFiltersProps) {
 
   return (
     <fieldset className="refinement-filters">
-      <legend>Refine this comparison</legend>
-      <p>Only verified details affect the ranking. Unknown information is never treated as unavailable.</p>
+      <legend>Tell us what matters</legend>
+      <p>We will narrow the options using verified details only. If a provider has not answered something, we keep it unknown.</p>
       <div className="filter-controls">
         {track === 'address-mail' && <>
           <label><input checked={query.mailForwarding} onChange={(event) => update('mailForwarding', event.target.checked ? 'yes' : 'no')} type="checkbox" /> Mail forwarding</label>
@@ -45,7 +45,7 @@ export function RefinementFilters({ query, track }: RefinementFiltersProps) {
             </select>
           </label>
         )}
-        <label><input checked={query.monthToMonth} onChange={(event) => update('monthToMonth', event.target.checked ? 'yes' : 'no')} type="checkbox" /> Prefer month-to-month terms</label>
+        <label><input checked={query.monthToMonth} onChange={(event) => update('monthToMonth', event.target.checked ? 'yes' : 'no')} type="checkbox" /> I prefer month-to-month flexibility</label>
       </div>
     </fieldset>
   )

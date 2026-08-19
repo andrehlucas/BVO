@@ -27,11 +27,11 @@ function WeightList({ weights }: { weights: Record<string, number> }) {
 export default function MethodologyPage() {
   return (
     <article className="trust-page">
-      <header className="trust-page-heading"><p className="eyebrow">Transparent comparisons</p><h1>Ranking methodology</h1><p>Version {methodology.version}, effective {methodology.effectiveDate}. We publish the weights so you can inspect what each ranking measures.</p></header>
+      <header className="trust-page-heading"><p className="eyebrow">No black-box recommendations</p><h1>See exactly what earns a higher rank</h1><p>Each service type is scored differently because an address plan and a receptionist plan do different jobs. These are the published weights for version {methodology.version}, effective {methodology.effectiveDate}.</p></header>
       <div className="methodology-grid">
         {Object.entries(methodology.tracks).map(([track, weights]) => <GlassSurface as="section" key={track} aria-labelledby={`${track}-heading`} className="methodology-card"><h2 id={`${track}-heading`}>{trackLabels[track as keyof typeof trackLabels]}</h2><WeightList weights={weights} /></GlassSurface>)}
       </div>
-      <GlassSurface as="section" aria-labelledby="overall-methodology-heading" className="methodology-card methodology-overall"><h2 id="overall-methodology-heading">Overall provider rating</h2><p>This secondary rating describes a provider’s broader product line. It is not a universal recommendation.</p><WeightList weights={methodology.overallProviderRating} /></GlassSurface>
+      <GlassSurface as="section" aria-labelledby="overall-methodology-heading" className="methodology-card methodology-overall"><h2 id="overall-methodology-heading">What the overall provider rating means</h2><p>This secondary score looks at the provider’s broader product line. It does not replace the ranking for the service you actually need.</p><WeightList weights={methodology.overallProviderRating} /></GlassSurface>
     </article>
   )
 }

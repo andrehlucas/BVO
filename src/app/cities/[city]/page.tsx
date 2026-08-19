@@ -29,22 +29,16 @@ export async function generateMetadata({ params }: Pick<CityPageProps, 'params'>
   if (!city) notFound()
 
   return {
-    title: `Virtual offices in ${city.name}`,
-    description: `Compare verified virtual office features, limitations, and evidence for ${city.name}, Florida.`,
+    title: `Virtual Offices in ${city.name}: Compare Plans`,
+    description: `Compare virtual offices in ${city.name} by address and mail, receptionist and phone, or full-office services. See prices, add-ons, and limits.`,
     alternates: { canonical: `/cities/${city.slug}` },
   }
 }
 
 const trackDescription: Record<Track, string> = {
-  'address-mail': 'Compare business-address and mail-handling offers before comparing their costs.',
-  'receptionist-phone': 'Compare live-answering and business-phone offers with their verified monthly allowance.',
-  'full-office': 'Compare compatible address, mail, receptionist, and workspace combinations.',
-}
-
-const trackLabel: Record<Track, string> = {
-  'address-mail': 'Address & mail',
-  'receptionist-phone': 'Live receptionist & phone',
-  'full-office': 'Full virtual office',
+  'address-mail': 'Find plans that can receive your business mail, then see what forwarding or scanning may add to the cost.',
+  'receptionist-phone': 'Compare plans that put a real person on your calls, including any verified minutes and overage limits.',
+  'full-office': 'Look for a compatible package that combines address, mail, call handling, and the workspace access you need.',
 }
 
 export default async function CityPage({ params, searchParams }: CityPageProps) {
@@ -78,13 +72,13 @@ export default async function CityPage({ params, searchParams }: CityPageProps) 
         url: absoluteUrl(`/cities/${city.slug}`),
         inLanguage: 'en-US',
       }} />
-      <header className="city-heading"><p className="eyebrow">Florida city comparison</p><h1>Virtual offices in {city!.name}: {trackLabel[track]}</h1><p>Start with the service you need, then inspect the evidence, price assumptions, and limitations behind each eligible offer.</p><p className="city-evidence-count">{overall.length} provider profile{overall.length === 1 ? '' : 's'} currently has enough verified city evidence for a secondary overview.</p></header>
+      <header className="city-heading"><p className="eyebrow">Compare before you commit</p><h1>Compare virtual offices in {city!.name} by what you actually need</h1><p>Looking for an address? A receptionist? Both? Start with the job your virtual office must handle, then see which plans document the right combination.</p><p className="city-evidence-count">{overall.length} provider profile{overall.length === 1 ? '' : 's'} currently has enough verified local information for a broader provider overview.</p></header>
       <ComparisonTelemetry city={citySlug as import('@/analytics/events').ProductCity} track={track} />
-      <section className="comparison-workflow" aria-labelledby="comparison-workflow-heading"><div className="workflow-heading"><p className="eyebrow">Decision tool</p><h2 id="comparison-workflow-heading">Match your need</h2><p>{trackDescription[track]}</p></div><NeedSelector city={citySlug as import('@/analytics/events').ProductCity} selectedNeed={query.need} /><RankingTabs activeTrack={track} city={citySlug as import('@/analytics/events').ProductCity} /><RefinementFilters query={query} track={track} /></section>
+      <section className="comparison-workflow" aria-labelledby="comparison-workflow-heading"><div className="workflow-heading"><p className="eyebrow">Build your comparison</p><h2 id="comparison-workflow-heading">What should your virtual office do?</h2><p>{trackDescription[track]}</p></div><NeedSelector city={citySlug as import('@/analytics/events').ProductCity} selectedNeed={query.need} /><RankingTabs activeTrack={track} city={citySlug as import('@/analytics/events').ProductCity} /><RefinementFilters query={query} track={track} /></section>
       <RankingResults catalog={catalog} citySlug={citySlug} ranking={ranking} track={track} />
       <ComparisonTable catalog={catalog} city={citySlug as import('@/analytics/events').ProductCity} offers={ranking.ranked} track={track} />
       <LocationList catalog={catalog} citySlug={citySlug as import('@/analytics/events').ProductCity} track={track} />
-      <aside className="comparison-limitations" aria-labelledby="comparison-limitations-heading"><h2 id="comparison-limitations-heading">Important limits</h2><p>A business address is not the same as registered-agent service. Whether an address works for registration, banking, licensing, or platform listings depends on your facts and the relevant rules; confirm with the appropriate authority or professional.</p></aside>
+      <aside className="comparison-limitations" aria-labelledby="comparison-limitations-heading"><h2 id="comparison-limitations-heading">Before you use an address</h2><p>A business address is not the same as registered-agent service. Registration, banking, licensing, and platform rules vary. Confirm the exact use with the organization making the decision.</p></aside>
     </>
   )
 }
