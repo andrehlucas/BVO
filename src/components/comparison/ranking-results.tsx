@@ -25,7 +25,7 @@ export function RankingResults({ catalog, citySlug, ranking, track }: RankingRes
     <>
       <AffiliateDisclosure className="comparison-disclosure" />
       <section aria-label="Ranked offers" className="ranking-results" id="ranked-offers">
-        <div className="section-heading"><p className="eyebrow">Your closest matches</p><h2>Offers we can compare fairly</h2><MethodologyLink city={citySlug as import('@/analytics/events').ProductCity} track={track} /></div>
+        <div className="section-heading"><h2>Offers we can compare fairly</h2><MethodologyLink city={citySlug as import('@/analytics/events').ProductCity} track={track} /></div>
         {ranking.ranked.length === 0 ? <p className="empty-state"><strong>We found relevant plans, but not enough comparable information to rank them honestly.</strong> You can still review the recorded options below and see exactly what is missing.</p> : (
           <ol className="offer-list">
             {ranking.ranked.map((offer, index) => {
@@ -50,7 +50,7 @@ export function RankingResults({ catalog, citySlug, ranking, track }: RankingRes
       {ranking.unranked.length > 0 && <section aria-label="Offers not ranked" className="unranked-offers"><h2>Relevant offers we cannot rank yet</h2><p>A missing rank does not mean the plan is bad. It means a price, contract term, local availability detail, or supporting source is still incomplete.</p><ul>{ranking.unranked.map(({ candidate, reason }) => {
         const providerName = providers.get(candidate.providerId)?.name ?? candidate.providerId
         const featureStates = [...new Map(candidate.features.map((feature) => [feature.feature, feature.state])).entries()]
-        return <li key={`${candidate.providerId}-${candidate.planIds.join('-')}`}><strong>{providerName}</strong> — {planName(catalog, candidate.planIds)}<span className="unranked-reason">Why it is not ranked: {unrankedReasons[reason]}</span><ul aria-label={`${providerName} recorded feature statuses`} className="offer-statuses">{featureStates.map(([feature, state]) => <li className={`feature-status feature-status--${state}`} key={feature}>{stateLabel(feature, state)}</li>)}</ul></li>
+        return <li key={`${candidate.providerId}-${candidate.planIds.join('-')}`}><strong>{providerName}:</strong> {planName(catalog, candidate.planIds)}<span className="unranked-reason">Why it is not ranked: {unrankedReasons[reason]}</span><ul aria-label={`${providerName} recorded feature statuses`} className="offer-statuses">{featureStates.map(([feature, state]) => <li className={`feature-status feature-status--${state}`} key={feature}>{stateLabel(feature, state)}</li>)}</ul></li>
       })}</ul></section>}
     </>
   )

@@ -32,14 +32,14 @@ export function ComparisonTable({ catalog, city, offers, track }: ComparisonTabl
     { key: 'price', label: 'Recurring cost', value: (offer: RankedOffer) => money(offer.normalizedPrice.recurringMonthlyCents) },
     ...criteria.map((feature) => ({ key: feature, label: featureLabels[feature], value: (offer: RankedOffer) => {
       const state = stateFor(offer, feature)
-      return state === undefined ? '—' : displayState(state)
+      return state === undefined ? 'Not listed' : displayState(state)
     } })),
     { key: 'evidence', label: 'Evidence', value: (offer: RankedOffer) => `${Math.round(offer.evidenceConfidence * 100)}% confidence` },
   ]
 
   return (
     <section className="comparison-table-section" aria-labelledby="comparison-table-heading">
-      <div className="section-heading"><p className="eyebrow">Side-by-side details</p><h2 id="comparison-table-heading">See what each ranked offer includes</h2></div>
+      <div className="section-heading"><h2 id="comparison-table-heading">See what each ranked offer includes</h2></div>
       <button aria-expanded={isOpen} onClick={() => {
         if (!isOpen) {
           setIsOpen(true)

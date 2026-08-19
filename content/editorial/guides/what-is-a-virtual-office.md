@@ -8,7 +8,7 @@ reviewer: Project editorial reviewer (owner-approved methodology)
 status: reviewed
 ---
 
-## A virtual office is a bundle—not a standard product
+## A virtual office is a bundle, not a standard product
 
 Ask four providers what a “virtual office” includes and you may get four different answers. It can be an address with mail handling, a phone and live-answering service, bookable workspace, or a combination. The label tells you the category. The inclusion list tells you what you are actually buying.
 

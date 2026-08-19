@@ -34,7 +34,7 @@ No included live receptionist or compatible full-office bundle was confirmed for
 
 Davinci’s FAQ says location solutions require a six-month commitment, then roll month to month, and require 30 days’ written notice for cancellation after the term. It also says location-service setup fees start at $150 and sales can discuss promotions; this is why the captured $50 is labeled as a location-page promotion rather than a universal fee.
 
-## What stands out—and what to verify
+## What stands out and what to verify
 
 **What stands out:** unusually detailed public information for one Orlando location, including the address, promotion, setup fee, term, mail receipt, pickup, and workspace details.
 

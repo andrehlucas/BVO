@@ -32,7 +32,7 @@ The reviewed sources do not establish an included workspace or meeting-room pack
 
 The current terms state an initial three-month term unless otherwise noted, automatic successive renewal, and a termination request at least 30 days before the end of the term. The service then ends on the last day of the following complete recurring billing cycle. Opus also says its published retail rates may be promotional or changed with 30 days’ notice.
 
-## What stands out—and what to verify
+## What stands out and what to verify
 
 **What stands out:** a consistent published price across the five recorded Florida locations and a clearly stated set of phone-answering features.
 

@@ -32,7 +32,7 @@ No fixed monthly price was captured for the named entry, so the plan requires a 
 
 Alliance’s terms state a six-month initial virtual-office term followed by month-to-month renewal. Cancellation must be requested through the online portal at least 30 days before the relevant term or renewal. The terms also leave third-party address acceptance for the client to verify.
 
-## What stands out—and what to verify
+## What stands out and what to verify
 
 **What stands out:** a specific Boca Raton address, a clearly described mail-processing model, and access to related business services.
 

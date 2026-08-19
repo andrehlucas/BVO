@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import type { Metadata } from 'next'
 import { ButtonLink } from '@/components/ui/button-link'
 
@@ -20,17 +21,28 @@ export default function HomePage() {
   return (
     <>
       <header className="home-intro">
-        <p className="eyebrow">Compare before you commit</p>
-        <h1>A “virtual office” can mean three different things.</h1>
-        <p>Some plans give you a business address. Others include live call answering. A few combine both with workspace access. Compare what each provider actually includes in your Florida city—and see what may cost extra before you sign.</p>
-        <ButtonLink href="/florida">Compare options in my city</ButtonLink>
+        <div className="home-intro-copy">
+          <p className="eyebrow">Compare before you commit</p>
+          <h1>A “virtual office” can mean three different things.</h1>
+          <p>Some plans give you a business address. Others include live call answering. A few combine both with workspace access. Compare what each provider actually includes in your Florida city, and see what may cost extra before you sign.</p>
+          <ButtonLink href="/florida">Compare options in my city</ButtonLink>
+        </div>
+        <figure className="home-hero-visual" aria-hidden="true">
+          <Image
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 767px) 100vw, 48vw"
+            src="/images/florida-glass-architecture.png"
+          />
+        </figure>
       </header>
       <section className="home-city-list" aria-labelledby="home-city-heading">
-        <div className="section-heading"><p className="eyebrow">Start with location</p><h2 id="home-city-heading">Where do you need a business presence?</h2></div>
+        <div className="section-heading"><h2 id="home-city-heading">Where do you need a business presence?</h2></div>
         <ul>{cities.map(([slug, name]) => <li key={slug}><Link href={`/cities/${slug}`}>{name}<span aria-hidden="true">→</span></Link></li>)}</ul>
       </section>
       <section className="product-explainer" aria-labelledby="product-explainer-heading">
-        <div className="section-heading"><p className="eyebrow">Then choose the job</p><h2 id="product-explainer-heading">Compare the service you actually need</h2></div>
+        <div className="section-heading"><h2 id="product-explainer-heading">Compare the service you actually need</h2></div>
         <dl>
           <div><dt>Address &amp; mail</dt><dd>Receive business mail without publishing your home address.</dd></div>
           <div><dt>Live receptionist &amp; phone</dt><dd>Have calls answered in your business name and routed to you.</dd></div>

@@ -10,7 +10,7 @@ status: reviewed
 
 ## The monthly price is only the first number
 
-Two plans can advertise the same monthly price and produce very different bills. Start with the recurring rate, then separate setup fees, deposits, mandatory charges, optional add-ons, usage costs, taxes, and promotions. If a cost depends on a quote or your usage, it is not zero—and it should not be turned into a guess.
+Two plans can advertise the same monthly price and produce very different bills. Start with the recurring rate, then separate setup fees, deposits, mandatory charges, optional add-ons, usage costs, taxes, and promotions. If a cost depends on a quote or your usage, it is not zero. It should not be turned into a guess.
 
 The recorded Davinci Orlando location displays a $79 monthly promotion and $50 promotional setup fee, while Davinci’s general FAQ says setup fees start at $150 and promotions can apply. Opus’s Florida page lists $99/month and a $100 setup fee in its own comparison table. Regus’s current terms say a per-location virtual-office activation fee is payable, but do not publish the amount in that document.
 
