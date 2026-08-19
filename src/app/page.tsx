@@ -31,8 +31,9 @@ export default function HomePage() {
           <Image
             alt=""
             fill
+            fetchPriority="high"
             priority
-            sizes="(max-width: 767px) 100vw, 48vw"
+            sizes="(max-width: 1216px) 100vw, 1216px"
             src="/images/florida-glass-architecture.png"
           />
         </figure>
