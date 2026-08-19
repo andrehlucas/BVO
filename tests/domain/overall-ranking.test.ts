@@ -68,8 +68,24 @@ const catalogWithProviders = (plans: Plan[], citiesByProvider: Record<string, st
       providerId,
       city: citiesByProvider[providerId] ?? 'Miami',
       citySlug: (citiesByProvider[providerId] ?? 'Miami').toLowerCase(),
+      evidenceIds: [`${providerId}-city-location`],
     })),
     plans,
+    evidence: [
+      ...(structuredClone(validCatalogFixture.evidence) as Catalog['evidence']),
+      ...providerIds.map((providerId) => ({
+        id: `${providerId}-city-location`,
+        entityType: 'location' as const,
+        entityId: `miami-${providerId}`,
+        field: 'address',
+        sourceUrl: `https://example.com/locations/${providerId}`,
+        capturedAt: '2026-08-19T12:00:00Z',
+        observedValue: 'Verified city location',
+        supportingExcerpt: 'Verified city location.',
+        verificationMethod: 'official_website',
+        confidence: 'high' as const,
+      })),
+    ],
     assessments: [],
   }
 }
@@ -99,6 +115,13 @@ describe('overall provider ranking', () => {
     expect(rankOverallProviders(catalog, 'miami').map((result) => result.providerId)).toEqual([
       'miami-provider',
     ])
+  })
+
+  it('does not treat provider evidence as verification for a city location', () => {
+    const catalog = catalogWithProviders([completePlan('provider-a-plan', 'provider-a')])
+    catalog.locations[0]!.evidenceIds = ['provider-website']
+
+    expect(rankOverallProviders(catalog, 'miami')).toEqual([])
   })
 
   it('excludes providers whose available city offers lack verified ranking data', () => {

@@ -15,6 +15,19 @@ const evidenceConfidence = (evidenceIds: string[], evidenceById: Map<string, Evi
   return evidence.reduce((total, item) => total + confidenceValues[item!.confidence], 0) / evidence.length
 }
 
+const locationEvidenceConfidence = (
+  location: Location,
+  evidenceById: Map<string, Evidence>,
+): number | null => {
+  const evidence = location.evidenceIds.map((id) => evidenceById.get(id))
+  if (
+    evidence.length === 0
+    || evidence.some((item) => item?.entityType !== 'location' || item.entityId !== location.id)
+  ) return null
+
+  return evidence.reduce((total, item) => total + confidenceValues[item!.confidence], 0) / evidence.length
+}
+
 const verifiedCityLocations = (
   catalog: Catalog,
   providerId: string,
@@ -24,7 +37,7 @@ const verifiedCityLocations = (
   location.providerId === providerId
   && location.citySlug === citySlug
   && location.availability === 'available'
-  && evidenceConfidence(location.evidenceIds, evidenceById) !== null,
+  && locationEvidenceConfidence(location, evidenceById) !== null,
 )
 
 const bestTrackOffers = (catalog: Catalog, citySlug: string, providerId: string): Partial<Record<Track, RankedOffer>> =>

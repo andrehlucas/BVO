@@ -29,6 +29,35 @@ const featuresForTrack: Record<Track, FeatureKey[]> = {
   'full-office': ['business_address', 'mail_receiving', 'live_receptionist', 'call_forwarding', 'meeting_rooms', 'coworking_access'],
 }
 
+const featureDimensions: Record<Track, Partial<Record<FeatureKey, string>>> = {
+  'address-mail': {
+    business_address: 'addressAndLocalConvenience',
+    mail_receiving: 'mailManagement',
+    mail_forwarding: 'mailManagement',
+    mail_scanning: 'mailManagement',
+    local_mail_pickup: 'mailManagement',
+  },
+  'receptionist-phone': {
+    live_receptionist: 'humanAnsweringScope',
+    administrative_support: 'humanAnsweringScope',
+    business_phone_number: 'phoneFeaturesAndForwarding',
+    call_forwarding: 'phoneFeaturesAndForwarding',
+    appointment_scheduling: 'phoneFeaturesAndForwarding',
+  },
+  'full-office': {
+    business_address: 'addressAndMail',
+    mail_receiving: 'addressAndMail',
+    mail_forwarding: 'addressAndMail',
+    live_receptionist: 'phoneAndLiveReceptionist',
+    business_phone_number: 'phoneAndLiveReceptionist',
+    call_forwarding: 'phoneAndLiveReceptionist',
+    meeting_rooms: 'workspaceAndLocalPresence',
+    coworking_access: 'workspaceAndLocalPresence',
+    private_office_access: 'workspaceAndLocalPresence',
+    guest_reception: 'workspaceAndLocalPresence',
+  },
+}
+
 const headlineForTrack: Record<Track, string> = {
   'address-mail': 'Best verified value for address and mail',
   'receptionist-phone': 'Best verified match for live call answering',
@@ -45,26 +74,40 @@ const isOverallResult = (result: RecommendationResult): result is OverallProvide
 
 const primaryOffer = (result: RecommendationResult): RankedOffer | null => {
   if (!isOverallResult(result)) return result
-  return result.supportingOffers['address-mail']
-    ?? result.supportingOffers['full-office']
-    ?? result.supportingOffers['receptionist-phone']
+  return (Object.values(result.supportingOffers) as RankedOffer[])
+    .sort((first, second) =>
+      second.score - first.score
+      || second.evidenceConfidence - first.evidenceConfidence
+      || first.track.localeCompare(second.track))[0]
     ?? null
 }
 
 const featureState = (features: PlanFeature[], feature: FeatureKey): FeatureState | undefined =>
   features.find((item) => item.feature === feature)?.state
 
-const limitationFor = (features: PlanFeature[], track: Track, offer: RankedOffer): string => {
-  for (const key of featuresForTrack[track]) {
-    const state = featureState(features, key)
-    if (state === 'paid_add_on' || state === 'usage_based') return `${featureLabels[key]} costs extra`
-    if (state === 'not_available') return `${featureLabels[key]} is unavailable`
-    if (state === 'not_confirmed') return `${featureLabels[key]} is not confirmed`
-  }
+const dimensionRatio = (points: number, maxPoints: number): number => points / maxPoints
 
+const limitationFor = (features: PlanFeature[], track: Track, offer: RankedOffer): string => {
   const weakest = offer.breakdown
     .filter((item) => item.points < item.maxPoints)
-    .sort((first, second) => first.points / first.maxPoints - second.points / second.maxPoints)[0]
+    .sort((first, second) => dimensionRatio(first.points, first.maxPoints) - dimensionRatio(second.points, second.maxPoints))[0]
+  const featureForWeakestDimension = weakest
+    ? featuresForTrack[track]
+      .filter((key) => featureDimensions[track][key] === weakest.dimension)
+      .map((key) => ({ key, state: featureState(features, key) }))
+      .filter(({ state }) => state === 'paid_add_on' || state === 'usage_based' || state === 'not_available' || state === 'not_confirmed')
+      .sort((first, second) => featureLabels[first.key].localeCompare(featureLabels[second.key]))[0]
+    : undefined
+
+  if (featureForWeakestDimension?.state === 'paid_add_on' || featureForWeakestDimension?.state === 'usage_based') {
+    return `${featureLabels[featureForWeakestDimension.key]} costs extra`
+  }
+  if (featureForWeakestDimension?.state === 'not_available') {
+    return `${featureLabels[featureForWeakestDimension.key]} is unavailable`
+  }
+  if (featureForWeakestDimension?.state === 'not_confirmed') {
+    return `${featureLabels[featureForWeakestDimension.key]} is not confirmed`
+  }
   return weakest
     ? `${weakest.dimension} is less strong than the other verified factors`
     : 'No material verified limitation identified'
@@ -100,10 +143,21 @@ export function explainRecommendation(
     .map((id) => catalog.plans.find((plan) => plan.id === id))
     .filter((plan): plan is NonNullable<typeof plan> => plan !== undefined)
   const features = plans.flatMap((plan) => plan.features)
+  const dimensionByName = new Map(offer.breakdown.map((item) => [item.dimension, item]))
   const strengths = featuresForTrack[offer.track]
-    .filter((key) => featureState(features, key) === 'included')
+    .map((key) => ({ key, state: featureState(features, key), dimension: featureDimensions[offer.track][key] }))
+    .filter((feature): feature is { key: FeatureKey; state: 'included'; dimension: string } =>
+      feature.state === 'included' && feature.dimension !== undefined && dimensionByName.has(feature.dimension),
+    )
+    .sort((first, second) => {
+      const firstDimension = dimensionByName.get(first.dimension)!
+      const secondDimension = dimensionByName.get(second.dimension)!
+      return dimensionRatio(secondDimension.points, secondDimension.maxPoints) - dimensionRatio(firstDimension.points, firstDimension.maxPoints)
+        || secondDimension.points - firstDimension.points
+        || featureLabels[first.key].localeCompare(featureLabels[second.key])
+    })
     .slice(0, 3)
-    .map((key) => `${featureLabels[key]} is included`)
+    .map(({ key }) => `${featureLabels[key]} is included`)
   const monthlyPrice = offer.normalizedPrice.recurringMonthlyCents
   const upfront = offer.normalizedPrice.mandatoryUpfrontCents
 
