@@ -1,6 +1,8 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import type { ProductCity } from '@/analytics/events'
+import { trackProductEvent } from '@/analytics/track-event'
 import type { NeedChoice } from './url-state'
 import { replaceQueryValue } from './url-state'
 
@@ -11,15 +13,16 @@ const choices: Array<{ value: NeedChoice; label: string; detail: string }> = [
   { value: 'unsure', label: "I'm not sure", detail: 'Start with a guided default you can refine.' },
 ]
 
-interface NeedSelectorProps { selectedNeed: NeedChoice }
+interface NeedSelectorProps { selectedNeed: NeedChoice; city: ProductCity }
 
-export function NeedSelector({ selectedNeed }: NeedSelectorProps) {
+export function NeedSelector({ selectedNeed, city }: NeedSelectorProps) {
   const pathname = usePathname()
   const router = useRouter()
   const searchParams = useSearchParams()
 
   const selectNeed = (value: NeedChoice) => {
     router.replace(replaceQueryValue(pathname, searchParams, 'need', value), { scroll: false })
+    if (value !== 'unsure') trackProductEvent({ name: 'need_selected', properties: { city, journey: value } })
   }
 
   return (

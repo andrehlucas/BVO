@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import type { Catalog } from '@/domain/catalog/types'
 import { ComparisonTable } from '@/components/comparison/comparison-table'
 import type { RankedOffer } from '@/domain/ranking/types'
@@ -32,7 +33,8 @@ const baseOffer = (): RankedOffer => ({
 })
 
 describe('comparison table', () => {
-  it('shows only recorded, track-relevant criteria without inventing a feature state', () => {
+  it('shows only recorded, track-relevant criteria without inventing a feature state', async () => {
+    const user = userEvent.setup()
     const catalog = structuredClone(validCatalogFixture) as Catalog
     const receptionistOffer: RankedOffer = {
       ...baseOffer(),
@@ -51,7 +53,8 @@ describe('comparison table', () => {
     }
     catalog.plans.push({ ...catalog.plans[0]!, id: 'sparse-phone', providerId: 'sparse-office' })
 
-    render(<ComparisonTable catalog={catalog} offers={[receptionistOffer, sparsePhoneOffer]} track="receptionist-phone" />)
+    render(<ComparisonTable catalog={catalog} city="miami" offers={[receptionistOffer, sparsePhoneOffer]} track="receptionist-phone" />)
+    await user.click(screen.getByRole('button', { name: /open offer comparison/i }))
 
     expect(screen.getByRole('columnheader', { name: /live receptionist/i })).toBeInTheDocument()
     expect(screen.getByRole('columnheader', { name: /call forwarding/i })).toBeInTheDocument()

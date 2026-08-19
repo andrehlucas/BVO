@@ -1,5 +1,6 @@
 import { GlassSurface } from '@/components/ui/glass-surface'
 import type { EditorialPage } from '@/content/types'
+import { GuideCityNavigationTelemetry } from './guide-city-navigation-telemetry'
 
 interface ArticleLayoutProps {
   page: EditorialPage
@@ -20,7 +21,9 @@ export function ArticleLayout({ page, sectionLabel }: ArticleLayoutProps) {
         </dl>
       </header>
       <GlassSurface as="section" aria-label={`${page.title} article`} className="article-body">
-        <div dangerouslySetInnerHTML={{ __html: page.html }} />
+        {sectionLabel === 'Guide'
+          ? <GuideCityNavigationTelemetry guideSlug={page.slug}><div dangerouslySetInnerHTML={{ __html: page.html }} /></GuideCityNavigationTelemetry>
+          : <div dangerouslySetInnerHTML={{ __html: page.html }} />}
       </GlassSurface>
     </article>
   )

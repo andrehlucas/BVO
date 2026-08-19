@@ -154,6 +154,7 @@ describe('Miami city comparison', () => {
     expect(screen.getByRole('region', { name: /offers not ranked/i })).toHaveTextContent(/insufficient verified data/i)
     expect(screen.getByRole('link', { name: /ranking methodology/i })).toBeInTheDocument()
 
+    await user.click(screen.getByRole('button', { name: /open offer comparison/i }))
     expect(results.closest('.glass-surface')).toBeNull()
     expect(screen.getByRole('table', { name: /compare ranked offers/i }).closest('.glass-surface')).toBeNull()
   })

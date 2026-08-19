@@ -1,3 +1,8 @@
+'use client'
+
+import { useState } from 'react'
+import type { ProductCity } from '@/analytics/events'
+import { trackProductEvent } from '@/analytics/track-event'
 import type { Catalog, FeatureKey, FeatureState, Track } from '@/domain/catalog/types'
 import type { RankedOffer } from '@/domain/ranking/types'
 
@@ -18,7 +23,8 @@ const displayState = (state: FeatureState) => state === 'paid_add_on' ? 'Add-on'
 
 interface ComparisonTableProps { catalog: Catalog; offers: RankedOffer[]; track: Track }
 
-export function ComparisonTable({ catalog, offers, track }: ComparisonTableProps) {
+export function ComparisonTable({ catalog, city, offers, track }: ComparisonTableProps & { city: ProductCity }) {
+  const [isOpen, setIsOpen] = useState(false)
   const providers = new Map(catalog.providers.map((provider) => [provider.id, provider]))
   const criteria = criteriaByTrack[track].filter((feature) => offers.some((offer) => stateFor(offer, feature) !== undefined))
   const fields = [
@@ -34,10 +40,16 @@ export function ComparisonTable({ catalog, offers, track }: ComparisonTableProps
   return (
     <section className="comparison-table-section" aria-labelledby="comparison-table-heading">
       <div className="section-heading"><p className="eyebrow">Evidence ledger</p><h2 id="comparison-table-heading">Compare ranked offers</h2></div>
-      {offers.length === 0 ? <p className="empty-state">No complete offers are available to compare yet.</p> : <>
+      <button aria-expanded={isOpen} onClick={() => {
+        if (!isOpen) {
+          setIsOpen(true)
+          trackProductEvent({ name: 'comparison_opened', properties: { city, journey: track } })
+        }
+      }} type="button">Open offer comparison</button>
+      {isOpen && (offers.length === 0 ? <p className="empty-state">No complete offers are available to compare yet.</p> : <>
         <div className="comparison-table-wrap"><table aria-label="Compare ranked offers"><thead><tr><th scope="col">Provider</th>{fields.map((field) => <th key={field.key} scope="col">{field.label}</th>)}</tr></thead><tbody>{offers.map((offer) => <tr key={`${offer.providerId}-${offer.planIds.join('-')}`}><th scope="row">{providers.get(offer.providerId)?.name ?? offer.providerId}</th>{fields.map((field) => <td key={field.key}>{field.value(offer)}</td>)}</tr>)}</tbody></table></div>
         <div className="comparison-mobile-list" aria-label="Ranked offer comparison cards">{offers.map((offer) => <article key={`${offer.providerId}-${offer.planIds.join('-')}`}><h3>{providers.get(offer.providerId)?.name ?? offer.providerId}</h3><dl>{fields.map((field) => <div key={field.key}><dt>{field.label}</dt><dd>{field.value(offer)}</dd></div>)}</dl></article>)}</div>
-      </>}
+      </>)}
     </section>
   )
 }

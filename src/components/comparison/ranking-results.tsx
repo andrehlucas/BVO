@@ -3,6 +3,7 @@ import type { Catalog, FeatureKey, FeatureState, Track } from '@/domain/catalog/
 import { explainRecommendation } from '@/domain/ranking/explain'
 import type { RankingResult } from '@/domain/ranking/types'
 import { AffiliateDisclosure } from '@/components/disclosure/affiliate-disclosure'
+import { MethodologyLink } from './methodology-link'
 
 const featureLabels: Record<FeatureKey, string> = {
   business_address: 'Business address', mail_receiving: 'Mail receiving', mail_forwarding: 'Mail forwarding', mail_scanning: 'Mail scanning', local_mail_pickup: 'Local mail pickup', live_receptionist: 'Live receptionist', business_phone_number: 'Business phone number', call_forwarding: 'Call forwarding', appointment_scheduling: 'Appointment scheduling', business_email: 'Business email', administrative_support: 'Administrative support', meeting_rooms: 'Meeting rooms', coworking_access: 'Coworking access', private_office_access: 'Private office access', guest_reception: 'Guest reception', registered_agent: 'Registered agent', company_formation_assistance: 'Company formation assistance',
@@ -24,7 +25,7 @@ export function RankingResults({ catalog, citySlug, ranking, track }: RankingRes
     <>
       <AffiliateDisclosure className="comparison-disclosure" />
       <section aria-label="Ranked offers" className="ranking-results" id="ranked-offers">
-        <div className="section-heading"><p className="eyebrow">Verified match</p><h2>Ranked offers</h2><a href="/methodology">Ranking methodology</a></div>
+        <div className="section-heading"><p className="eyebrow">Verified match</p><h2>Ranked offers</h2><MethodologyLink city={citySlug as import('@/analytics/events').ProductCity} track={track} /></div>
         {ranking.ranked.length === 0 ? <p className="empty-state">No offers have enough verified information for a numbered recommendation yet. Check the methodology and return when the evidence ledger is updated.</p> : (
           <ol className="offer-list">
             {ranking.ranked.map((offer, index) => {
