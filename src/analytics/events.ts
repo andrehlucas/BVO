@@ -4,10 +4,8 @@ const productProviders = ['regus', 'opus-virtual-offices', 'alliance-virtual-off
 const guideSlugs = [
   'what-is-a-virtual-office',
   'business-address-vs-virtual-office',
-  'business-address-vs-registered-agent',
   'mail-handling-vs-live-receptionist',
   'hidden-fees-in-virtual-office-plans',
-  'can-you-use-a-virtual-office-address-for-your-business',
   'how-to-choose-a-virtual-office-in-florida',
   'virtual-office-checklist-for-freelancers-and-small-businesses',
 ] as const

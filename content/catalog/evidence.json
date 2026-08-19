@@ -209,10 +209,10 @@
     "entityId": "davinci-orlando-alafaya-virtual-office",
     "field": "price_features_and_included_meeting_room_allowance",
     "sourceUrl": "https://www.davincivirtual.com/loc/us/florida/orlando-virtual-offices/facility-7353",
-    "capturedAt": "2026-08-19T13:20:00-04:00",
-    "observedValue": "The named Orlando page displays a $79/month promo, $50 one-time setup fee, mail receipt, add-on forwarding, client pickup, lobby greeter, and 2 hours conference room time included.",
-    "supportingExcerpt": "The page says “2 Hours Conference Room Time Included”; it does not state the allowance period or a rate for use beyond that allowance.",
-    "verificationMethod": "Freshly read current official Davinci Orlando location page.",
+    "capturedAt": "2026-08-19T13:28:00-04:00",
+    "observedValue": "The named Orlando page explicitly labels the displayed $79/month price as “Promo” and displays a $50 one-time setup fee. It also lists mail receipt, add-on forwarding, client pickup, lobby greeter, and 2 hours conference room time included.",
+    "supportingExcerpt": "The price block says “Promo: $79 /mo” and “$50 One-time Setup Fee.” The page also says “2 Hours Conference Room Time Included”; it does not state the allowance period or a rate for use beyond that allowance.",
+    "verificationMethod": "Re-read current official Davinci Orlando location page on 2026-08-19; captured the explicitly labeled promotion rather than treating it as a recurring price.",
     "confidence": "high"
   }
 ]

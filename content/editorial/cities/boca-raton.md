@@ -24,6 +24,6 @@ Boca Raton has two differently documented product models in this launch set. The
 
 Alliance’s terms require a six-month initial virtual-office term, then month-to-month renewal, with a 30-day portal cancellation request. They also state that third parties, including banks and online platforms, can have their own address-acceptance rules. Verify directly with the relevant organization.
 
-Read the [Alliance Virtual Offices review](/providers/alliance-virtual-offices), [Opus Virtual Offices review](/providers/opus-virtual-offices), [business address versus registered agent guide](/guides/business-address-vs-registered-agent), and [methodology](/methodology).
+Read the [Alliance Virtual Offices review](/providers/alliance-virtual-offices), [Opus Virtual Offices review](/providers/opus-virtual-offices), [business address versus virtual office guide](/guides/business-address-vs-virtual-office), and [methodology](/methodology).
 
 *Disclosure: provider assessments use published evidence and do not use affiliate availability, commission, conversion, or revenue.*

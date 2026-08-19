@@ -14,6 +14,7 @@ import type {
   PlanLimit,
   PlanPromotion,
   Provider,
+  PublishedPromotionalPrice,
   PublishedStartingPrice,
   Track,
 } from './types'
@@ -67,6 +68,16 @@ export const publishedStartingPriceSchema: z.ZodType<PublishedStartingPrice> = z
     currency: z.literal('USD'),
     billingPeriod: z.literal('day'),
     qualifier: z.literal('from'),
+    comparisonStatus: z.literal('not_comparable'),
+  })
+  .strict()
+
+export const publishedPromotionalPriceSchema: z.ZodType<PublishedPromotionalPrice> = z
+  .object({
+    amountCents: z.number().int().nonnegative(),
+    currency: z.literal('USD'),
+    billingPeriod: z.literal('month'),
+    qualifier: z.literal('promo'),
     comparisonStatus: z.literal('not_comparable'),
   })
   .strict()
@@ -163,6 +174,7 @@ export const planSchema: z.ZodType<Plan> = z
     tracks: z.array(z.enum(trackValues)).min(1),
     basePrice: moneySchema.nullable(),
     publishedStartingPrice: publishedStartingPriceSchema.optional(),
+    publishedPromotionalPrice: publishedPromotionalPriceSchema.optional(),
     quoteRequired: z.boolean(),
     mandatoryFees: z.array(planFeeSchema),
     deposit: moneySchema.nullable(),
@@ -179,18 +191,27 @@ export const planSchema: z.ZodType<Plan> = z
   })
   .strict()
   .superRefine((plan, context) => {
-    if (plan.basePrice === null && !plan.quoteRequired && plan.publishedStartingPrice === undefined) {
+    const hasNonComparablePublishedPrice = plan.publishedStartingPrice !== undefined
+      || plan.publishedPromotionalPrice !== undefined
+    if (plan.basePrice === null && !plan.quoteRequired && !hasNonComparablePublishedPrice) {
       context.addIssue({
         code: z.ZodIssueCode.custom,
         message: 'Plans without a base price require quoteRequired: true',
         path: ['quoteRequired'],
       })
     }
-    if (plan.basePrice !== null && plan.publishedStartingPrice !== undefined) {
+    if (plan.basePrice !== null && hasNonComparablePublishedPrice) {
       context.addIssue({
         code: z.ZodIssueCode.custom,
-        message: 'Plans cannot contain both a comparable base price and a non-comparable published starting price',
-        path: ['publishedStartingPrice'],
+        message: 'Plans cannot contain both a comparable base price and a non-comparable published price',
+        path: ['basePrice'],
+      })
+    }
+    if (plan.publishedStartingPrice !== undefined && plan.publishedPromotionalPrice !== undefined) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Plans cannot contain both a published starting price and a published promotional price',
+        path: ['publishedPromotionalPrice'],
       })
     }
   })

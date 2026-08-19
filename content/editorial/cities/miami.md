@@ -24,6 +24,6 @@ Miami is a useful place to begin only when the address and service package match
 
 Regus says forwarding can carry additional charges and prices vary by location and product. Opus’s terms say a virtual-office address is not guaranteed for licensing, maps, directory listings, or financial applications. Those are provider statements, not a substitute for checking the applicable third party’s rules.
 
-Read the [Regus review](/providers/regus) and [Opus Virtual Offices review](/providers/opus-virtual-offices), then compare the [methodology](/methodology) and [address-use guide](/guides/can-you-use-a-virtual-office-address-for-your-business).
+Read the [Regus review](/providers/regus) and [Opus Virtual Offices review](/providers/opus-virtual-offices), then compare the [methodology](/methodology) and [how-to-choose guide](/guides/how-to-choose-a-virtual-office-in-florida).
 
 *Disclosure: provider assessments use published evidence and do not use affiliate availability, commission, conversion, or revenue.*

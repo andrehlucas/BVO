@@ -19,11 +19,36 @@ const legallySensitiveGuideSlugs = [
   'can-you-use-a-virtual-office-address-for-your-business',
 ]
 
-async function frontmatterFor(kind: 'cities' | 'providers' | 'guides') {
+type EditorialKind = 'cities' | 'providers' | 'guides'
+
+interface EditorialSource {
+  kind: EditorialKind
+  slug: string
+  status: string
+  reviewer: string
+  content: string
+}
+
+async function sourcePagesFor(kind: EditorialKind): Promise<EditorialSource[]> {
   const files = (await readdir(path.join(editorialRoot, kind))).filter((file) => file.endsWith('.md'))
   return Promise.all(files.map(async (file) => {
     const source = await readFile(path.join(editorialRoot, kind, file), 'utf8')
-    return matter(source).data
+    const parsed = matter(source)
+    return {
+      kind,
+      slug: String(parsed.data.slug),
+      status: String(parsed.data.status),
+      reviewer: typeof parsed.data.reviewer === 'string' ? parsed.data.reviewer : '',
+      content: parsed.content,
+    }
+  }))
+}
+
+async function frontmatterFor(kind: EditorialKind) {
+  return (await sourcePagesFor(kind)).map((page) => ({
+    slug: page.slug,
+    status: page.status,
+    reviewer: page.reviewer,
   }))
 }
 
@@ -48,6 +73,7 @@ describe('launch content coverage', () => {
     const planFields = (plan: Plan) => [
       ...(plan.basePrice ? ['basePrice'] : []),
       ...(plan.publishedStartingPrice ? ['publishedStartingPrice'] : []),
+      ...(plan.publishedPromotionalPrice ? ['publishedPromotionalPrice'] : []),
       ...(plan.mandatoryFees.length ? ['mandatoryFees'] : []),
       ...(plan.deposit ? ['deposit'] : []),
       ...(plan.includedReceptionistMinutes !== null ? ['includedReceptionistMinutes'] : []),
@@ -101,5 +127,23 @@ describe('launch content coverage', () => {
     expect(publicGuides.map((guide) => guide.slug)).not.toEqual(
       expect.arrayContaining(legallySensitiveGuideSlugs),
     )
+  })
+
+  it('does not allow reviewed editorial pages to link to non-public editorial paths', async () => {
+    const pages = (await Promise.all((['cities', 'providers', 'guides'] as const).map(sourcePagesFor))).flat()
+    const nonPublicPaths = new Set(
+      pages
+        .filter((page) => page.status !== 'reviewed')
+        .map((page) => `/${page.kind}/${page.slug}`),
+    )
+
+    for (const page of pages.filter((item) => item.status === 'reviewed')) {
+      const internalLinks = [...page.content.matchAll(/\]\((\/(?:cities|providers|guides)\/[^)\s?#]+)/g)]
+        .map((match) => match[1]!)
+
+      for (const href of internalLinks) {
+        expect(nonPublicPaths, `${page.kind}/${page.slug} links to non-public ${href}`).not.toContain(href)
+      }
+    }
   })
 })

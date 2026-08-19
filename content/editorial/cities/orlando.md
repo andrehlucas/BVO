@@ -10,7 +10,7 @@ status: reviewed
 
 ## What this launch catalog verifies
 
-The catalog records an Opus Virtual Offices entry at 200 E Robinson Street and a Davinci Virtual entry at 626 N Alafaya Trail. Davinci’s page displays a promotional $79/month price and a $50 one-time setup fee for that specific entry; promotions are not treated as a permanent price.
+The catalog records an Opus Virtual Offices entry at 200 E Robinson Street and a Davinci Virtual entry at 626 N Alafaya Trail. Davinci’s page displays a promotional $79/month price and a $50 one-time setup fee for that specific entry; the promotion is not used as a recurring price or in a numeric ranking.
 
 An Orlando address is only one part of the decision. Mail handling, phone coverage, in-person space, required onboarding, and exit terms can matter more than the headline monthly number.
 

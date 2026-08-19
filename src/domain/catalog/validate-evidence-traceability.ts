@@ -3,6 +3,7 @@ import type { Catalog, Location, Plan } from './types'
 const planFields = (plan: Plan): string[] => [
   ...(plan.basePrice ? ['basePrice'] : []),
   ...(plan.publishedStartingPrice ? ['publishedStartingPrice'] : []),
+  ...(plan.publishedPromotionalPrice ? ['publishedPromotionalPrice'] : []),
   ...(plan.mandatoryFees.length > 0 ? ['mandatoryFees'] : []),
   ...(plan.deposit ? ['deposit'] : []),
   ...(plan.includedReceptionistMinutes !== null ? ['includedReceptionistMinutes'] : []),

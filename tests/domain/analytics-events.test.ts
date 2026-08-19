@@ -31,6 +31,16 @@ describe('ProductEvent', () => {
     })).toThrow()
   })
 
+  it.each([
+    'business-address-vs-registered-agent',
+    'can-you-use-a-virtual-office-address-for-your-business',
+  ])('rejects the non-public %s guide slug', (journey) => {
+    expect(() => validateProductEvent({
+      name: 'guide_to_city_clicked',
+      properties: { city: 'miami', journey },
+    })).toThrow()
+  })
+
   it('rejects an event name or property key outside the allowlist', () => {
     expect(() => validateProductEvent({ name: 'page_viewed', properties: { city: 'miami' } })).toThrow()
     expect(() => validateProductEvent({ name: 'need_selected', properties: { city: 'miami', query: 'address-mail' } })).toThrow()

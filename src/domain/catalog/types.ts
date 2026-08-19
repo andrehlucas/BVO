@@ -42,6 +42,15 @@ export interface PublishedStartingPrice {
   comparisonStatus: 'not_comparable'
 }
 
+/** A source-disclosed temporary price that must not become a recurring total. */
+export interface PublishedPromotionalPrice {
+  amountCents: number
+  currency: 'USD'
+  billingPeriod: 'month'
+  qualifier: 'promo'
+  comparisonStatus: 'not_comparable'
+}
+
 export interface Provider {
   id: string
   name: string
@@ -101,6 +110,7 @@ export interface Plan {
   tracks: Track[]
   basePrice: Money | null
   publishedStartingPrice?: PublishedStartingPrice
+  publishedPromotionalPrice?: PublishedPromotionalPrice
   quoteRequired: boolean
   mandatoryFees: PlanFee[]
   deposit: Money | null

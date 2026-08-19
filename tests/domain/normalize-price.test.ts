@@ -105,4 +105,23 @@ describe('normalizePlanPrice', () => {
       isComplete: false,
     })
   })
+
+  it('does not treat a published monthly promotion as a comparable recurring price', () => {
+    expect(normalizePlanPrice(plan({
+      basePrice: null,
+      quoteRequired: false,
+      publishedPromotionalPrice: {
+        amountCents: 7900,
+        currency: 'USD',
+        billingPeriod: 'month',
+        qualifier: 'promo',
+        comparisonStatus: 'not_comparable',
+      },
+      promotion: { description: 'Promo: $79/mo.' },
+    }))).toMatchObject({
+      advertisedMonthlyCents: null,
+      recurringMonthlyCents: null,
+      isComplete: false,
+    })
+  })
 })

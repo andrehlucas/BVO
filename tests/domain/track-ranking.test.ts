@@ -181,6 +181,30 @@ describe('track ranking', () => {
     ])
   })
 
+  it('does not use a published monthly promotion in numeric rankings', () => {
+    const catalog = catalogWithPlans([
+      plan('recurring-price', 'provider-a', 'address-mail', { features: addressMailFeatures() }),
+      plan('promo-only', 'provider-b', 'address-mail', {
+        basePrice: null,
+        quoteRequired: false,
+        publishedPromotionalPrice: {
+          amountCents: 7900,
+          currency: 'USD',
+          billingPeriod: 'month',
+          qualifier: 'promo',
+          comparisonStatus: 'not_comparable',
+        },
+        promotion: { description: 'Promo: $79/mo.' },
+        features: addressMailFeatures(),
+      }),
+    ])
+
+    expect(rankOffers(catalog, 'miami', 'address-mail', {})).toMatchObject({
+      ranked: [{ providerId: 'provider-a' }],
+      unranked: [{ candidate: { providerId: 'provider-b' }, reason: 'insufficient_verified_data' }],
+    })
+  })
+
   it.each(incompleteRankingCases)('keeps offers with %s out of numbered rankings', (_description, override) => {
     const incompletePlan = plan('incomplete', 'provider-b', 'address-mail', {
       features: addressMailFeatures(),
