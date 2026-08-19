@@ -13,6 +13,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "validate:content": "tsx scripts/validate-content.ts",
     "test:e2e": "playwright test"
   },
   "keywords": [],
@@ -42,6 +43,7 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.1",
     "jsdom": "^27.0.1",
+    "tsx": "^4.23.12",
     "typescript": "^6.0.3",
     "vitest": "^3.2.7"
   },

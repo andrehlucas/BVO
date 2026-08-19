@@ -1,0 +1,35 @@
+{
+  "version": "1.0.0",
+  "effectiveDate": "2026-08-19",
+  "tracks": {
+    "address-mail": {
+      "comparableTotalCost": 30,
+      "mailManagement": 25,
+      "addressAndLocalConvenience": 20,
+      "contractFlexibility": 15,
+      "transparencyAndEvidence": 10
+    },
+    "receptionist-phone": {
+      "totalCostAndMinuteAllowance": 30,
+      "humanAnsweringScope": 25,
+      "phoneFeaturesAndForwarding": 20,
+      "contractFlexibility": 15,
+      "transparencyAndEvidence": 10
+    },
+    "full-office": {
+      "totalPackageCost": 25,
+      "addressAndMail": 20,
+      "phoneAndLiveReceptionist": 20,
+      "contractFlexibility": 15,
+      "workspaceAndLocalPresence": 10,
+      "transparencyAndEvidence": 10
+    }
+  },
+  "overallProviderRating": {
+    "productLineValue": 25,
+    "coverageAcrossNeeds": 20,
+    "flexibility": 15,
+    "localPresenceAndOptions": 15,
+    "transparencyAndVerifiability": 25
+  }
+}
