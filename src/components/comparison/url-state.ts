@@ -48,3 +48,12 @@ export function replaceQueryValue(
   const query = next.toString()
   return query.length > 0 ? `${pathname}?${query}` : pathname
 }
+
+export function workspacePreference(workspace: WorkspaceChoice) {
+  return {
+    needsMeetingRooms: workspace === 'meeting-rooms',
+    needsCoworkingAccess: workspace === 'coworking',
+    needsPrivateOfficeAccess: workspace === 'private-office',
+    needsGuestReception: workspace === 'guest-reception',
+  }
+}

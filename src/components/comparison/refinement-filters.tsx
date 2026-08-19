@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import type { Track } from '@/domain/catalog/types'
-import type { ComparisonQuery, WorkspaceChoice } from './url-state'
+import type { ComparisonQuery } from './url-state'
 import { replaceQueryValue } from './url-state'
 
 interface RefinementFiltersProps {
@@ -49,13 +49,4 @@ export function RefinementFilters({ query, track }: RefinementFiltersProps) {
       </div>
     </fieldset>
   )
-}
-
-export function workspacePreference(workspace: WorkspaceChoice) {
-  return {
-    needsMeetingRooms: workspace === 'meeting-rooms',
-    needsCoworkingAccess: workspace === 'coworking',
-    needsPrivateOfficeAccess: workspace === 'private-office',
-    needsGuestReception: workspace === 'guest-reception',
-  }
 }

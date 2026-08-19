@@ -1,4 +1,9 @@
 import { GlassSurface } from '@/components/ui/glass-surface'
+import type { Metadata } from 'next'
+import { trustRoutes } from '@/seo/public-routes'
+
+const route = trustRoutes.find((item) => item.pathname === '/corrections')!
+export const metadata: Metadata = { title: route.title, description: route.description, alternates: { canonical: route.pathname } }
 
 function correctionsUrl(): string | undefined {
   const value = process.env.NEXT_PUBLIC_CORRECTIONS_URL

@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import { ArticleLayout } from '@/components/content/article-layout'
 import { EditorialPageNotFoundError, listEditorialPages, loadEditorialPage } from '@/content/load-editorial-page'
 
@@ -17,6 +18,16 @@ async function guideFor(slug: string) {
   } catch (error) {
     if (error instanceof EditorialPageNotFoundError) notFound()
     throw error
+  }
+}
+
+export async function generateMetadata({ params }: GuidePageProps): Promise<Metadata> {
+  const { slug } = await params
+  const page = await guideFor(slug)
+  return {
+    title: page.title,
+    description: page.description,
+    alternates: { canonical: `/guides/${page.slug}` },
   }
 }
 

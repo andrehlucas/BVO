@@ -1,5 +1,12 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { ButtonLink } from '@/components/ui/button-link'
+
+export const metadata: Metadata = {
+  title: 'Compare virtual offices in Florida',
+  description: 'Compare verified virtual office features, limitations, and evidence across five Florida cities.',
+  alternates: { canonical: '/' },
+}
 
 const cities = [
   ['orlando', 'Orlando'],

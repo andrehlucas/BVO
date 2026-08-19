@@ -1,4 +1,11 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Florida virtual office city comparisons',
+  description: 'Choose a Florida city to inspect verified virtual office availability, features, and limitations.',
+  alternates: { canonical: '/florida' },
+}
 
 const cities = [
   { slug: 'orlando', name: 'Orlando' },

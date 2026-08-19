@@ -1,5 +1,10 @@
 import methodology from '../../../content/methodology/ranking-v1.json'
+import type { Metadata } from 'next'
 import { GlassSurface } from '@/components/ui/glass-surface'
+import { trustRoutes } from '@/seo/public-routes'
+
+const route = trustRoutes.find((item) => item.pathname === '/methodology')!
+export const metadata: Metadata = { title: route.title, description: route.description, alternates: { canonical: route.pathname } }
 
 const trackLabels = {
   'address-mail': 'Address & mail',

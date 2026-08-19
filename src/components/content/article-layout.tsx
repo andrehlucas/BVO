@@ -1,6 +1,8 @@
 import { GlassSurface } from '@/components/ui/glass-surface'
 import type { EditorialPage } from '@/content/types'
 import { GuideCityNavigationTelemetry } from './guide-city-navigation-telemetry'
+import { JsonLd } from '@/components/seo/json-ld'
+import { absoluteUrl } from '@/seo/site-url'
 
 interface ArticleLayoutProps {
   page: EditorialPage
@@ -10,6 +12,16 @@ interface ArticleLayoutProps {
 export function ArticleLayout({ page, sectionLabel }: ArticleLayoutProps) {
   return (
     <article className="article-layout">
+      <JsonLd data={{
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: page.title,
+        description: page.description,
+        datePublished: page.publishedAt,
+        dateModified: page.reviewedAt,
+        inLanguage: 'en-US',
+        mainEntityOfPage: absoluteUrl(`/${sectionLabel === 'Guide' ? 'guides' : 'providers'}/${page.slug}`),
+      }} />
       <header className="article-heading">
         <p className="eyebrow">{sectionLabel}</p>
         <h1>{page.title}</h1>

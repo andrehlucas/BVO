@@ -47,7 +47,11 @@ export function RankingResults({ catalog, citySlug, ranking, track }: RankingRes
           </ol>
         )}
       </section>
-      {ranking.unranked.length > 0 && <section aria-label="Offers not ranked" className="unranked-offers"><h2>Offers not ranked</h2><p>These eligible offers remain separate because a price, term, availability, or linked evidence record is incomplete.</p><ul>{ranking.unranked.map(({ candidate, reason }) => <li key={`${candidate.providerId}-${candidate.planIds.join('-')}`}><strong>{providers.get(candidate.providerId)?.name ?? candidate.providerId}</strong> — {planName(catalog, candidate.planIds)}<span className="unranked-reason">Reason: {unrankedReasons[reason]}</span></li>)}</ul></section>}
+      {ranking.unranked.length > 0 && <section aria-label="Offers not ranked" className="unranked-offers"><h2>Offers not ranked</h2><p>These eligible offers remain separate because a price, term, availability, or linked evidence record is incomplete.</p><ul>{ranking.unranked.map(({ candidate, reason }) => {
+        const providerName = providers.get(candidate.providerId)?.name ?? candidate.providerId
+        const featureStates = [...new Map(candidate.features.map((feature) => [feature.feature, feature.state])).entries()]
+        return <li key={`${candidate.providerId}-${candidate.planIds.join('-')}`}><strong>{providerName}</strong> — {planName(catalog, candidate.planIds)}<span className="unranked-reason">Reason: {unrankedReasons[reason]}</span><ul aria-label={`${providerName} recorded feature statuses`} className="offer-statuses">{featureStates.map(([feature, state]) => <li className={`feature-status feature-status--${state}`} key={feature}>{stateLabel(feature, state)}</li>)}</ul></li>
+      })}</ul></section>}
     </>
   )
 }

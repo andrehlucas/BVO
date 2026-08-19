@@ -37,6 +37,7 @@ export async function GET(request: Request, { params }: RouteContext): Promise<R
 
   const response = NextResponse.redirect(resolveOutboundUrl(provider.id, provider.websiteUrl), 302)
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
+  response.headers.set('X-Robots-Tag', 'noindex, nofollow')
 
   return response
 }
