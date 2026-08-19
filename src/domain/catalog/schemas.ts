@@ -144,6 +144,7 @@ export const planSchema: z.ZodType<Plan> = z
     id: nonEmptyStringSchema,
     providerId: nonEmptyStringSchema,
     locationIds: z.array(nonEmptyStringSchema).min(1),
+    canCombineWith: z.array(nonEmptyStringSchema).optional(),
     name: nonEmptyStringSchema,
     tracks: z.array(z.enum(trackValues)).min(1),
     basePrice: moneySchema.nullable(),

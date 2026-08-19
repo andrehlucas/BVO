@@ -87,6 +87,7 @@ export interface Plan {
   id: string
   providerId: string
   locationIds: string[]
+  canCombineWith?: string[]
   name: string
   tracks: Track[]
   basePrice: Money | null
