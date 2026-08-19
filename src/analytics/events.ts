@@ -1,5 +1,6 @@
 const cities = ['orlando', 'tampa', 'fort-lauderdale', 'miami', 'boca-raton'] as const
 const tracks = ['address-mail', 'receptionist-phone', 'full-office'] as const
+const productProviders = ['regus', 'opus-virtual-offices', 'alliance-virtual-offices', 'davinci-virtual'] as const
 const guideSlugs = [
   'what-is-a-virtual-office',
   'business-address-vs-virtual-office',
@@ -13,6 +14,7 @@ const guideSlugs = [
 
 export type ProductCity = typeof cities[number]
 export type ProductTrack = typeof tracks[number]
+export type ProductProvider = typeof productProviders[number]
 export type ProductEventName =
   | 'city_page_viewed'
   | 'need_selected'
@@ -25,14 +27,15 @@ export type ProductEventName =
 
 type CityProperties = { city: ProductCity }
 type CityJourneyProperties = { city: ProductCity; journey: string }
-type AffiliateProperties = { provider: string; journey: string }
+type ProviderLocationProperties = { city: ProductCity; provider: ProductProvider }
+type AffiliateProperties = { provider: ProductProvider; journey: string }
 
 export type ProductEvent =
   | { name: 'city_page_viewed'; properties: CityProperties }
   | { name: 'need_selected'; properties: CityJourneyProperties }
   | { name: 'ranking_viewed'; properties: CityJourneyProperties }
   | { name: 'comparison_opened'; properties: CityJourneyProperties }
-  | { name: 'provider_location_viewed'; properties: CityJourneyProperties | { city: ProductCity; provider: string } }
+  | { name: 'provider_location_viewed'; properties: CityJourneyProperties | ProviderLocationProperties }
   | { name: 'affiliate_link_clicked'; properties: AffiliateProperties }
   | { name: 'methodology_viewed'; properties: CityJourneyProperties }
   | { name: 'guide_to_city_clicked'; properties: CityJourneyProperties }
@@ -49,9 +52,9 @@ const eventNames = new Set<ProductEventName>([
 ])
 const citySet = new Set<string>(cities)
 const trackSet = new Set<string>(tracks)
+const productProviderSet = new Set<string>(productProviders)
 const guideSlugSet = new Set<string>(guideSlugs)
 const prohibitedKeys = new Set(['email', 'name', 'phone', 'userId', 'address', 'query'])
-const providerIdPattern = /^[a-z][a-z0-9-]{0,63}$/
 
 export function isProductCity(value: string | null): value is ProductCity {
   return value !== null && citySet.has(value)
@@ -59,6 +62,10 @@ export function isProductCity(value: string | null): value is ProductCity {
 
 export function isProductTrack(value: string | null): value is ProductTrack {
   return value !== null && trackSet.has(value)
+}
+
+export function isProductProvider(value: string | null): value is ProductProvider {
+  return value !== null && productProviderSet.has(value)
 }
 
 export function isProductPosition(value: string | null): boolean {
@@ -107,10 +114,10 @@ export function validateProductEvent(input: unknown): ProductEvent {
   if (name === 'city_page_viewed') {
     if (keys.length !== 1 || !citySet.has(properties.city as string)) invalid('city page views require an approved city')
   } else if (name === 'affiliate_link_clicked') {
-    if (keys.length !== 2 || !providerIdPattern.test(properties.provider as string) || !isAllowedJourney(name, properties.journey as string)) {
+    if (keys.length !== 2 || !isProductProvider(properties.provider as string) || !isAllowedJourney(name, properties.journey as string)) {
       invalid('affiliate clicks require a product provider and approved journey')
     }
-  } else if (name === 'provider_location_viewed' && keys.length === 2 && citySet.has(properties.city as string) && providerIdPattern.test(properties.provider as string)) {
+  } else if (name === 'provider_location_viewed' && keys.length === 2 && citySet.has(properties.city as string) && isProductProvider(properties.provider as string)) {
     // A location panel may refer to a specific catalog provider. No user input supplies this value.
   } else {
     if (keys.length !== 2 || !citySet.has(properties.city as string) || !isAllowedJourney(name, properties.journey as string)) {

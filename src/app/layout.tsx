@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
-import { Analytics } from '@vercel/analytics/react'
+import { VercelAnalytics } from '@/analytics/vercel-analytics'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
 import './globals.css'
@@ -22,7 +22,7 @@ export default function RootLayout({
           <main className="site-frame site-main" id="main-content">{children}</main>
           <SiteFooter />
         </div>
-        <Analytics />
+        <VercelAnalytics />
       </body>
     </html>
   )

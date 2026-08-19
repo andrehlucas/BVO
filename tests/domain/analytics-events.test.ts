@@ -8,13 +8,27 @@ describe('ProductEvent', () => {
       { name: 'need_selected', properties: { city: 'miami', journey: 'address-mail' } },
       { name: 'ranking_viewed', properties: { city: 'miami', journey: 'address-mail' } },
       { name: 'comparison_opened', properties: { city: 'miami', journey: 'address-mail' } },
-      { name: 'provider_location_viewed', properties: { city: 'miami', provider: 'example-office' } },
-      { name: 'affiliate_link_clicked', properties: { provider: 'example-office', journey: 'miami|address-mail|1' } },
+      { name: 'provider_location_viewed', properties: { city: 'miami', provider: 'regus' } },
+      { name: 'affiliate_link_clicked', properties: { provider: 'regus', journey: 'miami|address-mail|1' } },
       { name: 'methodology_viewed', properties: { city: 'miami', journey: 'address-mail' } },
       { name: 'guide_to_city_clicked', properties: { city: 'miami', journey: 'what-is-a-virtual-office' } },
     ]
 
     for (const event of events) expect(validateProductEvent(event)).toEqual(event)
+  })
+
+  it.each(['regus', 'opus-virtual-offices', 'alliance-virtual-offices', 'davinci-virtual'])('accepts the approved %s provider identifier', (provider) => {
+    expect(validateProductEvent({ name: 'affiliate_link_clicked', properties: { provider, journey: 'unqualified' } })).toEqual({
+      name: 'affiliate_link_clicked',
+      properties: { provider, journey: 'unqualified' },
+    })
+  })
+
+  it('rejects arbitrary provider identifiers', () => {
+    expect(() => validateProductEvent({
+      name: 'affiliate_link_clicked',
+      properties: { provider: 'john-smith', journey: 'unqualified' },
+    })).toThrow()
   })
 
   it('rejects an event name or property key outside the allowlist', () => {

@@ -7,7 +7,7 @@ import type { Catalog } from '@/domain/catalog/types'
 const analytics = vi.hoisted(() => ({ track: vi.fn(), serverTrack: vi.fn(() => Promise.resolve()) }))
 const routeCatalog = vi.hoisted(() => ({
   value: {
-    providers: [{ id: 'example-office', websiteUrl: 'https://example.com/provider' }],
+    providers: [{ id: 'regus', websiteUrl: 'https://example.com/provider' }],
     locations: [], plans: [], evidence: [], assessments: [],
   },
 }))
@@ -96,26 +96,26 @@ describe('anonymous funnel analytics', () => {
 
   it('sends a qualified affiliate click server-side before redirecting', async () => {
     const response = await GET(
-      new Request('https://virtualoffice.test/go/example-office?city=miami&track=address-mail&position=1'),
-      { params: Promise.resolve({ providerId: 'example-office' }) },
+      new Request('https://virtualoffice.test/go/regus?city=miami&track=address-mail&position=1'),
+      { params: Promise.resolve({ providerId: 'regus' }) },
     )
 
     expect(response.status).toBe(302)
     expect(analytics.serverTrack).toHaveBeenCalledWith(
       'affiliate_link_clicked',
-      { provider: 'example-office', journey: 'miami|address-mail|1' },
+      { provider: 'regus', journey: 'miami|address-mail|1' },
     )
   })
 
   it('still redirects and records an unqualified click when context is missing', async () => {
-    const response = await GET(new Request('https://virtualoffice.test/go/example-office'), {
-      params: Promise.resolve({ providerId: 'example-office' }),
+    const response = await GET(new Request('https://virtualoffice.test/go/regus'), {
+      params: Promise.resolve({ providerId: 'regus' }),
     })
 
     expect(response.status).toBe(302)
     expect(analytics.serverTrack).toHaveBeenCalledWith(
       'affiliate_link_clicked',
-      { provider: 'example-office', journey: 'unqualified' },
+      { provider: 'regus', journey: 'unqualified' },
     )
   })
 })

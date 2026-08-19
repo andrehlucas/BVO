@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { affiliateClickEvent } from '@/analytics/events'
+import { affiliateClickEvent, isProductProvider } from '@/analytics/events'
 import { trackServerProductEvent } from '@/analytics/track-server-event'
 import { resolveOutboundUrl } from '@/commercial/resolve-outbound-url'
 import { loadCatalog } from '@/domain/catalog/load-catalog'
@@ -24,14 +24,16 @@ export async function GET(request: Request, { params }: RouteContext): Promise<R
     return new NextResponse(null, { status: 404 })
   }
 
-  await trackServerProductEvent(
-    affiliateClickEvent(
-      provider.id,
-      requestUrl.searchParams.get('city'),
-      requestUrl.searchParams.get('track'),
-      requestUrl.searchParams.get('position'),
-    ),
-  )
+  if (isProductProvider(provider.id)) {
+    await trackServerProductEvent(
+      affiliateClickEvent(
+        provider.id,
+        requestUrl.searchParams.get('city'),
+        requestUrl.searchParams.get('track'),
+        requestUrl.searchParams.get('position'),
+      ),
+    )
+  }
 
   const response = NextResponse.redirect(resolveOutboundUrl(provider.id, provider.websiteUrl), 302)
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
