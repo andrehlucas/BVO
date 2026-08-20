@@ -140,7 +140,7 @@ button { color: inherit; }
 
 .home-map { position: relative; z-index: 2; min-height: 27rem; margin-top: var(--space-3); overflow: hidden; }
 .home-map::after { position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg, #fcfdfd 0%, rgb(252 253 253 / 3%) 16%, rgb(252 253 253 / 2%) 78%, #fcfdfd 100%); content: ""; pointer-events: none; }
-.home-map-background { z-index: 0; object-fit: cover; object-position: center 38%; opacity: 0.9; }
+.home-map-background { z-index: 0; object-fit: cover; object-position: center 42%; opacity: 0.9; transform: scale(1.16); transform-origin: 54% 52%; }
 .home-map-marker { position: absolute; z-index: 2; display: flex; gap: var(--space-2); align-items: center; color: #26394b; font-size: 0.72rem; text-decoration: none; }
 .home-map-marker > span { display: grid; width: 3rem; height: 3rem; place-items: center; border: 3px solid rgb(255 255 255 / 92%); border-radius: 50%; background: linear-gradient(145deg, #0a4f9f, #79b6ef); box-shadow: 0 0.6rem 1.3rem rgb(15 52 96 / 18%); color: #f8fbff; font-size: 0.68rem; font-weight: 760; }
 .home-map-marker strong { font-weight: 680; }
