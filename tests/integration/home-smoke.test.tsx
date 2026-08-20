@@ -9,4 +9,6 @@ it('introduces the Florida virtual office comparison', () => {
   expect(screen.getByRole('combobox', { name: /city/i })).toBeInTheDocument()
   expect(screen.getByRole('combobox', { name: /service needed/i })).toBeInTheDocument()
   expect(screen.getByRole('button', { name: /compare selected options/i })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /compare miami virtual offices/i })).toBeInTheDocument()
+  expect(screen.getByRole('link', { name: /view miami options/i })).toHaveAttribute('href', '/cities/miami')
 })

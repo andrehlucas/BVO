@@ -17,6 +17,8 @@ const cities = [
   ['boca-raton', 'Boca Raton'],
 ] as const
 
+const miamiBuildings = [1, 2, 3, 4, 5] as const
+
 export default function HomePage() {
   return (
     <>
@@ -27,28 +29,27 @@ export default function HomePage() {
           <p>See what is included, what costs extra, and what providers have not confirmed.</p>
           <HomeComparisonSearch cities={cities.map(([slug, name]) => ({ slug, name }))} />
         </div>
-        <div className="home-map" aria-label="Florida cities covered by this comparison">
+        <div className="home-map" aria-label="Illustrated map of Miami with office buildings">
           <Image
             alt=""
             className="home-map-background"
             fill
             sizes="(max-width: 1216px) 100vw, 1216px"
-            src="/images/florida-map-light.jpg"
+            src="/images/miami-map-light.jpg"
           />
-          {cities.map(([slug, name], index) => (
-            <Link className={`home-map-marker home-map-marker--${index + 1}`} href={`/cities/${slug}`} key={slug}>
-              <span aria-hidden="true">{name.slice(0, 2).toUpperCase()}</span>
-              <strong>{name}</strong>
-            </Link>
+          {miamiBuildings.map((building) => (
+            <span aria-hidden="true" className={`home-building-marker home-building-marker--${building}`} key={building}>
+              <Image alt="" fill sizes="4rem" src={`/images/miami-building-${building}.jpg`} />
+            </span>
           ))}
           <article className="home-featured-city">
             <div className="home-featured-image">
-              <Image alt="Modern glass office building in Florida" fill sizes="(max-width: 767px) 82vw, 22rem" src="/images/florida-glass-architecture-card.jpg" />
+              <Image alt="Modern waterfront office building in Miami" fill sizes="(max-width: 767px) 82vw, 22rem" src="/images/miami-building-3.jpg" />
             </div>
             <div className="home-featured-copy">
-              <h2>Compare Orlando virtual offices</h2>
+              <h2>Compare Miami virtual offices</h2>
               <p>Address, mail, receptionist, and workspace details in one place.</p>
-              <Link href="/cities/orlando">View Orlando options <span aria-hidden="true">→</span></Link>
+              <Link href="/cities/miami">View Miami options <span aria-hidden="true">→</span></Link>
             </div>
           </article>
         </div>
