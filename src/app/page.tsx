@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import type { Metadata } from 'next'
-import { ButtonLink } from '@/components/ui/button-link'
+import { HomeComparisonSearch } from '@/components/home/home-comparison-search'
 
 export const metadata: Metadata = {
   title: 'Compare Virtual Offices in Florida by Service',
@@ -22,21 +22,42 @@ export default function HomePage() {
     <>
       <header className="home-intro">
         <div className="home-intro-copy">
-          <p className="eyebrow">Compare before you commit</p>
-          <h1>A “virtual office” can mean three different things.</h1>
-          <p>Some plans give you a business address. Others include live call answering. A few combine both with workspace access. Compare what each provider actually includes in your Florida city, and see what may cost extra before you sign.</p>
-          <ButtonLink href="/florida">Compare options in my city</ButtonLink>
+          <p className="home-intro-kicker"><span aria-hidden="true">●</span> Compare before you commit</p>
+          <h1>Compare virtual offices by what you actually need</h1>
+          <p>See what is included, what costs extra, and what providers have not confirmed.</p>
+          <HomeComparisonSearch cities={cities.map(([slug, name]) => ({ slug, name }))} />
         </div>
-        <figure className="home-hero-visual" aria-hidden="true">
+        <div className="home-map" aria-label="Florida cities covered by this comparison">
           <Image
             alt=""
+            className="home-map-background"
             fill
-            fetchPriority="high"
-            priority
             sizes="(max-width: 1216px) 100vw, 1216px"
-            src="/images/florida-glass-architecture.png"
+            src="/images/florida-map-light.jpg"
           />
-        </figure>
+          {cities.map(([slug, name], index) => (
+            <Link className={`home-map-marker home-map-marker--${index + 1}`} href={`/cities/${slug}`} key={slug}>
+              <span aria-hidden="true">{name.slice(0, 2).toUpperCase()}</span>
+              <strong>{name}</strong>
+            </Link>
+          ))}
+          <article className="home-featured-city">
+            <div className="home-featured-image">
+              <Image alt="Modern glass office building in Florida" fill sizes="(max-width: 767px) 82vw, 22rem" src="/images/florida-glass-architecture-card.jpg" />
+            </div>
+            <div className="home-featured-copy">
+              <h2>Compare Orlando virtual offices</h2>
+              <p>Address, mail, receptionist, and workspace details in one place.</p>
+              <Link href="/cities/orlando">View Orlando options <span aria-hidden="true">→</span></Link>
+            </div>
+          </article>
+        </div>
+        <dl className="home-proof-strip">
+          <div><dt>4</dt><dd>providers reviewed</dd></div>
+          <div><dt>5</dt><dd>Florida cities</dd></div>
+          <div><dt>Zero</dt><dd>lead forms</dd></div>
+          <div><dt>Independent</dt><dd>ranking logic</dd></div>
+        </dl>
       </header>
       <section className="home-city-list" aria-labelledby="home-city-heading">
         <div className="section-heading"><h2 id="home-city-heading">Where do you need a business presence?</h2></div>
