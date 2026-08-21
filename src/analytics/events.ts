@@ -9,10 +9,20 @@ const guideSlugs = [
   'how-to-choose-a-virtual-office-in-florida',
   'virtual-office-checklist-for-freelancers-and-small-businesses',
 ] as const
+const homepageJourneys = [
+  ...cities.map((city) => `city:${city}` as const),
+  ...productProviders.map((provider) => `provider:${provider}` as const),
+  'guide:what-is-a-virtual-office',
+  'guide:hidden-fees-in-virtual-office-plans',
+  'guide:mail-handling-vs-live-receptionist',
+  'methodology',
+  'affiliate-disclosure',
+] as const
 
 export type ProductCity = typeof cities[number]
 export type ProductTrack = typeof tracks[number]
 export type ProductProvider = typeof productProviders[number]
+export type HomepageJourney = typeof homepageJourneys[number]
 export type ProductEventName =
   | 'city_page_viewed'
   | 'need_selected'
@@ -22,11 +32,13 @@ export type ProductEventName =
   | 'affiliate_link_clicked'
   | 'methodology_viewed'
   | 'guide_to_city_clicked'
+  | 'homepage_navigation_clicked'
 
 type CityProperties = { city: ProductCity }
 type CityJourneyProperties = { city: ProductCity; journey: string }
 type ProviderLocationProperties = { city: ProductCity; provider: ProductProvider }
 type AffiliateProperties = { provider: ProductProvider; journey: string }
+type HomepageNavigationProperties = { journey: HomepageJourney }
 
 export type ProductEvent =
   | { name: 'city_page_viewed'; properties: CityProperties }
@@ -37,6 +49,7 @@ export type ProductEvent =
   | { name: 'affiliate_link_clicked'; properties: AffiliateProperties }
   | { name: 'methodology_viewed'; properties: CityJourneyProperties }
   | { name: 'guide_to_city_clicked'; properties: CityJourneyProperties }
+  | { name: 'homepage_navigation_clicked'; properties: HomepageNavigationProperties }
 
 const eventNames = new Set<ProductEventName>([
   'city_page_viewed',
@@ -47,11 +60,13 @@ const eventNames = new Set<ProductEventName>([
   'affiliate_link_clicked',
   'methodology_viewed',
   'guide_to_city_clicked',
+  'homepage_navigation_clicked',
 ])
 const citySet = new Set<string>(cities)
 const trackSet = new Set<string>(tracks)
 const productProviderSet = new Set<string>(productProviders)
 const guideSlugSet = new Set<string>(guideSlugs)
+const homepageJourneySet = new Set<string>(homepageJourneys)
 const prohibitedKeys = new Set(['email', 'name', 'phone', 'userId', 'address', 'query'])
 
 export function isProductCity(value: string | null): value is ProductCity {
@@ -109,7 +124,11 @@ export function validateProductEvent(input: unknown): ProductEvent {
   if (keys.some((key) => key !== 'city' && key !== 'provider' && key !== 'journey')) invalid('unapproved property key')
   if (keys.some((key) => typeof properties[key] !== 'string' || (properties[key] as string).length > 255)) invalid('properties must be short strings')
 
-  if (name === 'city_page_viewed') {
+  if (name === 'homepage_navigation_clicked') {
+    if (keys.length !== 1 || keys[0] !== 'journey' || !homepageJourneySet.has(properties.journey as string)) {
+      invalid('homepage navigation requires one approved journey')
+    }
+  } else if (name === 'city_page_viewed') {
     if (keys.length !== 1 || !citySet.has(properties.city as string)) invalid('city page views require an approved city')
   } else if (name === 'affiliate_link_clicked') {
     if (keys.length !== 2 || !isProductProvider(properties.provider as string) || !isAllowedJourney(name, properties.journey as string)) {

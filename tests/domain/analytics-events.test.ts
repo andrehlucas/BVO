@@ -12,9 +12,43 @@ describe('ProductEvent', () => {
       { name: 'affiliate_link_clicked', properties: { provider: 'regus', journey: 'miami|address-mail|1' } },
       { name: 'methodology_viewed', properties: { city: 'miami', journey: 'address-mail' } },
       { name: 'guide_to_city_clicked', properties: { city: 'miami', journey: 'what-is-a-virtual-office' } },
+      { name: 'homepage_navigation_clicked', properties: { journey: 'city:miami' } },
     ]
 
     for (const event of events) expect(validateProductEvent(event)).toEqual(event)
+  })
+
+  it.each([
+    'city:orlando',
+    'city:tampa',
+    'city:fort-lauderdale',
+    'city:miami',
+    'city:boca-raton',
+    'provider:regus',
+    'provider:opus-virtual-offices',
+    'provider:alliance-virtual-offices',
+    'provider:davinci-virtual',
+    'guide:what-is-a-virtual-office',
+    'guide:hidden-fees-in-virtual-office-plans',
+    'guide:mail-handling-vs-live-receptionist',
+    'methodology',
+    'affiliate-disclosure',
+  ] as const)('accepts the approved homepage journey %s', (journey) => {
+    expect(validateProductEvent({
+      name: 'homepage_navigation_clicked',
+      properties: { journey },
+    })).toEqual({ name: 'homepage_navigation_clicked', properties: { journey } })
+  })
+
+  it('rejects free-form or additional homepage navigation properties', () => {
+    expect(() => validateProductEvent({
+      name: 'homepage_navigation_clicked',
+      properties: { journey: 'city:jacksonville' },
+    })).toThrow()
+    expect(() => validateProductEvent({
+      name: 'homepage_navigation_clicked',
+      properties: { journey: 'methodology', city: 'miami' },
+    })).toThrow()
   })
 
   it.each(['regus', 'opus-virtual-offices', 'alliance-virtual-offices', 'davinci-virtual'])('accepts the approved %s provider identifier', (provider) => {
