@@ -16,6 +16,7 @@ jobs:
     timeout-minutes: 20
     env:
       PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.cache/ms-playwright
+      NEXT_PUBLIC_SITE_URL: https://bvo-hazel.vercel.app
 
     steps:
       - name: Check out the repository
