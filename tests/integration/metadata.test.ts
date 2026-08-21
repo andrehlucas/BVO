@@ -6,8 +6,6 @@ import { generateMetadata as guideMetadata } from '@/app/guides/[slug]/page'
 import { generateMetadata as providerMetadata } from '@/app/providers/[slug]/page'
 import { getSiteUrl } from '@/seo/site-url'
 
-const siteUrl = 'http://localhost:3000'
-
 afterEach(() => {
   vi.unstubAllEnvs()
 })
@@ -35,6 +33,7 @@ describe('public metadata', () => {
   })
 
   it('publishes the complete reviewed route inventory in the sitemap', async () => {
+    const siteUrl = getSiteUrl().origin
     const entries = await sitemap()
     const urls = entries.map((entry) => entry.url)
 
