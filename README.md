@@ -14,6 +14,23 @@ npm run dev
 
 Copy `.env.example` to a local `.env` file and replace the placeholder public URLs before a non-local deployment. Never commit an environment file containing credentials.
 
+## Continue on another computer
+
+GitHub is the source of truth for code, content, local skills, and Codex instructions. The root `AGENTS.md` records the durable project decisions that must travel with every clone.
+
+```bash
+git clone https://github.com/andrehlucas/BVO.git
+cd BVO
+npm ci
+npx playwright install chromium
+cp .env.example .env.local
+npm run dev
+```
+
+Create a branch for each change and push it to GitHub. The connected Vercel project creates a Preview Deployment for the branch. After human review and merge, `main` deploys to production. Do not use a Vercel deployment as the only copy of a change.
+
+The application uses `NEXT_PUBLIC_SITE_URL` when a custom canonical domain is configured. On Vercel, it otherwise falls back to the stable `VERCEL_PROJECT_PRODUCTION_URL` system value. Correction contact settings remain optional until real public contact details are approved.
+
 ## Quality gate
 
 ```bash

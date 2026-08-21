@@ -78,4 +78,12 @@ describe('public metadata', () => {
     vi.stubEnv('NEXT_PUBLIC_SITE_URL', 'https://example.com')
     expect(getSiteUrl().toString()).toBe('https://example.com/')
   })
+
+  it('uses the stable Vercel production domain when no custom domain is configured', () => {
+    vi.stubEnv('NODE_ENV', 'production')
+    vi.stubEnv('NEXT_PUBLIC_SITE_URL', '')
+    vi.stubEnv('VERCEL_PROJECT_PRODUCTION_URL', 'bvo.example.vercel.app')
+
+    expect(getSiteUrl().toString()).toBe('https://bvo.example.vercel.app/')
+  })
 })

@@ -20,6 +20,9 @@
   "author": "",
   "license": "ISC",
   "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "geist": "^1.7.2",

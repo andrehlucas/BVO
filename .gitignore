@@ -1,6 +1,7 @@
 .worktrees/
 .superpowers/
 .next/
+.vercel/
 node_modules/
 playwright-report/
 test-results/
