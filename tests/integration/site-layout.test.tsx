@@ -43,7 +43,7 @@ describe('shared site layout', () => {
 
     await user.tab()
     expect(
-      screen.getByRole('link', { name: /florida virtual office guide/i }),
+      screen.getByRole('link', { name: /best virtual offices.*home/i }),
     ).toHaveFocus()
   })
 

@@ -12,8 +12,8 @@ import './globals.css'
 export const metadata: Metadata = {
   metadataBase: getSiteUrl(),
   title: {
-    default: 'Florida Virtual Office Comparison',
-    template: '%s | Florida Virtual Office Comparison',
+    default: 'Best Virtual Offices | Compare Florida Virtual Office Providers',
+    template: '%s | Best Virtual Offices',
   },
   description: 'Compare verified virtual office features, limitations, and evidence across Florida cities.',
 }
@@ -27,7 +27,7 @@ export default function RootLayout({
         <JsonLd data={{
           '@context': 'https://schema.org',
           '@type': 'WebSite',
-          name: 'Florida Virtual Office Comparison',
+          name: 'Best Virtual Offices',
           url: absoluteUrl('/'),
           inLanguage: 'en-US',
         }} />
