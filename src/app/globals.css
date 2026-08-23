@@ -120,7 +120,7 @@ button { color: inherit; }
 .section-heading h2 { font-size: var(--text-xl); }
 .section-heading > a { display: inline-block; margin-top: var(--space-3); font-size: var(--text-sm); font-weight: 680; }
 
-.home-intro { position: relative; display: grid; min-height: 51rem; grid-template-rows: auto minmax(22rem, 1fr) auto; overflow: hidden; border: 1px solid rgb(15 52 96 / 10%); border-radius: 1.25rem; background: #fcfdfd; box-shadow: 0 1.8rem 4rem rgb(15 52 96 / 10%); color: var(--color-ink); isolation: isolate; }
+.home-intro { position: relative; display: grid; width: 100vw; min-height: 51rem; margin-inline: calc(50% - 50vw); grid-template-rows: auto minmax(22rem, 1fr) auto; overflow: hidden; border: 0; border-radius: 0; background: #fcfdfd; box-shadow: none; color: var(--color-ink); isolation: isolate; }
 .home-intro-copy { position: relative; z-index: 3; width: min(100% - 2rem, 52rem); margin-inline: auto; padding-top: 7.6rem; text-align: center; }
 .home-intro h1, .hub-heading h1, .city-heading h1 { font-size: clamp(2.7rem, 4.6vw, 5rem); }
 .home-intro h1 { max-width: 22ch; margin-inline: auto; color: #101820; font-size: clamp(2.55rem, 4.4vw, 4.2rem); letter-spacing: -0.06em; line-height: 0.98; text-wrap: balance; }

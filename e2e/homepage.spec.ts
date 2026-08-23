@@ -12,6 +12,25 @@ test.describe('homepage decision journey', () => {
     await expect(page.getByLabel('Illustrated map of Miami with office buildings')).toBeVisible()
     await expect(page.locator('.home-proof-strip')).toContainText('4providers reviewed')
 
+    const heroSurface = await page.locator('.home-intro').evaluate((hero) => {
+      const rect = hero.getBoundingClientRect()
+      const styles = getComputedStyle(hero)
+      return {
+        left: Math.round(rect.left),
+        right: Math.round(rect.right),
+        viewportWidth: window.innerWidth,
+        borderRadius: styles.borderRadius,
+        boxShadow: styles.boxShadow,
+      }
+    })
+    expect(heroSurface).toEqual({
+      left: 0,
+      right: heroSurface.viewportWidth,
+      viewportWidth: heroSurface.viewportWidth,
+      borderRadius: '0px',
+      boxShadow: 'none',
+    })
+
     const sections = page.locator('[data-home-section]')
     await expect(sections).toHaveCount(6)
     expect(await sections.evaluateAll((elements) => elements.map((element) => element.getAttribute('data-home-section')))).toEqual(sectionOrder)
