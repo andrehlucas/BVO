@@ -3,6 +3,8 @@ import type { EditorialPage } from '@/content/types'
 import { GuideCityNavigationTelemetry } from './guide-city-navigation-telemetry'
 import { JsonLd } from '@/components/seo/json-ld'
 import { absoluteUrl } from '@/seo/site-url'
+import { ProviderProfileLayout } from './provider-profile-layout'
+import { EditorialHtml } from './editorial-html'
 
 interface ArticleLayoutProps {
   page: EditorialPage
@@ -10,6 +12,10 @@ interface ArticleLayoutProps {
 }
 
 export function ArticleLayout({ page, sectionLabel }: ArticleLayoutProps) {
+  if (sectionLabel === 'Provider review' && page.slug === 'opus-virtual-offices') {
+    return <ProviderProfileLayout page={page} />
+  }
+
   return (
     <article className="article-layout">
       <JsonLd data={{
@@ -34,8 +40,8 @@ export function ArticleLayout({ page, sectionLabel }: ArticleLayoutProps) {
       </header>
       <GlassSurface as="section" aria-label={`${page.title} article`} className="article-body">
         {sectionLabel === 'Guide'
-          ? <GuideCityNavigationTelemetry guideSlug={page.slug}><div dangerouslySetInnerHTML={{ __html: page.html }} /></GuideCityNavigationTelemetry>
-          : <div dangerouslySetInnerHTML={{ __html: page.html }} />}
+          ? <GuideCityNavigationTelemetry guideSlug={page.slug}><EditorialHtml html={page.html} /></GuideCityNavigationTelemetry>
+          : <EditorialHtml html={page.html} />}
       </GlassSurface>
     </article>
   )

@@ -1,6 +1,6 @@
 ---
 title: "Opus Virtual Offices Review: National Services and Tradeoffs"
-description: A nationwide review of Opus Virtual Offices, covering its address and receptionist bundle, mail handling, add-ons, contract terms, advantages and tradeoffs.
+description: A nationwide review of Opus address, receptionist, mail, add-on and contract terms, with advantages and tradeoffs.
 slug: opus-virtual-offices
 publishedAt: 2026-08-19
 reviewedAt: 2026-08-23

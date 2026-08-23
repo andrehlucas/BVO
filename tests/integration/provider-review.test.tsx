@@ -11,6 +11,9 @@ describe('national provider review', () => {
     expect(screen.getByRole('heading', { name: /opus may fit if/i })).toBeVisible()
     expect(screen.getByRole('heading', { name: /think twice if/i })).toBeVisible()
     expect(screen.getByRole('heading', { name: /advantages and tradeoffs/i })).toBeVisible()
+    expect(screen.getByRole('img', { name: /illustrative virtual office reception area/i })).toBeVisible()
+    expect(screen.getByRole('link', { name: /compare florida locations/i })).toHaveAttribute('href', '#compare-locally')
+    expect(screen.getByText('650+').closest('dl')).toHaveClass('provider-fact-strip')
 
     const article = screen.getByRole('region', { name: /opus virtual offices review.*article/i })
     expect(within(article).getByText(/provider says it offers more than 650 locations/i)).toBeVisible()
