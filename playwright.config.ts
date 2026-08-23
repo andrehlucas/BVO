@@ -1,5 +1,11 @@
 import { defineConfig, devices } from '@playwright/test'
 
+const e2ePort = Number(process.env.E2E_PORT ?? '3000')
+
+if (!Number.isInteger(e2ePort) || e2ePort < 1024 || e2ePort > 65535) {
+  throw new Error('E2E_PORT must be an integer between 1024 and 65535')
+}
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: false,
@@ -7,7 +13,7 @@ export default defineConfig({
   reporter: [['html', { open: 'never' }], ['list']],
   outputDir: 'test-results',
   use: {
-    baseURL: 'http://127.0.0.1:3000',
+    baseURL: `http://127.0.0.1:${e2ePort}`,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -25,8 +31,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run dev',
-    url: 'http://127.0.0.1:3000',
+    command: `npm run dev -- --port ${e2ePort}`,
+    url: `http://127.0.0.1:${e2ePort}`,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },
