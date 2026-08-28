@@ -1,5 +1,5 @@
 const localSiteUrl = 'http://localhost:3000'
-const chatGptSitesUrl = 'https://best-virtual-offices-florida.chatgpt.site'
+const chatGptSitesUrl = 'https://best-virtual-offices-florida.andrehlucas.chatgpt.site'
 
 export function getSiteUrl(): URL {
   const vercelProductionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL
