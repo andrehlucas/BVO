@@ -1,6 +1,8 @@
 .worktrees/
 .superpowers/
 .next/
+.open-next/
+dist/
 .vercel/
 .cache/
 node_modules/
