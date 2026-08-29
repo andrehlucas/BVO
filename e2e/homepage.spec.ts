@@ -24,6 +24,10 @@ test.describe('homepage decision journey', () => {
     await expect(page.getByRole('link', { name: 'Review the ranking method' })).toHaveAttribute('href', '/methodology')
     await expect(page.getByRole('link', { name: 'See how affiliate links work' })).toHaveAttribute('href', '/affiliate-disclosure')
 
+    await expect(page.getByRole('link', { name: /Miami.*Compare address plans/i })).toHaveAttribute('href', '/cities/miami?need=address-mail')
+    await page.getByRole('button', { name: /Make sure every business call is answered/i }).click()
+    await expect(page.getByRole('link', { name: /Miami.*Compare receptionist plans/i })).toHaveAttribute('href', '/cities/miami?need=receptionist-phone')
+
     const hasHorizontalOverflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)
     expect(hasHorizontalOverflow).toBe(false)
 
@@ -49,5 +53,16 @@ test.describe('homepage decision journey', () => {
     await expect(orlando).toBeFocused()
     await page.keyboard.press('Enter')
     await expect(page).toHaveURL(/\/cities\/orlando$/)
+  })
+
+  test('opens a need-filtered comparison from the keyboard', async ({ page }) => {
+    await page.goto('/')
+    const receptionistNeed = page.getByRole('button', { name: /Make sure every business call is answered/i })
+    await receptionistNeed.focus()
+    await page.keyboard.press('Enter')
+    const miami = page.getByRole('link', { name: /Miami.*Compare receptionist plans/i })
+    await miami.focus()
+    await page.keyboard.press('Enter')
+    await expect(page).toHaveURL(/\/cities\/miami\?need=receptionist-phone$/)
   })
 })

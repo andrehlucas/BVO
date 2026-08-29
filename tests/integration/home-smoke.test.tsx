@@ -22,6 +22,7 @@ it('introduces the Florida virtual office comparison with accessible custom drop
 })
 
 it('moves from service choice to local comparison, cost, providers, proof, and guides', async () => {
+  const user = userEvent.setup()
   const { container } = render(await HomePage())
   const sections = [...container.querySelectorAll<HTMLElement>('[data-home-section]')]
 
@@ -33,7 +34,11 @@ it('moves from service choice to local comparison, cost, providers, proof, and g
     'methodology',
     'guides',
   ])
-  expect(screen.getByRole('heading', { name: 'Choose the service before you compare the price' })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: 'Find the plans built for the job' })).toBeInTheDocument()
+  expect(screen.getByRole('link', { name: /orlando.*compare address plans/i })).toHaveAttribute('href', '/cities/orlando?need=address-mail')
+  await user.click(screen.getByRole('button', { name: /make sure every business call is answered/i }))
+  expect(screen.getByRole('link', { name: /miami.*compare receptionist plans/i })).toHaveAttribute('href', '/cities/miami?need=receptionist-phone')
+  expect(screen.queryByRole('link', { name: /orlando.*compare address plans/i })).not.toBeInTheDocument()
   expect(screen.getByRole('heading', { name: 'Avoid the fees that change the real price' })).toBeInTheDocument()
   expect(screen.getByRole('heading', { name: 'See how the four providers really differ' })).toBeInTheDocument()
   expect(screen.getByRole('heading', { name: 'See why one offer ranks above another' })).toBeInTheDocument()
