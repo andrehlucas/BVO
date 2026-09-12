@@ -1,4 +1,5 @@
 const localSiteUrl = 'http://localhost:3000'
+const chatGptSitesUrl = 'https://best-virtual-offices-florida.andrehlucas.chatgpt.site'
 
 export function getSiteUrl(): URL {
   const vercelProductionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -16,11 +17,7 @@ export function getSiteUrl(): URL {
     return url
   }
 
-  if (!configuredUrl) {
-    throw new Error('NEXT_PUBLIC_SITE_URL is required for production metadata')
-  }
-
-  const url = new URL(configuredUrl)
+  const url = new URL(configuredUrl || chatGptSitesUrl)
   if (url.protocol !== 'https:') {
     throw new Error('NEXT_PUBLIC_SITE_URL must use HTTPS in production')
   }

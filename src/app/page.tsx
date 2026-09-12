@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import type { Metadata } from 'next'
 import { HomeComparisonSearch } from '@/components/home/home-comparison-search'
+import { HomeNeedJourney } from '@/components/home/home-need-journey'
 import { HomeTrackedLink } from '@/components/home/home-tracked-link'
 import { listEditorialPages } from '@/content/load-editorial-page'
 import type { EditorialPage } from '@/content/types'
@@ -122,24 +123,11 @@ export default async function HomePage() {
       </header>
       <section className="home-section home-needs" aria-labelledby="home-needs-heading" data-home-section="needs">
         <div className="home-section-heading">
-          <p className="eyebrow">Start with the job</p>
-          <h2 id="home-needs-heading">Choose the service before you compare the price</h2>
-          <p>An address plan and a receptionist plan solve different problems. Pick the job first so you do not pay for the wrong package.</p>
+          <p className="eyebrow">Compare by need</p>
+          <h2 id="home-needs-heading">Find the plans built for the job</h2>
+          <p>Choose what your virtual office needs to handle. We’ll show you which providers document those services in your Florida city.</p>
         </div>
-        <ol className="home-need-list">
-          <li>
-            <div><strong>Protect your home address</strong><p>Business address, mail receipt and available mail handling.</p></div>
-            <a href="#compare-by-city">Choose a city <span aria-hidden="true">↓</span></a>
-          </li>
-          <li>
-            <div><strong>Stop missing business calls</strong><p>Live answering, business number and call routing.</p></div>
-            <a href="#compare-by-city">Choose a city <span aria-hidden="true">↓</span></a>
-          </li>
-          <li>
-            <div><strong>Handle mail, calls and occasional workspace</strong><p>A verified combination of address, phone and physical access.</p></div>
-            <a href="#compare-by-city">Choose a city <span aria-hidden="true">↓</span></a>
-          </li>
-        </ol>
+        <HomeNeedJourney cities={cities.map(([slug, name]) => ({ slug, name }))} />
       </section>
 
       <section className="home-section home-markets" id="compare-by-city" aria-labelledby="home-markets-heading" data-home-section="cities">
