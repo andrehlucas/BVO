@@ -24,7 +24,7 @@ export function SiteHeader() {
               priority
             />
           </span>
-          <span className="site-brand-name">Best Virtual Offices</span>
+          <span className="site-brand-name text-[18px]">Best Virtual Offices</span>
         </Link>
         <nav aria-label="Primary navigation">
           <ul className="site-nav-list">
@@ -33,5 +33,5 @@ export function SiteHeader() {
         </nav>
       </div>
     </GlassSurface>
-  )
+  );
 }
