@@ -1,0 +1,10 @@
+.worktrees/
+.superpowers/
+.next/
+.vercel/
+.cache/
+node_modules/
+playwright-report/
+test-results/
+.env*
+tsconfig.tsbuildinfo
