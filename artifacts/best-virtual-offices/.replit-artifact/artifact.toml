@@ -1,0 +1,25 @@
+kind = "web"
+previewPath = "/"
+title = "Best Virtual Offices"
+description = "An independent editorial comparison site for evaluating virtual office providers across Florida cities, including service rankings, provider reviews, pricing considerations, and practical guides for small businesses."
+version = "1.0.0"
+id = "artifacts/best-virtual-offices"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23729
+
+[services.development]
+run = "pnpm --filter @workspace/best-virtual-offices run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/best-virtual-offices", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/best-virtual-offices/dist/public"
+
+
+[services.env]
+PORT = "23729"
+BASE_PATH = "/"
