@@ -113,7 +113,7 @@ function HomeSelect({ defaultValue, label, name, options }: HomeSelectProps) {
         type="button"
       >
         <span className="home-search-value" id={`${id}-value`}>{selected.label}</span>
-        <span aria-hidden="true" className="home-search-chevron">{open ? '⌃' : '⌄'}</span>
+        <span aria-hidden="true" className="home-search-chevron" />
       </button>
       {open && (
         <div aria-labelledby={`${id}-label`} className="home-search-listbox" id={`${id}-listbox`} role="listbox">
@@ -130,7 +130,8 @@ function HomeSelect({ defaultValue, label, name, options }: HomeSelectProps) {
               tabIndex={-1}
               type="button"
             >
-              {option.label}
+              <span>{option.label}</span>
+              <span aria-hidden="true" className="home-search-option-check">✓</span>
             </button>
           ))}
         </div>
