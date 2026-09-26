@@ -96,7 +96,7 @@ export default function HomePage() {
           ))}
           <article className="home-featured-city">
             <div className="home-featured-image">
-              <Image alt="Modern waterfront office building in Miami" fill sizes="(max-width: 767px) 82vw, 22rem" src="/images/miami-building-3.jpg" />
+              <Image alt="Illustrative Miami waterfront office architecture" fill sizes="(max-width: 767px) 82vw, 22rem" src="/images/bvo-miami-feature.jpg" />
             </div>
             <div className="home-featured-copy">
               <p className="home-featured-location">
