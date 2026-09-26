@@ -129,12 +129,14 @@ export default function HomePage() {
         </dl>
       </header>
       <section className="home-section home-needs" aria-labelledby="home-needs-heading" data-home-section="needs">
-        <div className="home-section-heading">
-          <p className="eyebrow">Start with the service</p>
-          <h2 id="home-needs-heading">Choose what you need. Compare plans that document it.</h2>
-          <p>See local providers, what each plan includes, and where details are missing.</p>
+        <div className="home-needs-inner">
+          <div className="home-section-heading">
+            <p className="home-intro-kicker"><span aria-hidden="true">●</span> Start with the service</p>
+            <h2 id="home-needs-heading">Choose what you need. Compare plans that document it.</h2>
+            <p>See local providers, what each plan includes, and where details are missing.</p>
+          </div>
+          <HomeNeedJourney cities={cities.map(([slug, name]) => ({ slug, name }))} />
         </div>
-        <HomeNeedJourney cities={cities.map(([slug, name]) => ({ slug, name }))} />
       </section>
 
       <section className="home-section home-markets" id="compare-by-city" aria-labelledby="home-markets-heading" data-home-section="cities">

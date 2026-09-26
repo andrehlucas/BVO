@@ -1,1 +1,2 @@
 - [Generated image framing](generated-image-framing.md) — landscape prompts may still produce square files; inspect dimensions and crop intentionally.
+- [JSX metadata and generics](jsx-metadata-generics.md) — avoid explicit JSX type parameters in this preview; typecheck can pass while Babel rendering fails.
