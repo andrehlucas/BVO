@@ -17,20 +17,20 @@ interface NeedOption {
 const needs: NeedOption[] = [
   {
     id: 'address-mail',
-    title: 'Keep your home address private',
-    description: 'Compare business address and mail plans, including handling and forwarding details.',
-    linkLabel: 'address plans',
+    title: 'Use a business address for mail',
+    description: 'Compare address plans and check what’s included for mail receipt, forwarding, and handling.',
+    linkLabel: 'address & mail plans',
   },
   {
     id: 'receptionist-phone',
-    title: 'Make sure every business call is answered',
-    description: 'Compare live receptionist plans, business numbers, routing and documented usage limits.',
+    title: 'Have calls answered by a receptionist',
+    description: 'Compare live answering, business numbers, call routing, and published usage limits.',
     linkLabel: 'receptionist plans',
   },
   {
     id: 'full-office',
-    title: 'Run mail, calls and workspace in one place',
-    description: 'Compare plans that combine address, phone and physical workspace access.',
+    title: 'Bring address, calls, and workspace together',
+    description: 'Compare bundled services and check where access or usage may be limited.',
     linkLabel: 'full-service plans',
   },
 ]
@@ -59,7 +59,7 @@ export function HomeNeedJourney({ cities }: { cities: CityOption[] }) {
                 <span>{need.description}</span>
               </span>
               <span className="home-need-action" aria-hidden="true">
-                {selected ? 'Choose your city' : 'Select this need'}
+                {selected ? 'Choose a city' : 'Choose this need'}
                 <span className="home-need-arrow">→</span>
               </span>
             </button>
@@ -67,8 +67,8 @@ export function HomeNeedJourney({ cities }: { cities: CityOption[] }) {
             {selected && (
               <div className="home-need-cities" id={panelId}>
                 <div className="home-need-cities-heading">
-                  <p>Where should your business show up?</p>
-                  <span>Open a local comparison filtered to this service.</span>
+                  <p>Which city do you want to compare?</p>
+                  <span>See local providers and plans for this service.</span>
                 </div>
                 <ul>
                   {cities.map((city) => (

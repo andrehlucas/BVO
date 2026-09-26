@@ -76,9 +76,9 @@ export default function HomePage() {
     <>
       <header className="home-intro">
         <div className="home-intro-copy">
-          <p className="home-intro-kicker"><span aria-hidden="true">●</span> Compare before you commit</p>
-          <h1>Compare virtual offices by what you actually need</h1>
-          <p>See what is included, what costs extra, and what providers have not confirmed.</p>
+          <p className="home-intro-kicker"><span aria-hidden="true">●</span> Make a more informed choice</p>
+          <h1>Compare virtual offices by the services your business needs</h1>
+          <p>See what’s included, spot extra fees, and know where provider details are still missing.</p>
           <HomeComparisonSearch cities={cities.map(([slug, name]) => ({ slug, name }))} />
         </div>
         <div className="home-map" aria-label="Illustrated map of Miami with office buildings">
@@ -99,9 +99,9 @@ export default function HomePage() {
               <Image alt="Modern waterfront office building in Miami" fill sizes="(max-width: 767px) 82vw, 22rem" src="/images/miami-building-3.jpg" />
             </div>
             <div className="home-featured-copy">
-              <h2>Compare Miami virtual offices</h2>
-              <p>Address, mail, receptionist, and workspace details in one place.</p>
-              <Link href="/cities/miami">View Miami options <span aria-hidden="true">→</span></Link>
+              <h2>Virtual office options in Miami</h2>
+              <p>Compare local address, mail, phone, and workspace services side by side.</p>
+              <Link href="/cities/miami">Compare Miami options <span aria-hidden="true">→</span></Link>
             </div>
           </article>
         </div>
@@ -109,29 +109,29 @@ export default function HomePage() {
           <div><dt>4</dt><dd>providers reviewed</dd></div>
           <div><dt>5</dt><dd>Florida cities</dd></div>
           <div><dt>Zero</dt><dd>lead forms</dd></div>
-          <div><dt>Independent</dt><dd>ranking logic</dd></div>
+          <div><dt>Independent</dt><dd>rankings, separate from affiliate data</dd></div>
         </dl>
       </header>
       <section className="home-section home-needs" aria-labelledby="home-needs-heading" data-home-section="needs">
         <div className="home-section-heading">
-          <p className="eyebrow">Compare by need</p>
-          <h2 id="home-needs-heading">Find the plans built for the job</h2>
-          <p>Choose what your virtual office needs to handle. We’ll show you which providers document those services in your Florida city.</p>
+          <p className="eyebrow">Start with the service</p>
+          <h2 id="home-needs-heading">Choose what you need. Compare plans that provide it.</h2>
+          <p>Select a service to see local providers, what they document, and where plan details are limited.</p>
         </div>
         <HomeNeedJourney cities={cities.map(([slug, name]) => ({ slug, name }))} />
       </section>
 
       <section className="home-section home-markets" id="compare-by-city" aria-labelledby="home-markets-heading" data-home-section="cities">
         <div className="home-section-heading">
-          <p className="eyebrow">Compare locally</p>
-          <h2 id="home-markets-heading">Find the right option in your Florida city</h2>
-          <p>Availability, pricing and address choices change by location. Start where your business needs to show up.</p>
+          <p className="eyebrow">Compare local plans</p>
+          <h2 id="home-markets-heading">Find virtual office options in your city</h2>
+          <p>Prices, locations, and available services vary by city. Choose a market to see local options.</p>
         </div>
         <ul className="home-market-grid">
           {cities.map(([slug, name]) => (
             <li key={slug}>
               <HomeTrackedLink href={`/cities/${slug}`} journey={`city:${slug}`}>
-                <span aria-hidden="true">Florida city</span>
+                <span aria-hidden="true">Local comparison</span>
                 <strong>Compare {name} options</strong>
                 <span aria-hidden="true">→</span>
               </HomeTrackedLink>
@@ -142,10 +142,10 @@ export default function HomePage() {
 
       <section className="home-section home-costs" aria-labelledby="home-costs-heading" data-home-section="costs">
         <div className="home-costs-intro">
-          <p className="eyebrow">Read beyond the rate</p>
-          <h2 id="home-costs-heading">Avoid the fees that change the real price</h2>
-          <p>Headline rates may leave out setup, forwarding, call overages, workspace and renewal costs. We separate them before you compare.</p>
-          <HomeTrackedLink href="/guides/hidden-fees-in-virtual-office-plans" journey="guide:hidden-fees-in-virtual-office-plans">See what can cost extra <span aria-hidden="true">→</span></HomeTrackedLink>
+          <p className="eyebrow">See the full cost</p>
+          <h2 id="home-costs-heading">Know what a plan really costs</h2>
+          <p>Monthly rates may not include setup, mail forwarding, call overages, workspace access, or renewal fees. Check each cost before you choose.</p>
+          <HomeTrackedLink href="/guides/hidden-fees-in-virtual-office-plans" journey="guide:hidden-fees-in-virtual-office-plans">Check for extra fees <span aria-hidden="true">→</span></HomeTrackedLink>
         </div>
         <ol className="home-cost-grid">
           {['Monthly rate', 'Setup and activation', 'Mail handling', 'Receptionist usage', 'Workspace access', 'Contract and renewal'].map((cost, index) => (
@@ -156,9 +156,9 @@ export default function HomePage() {
 
       <section className="home-section home-providers" aria-labelledby="home-providers-heading" data-home-section="providers">
         <div className="home-section-heading">
-          <p className="eyebrow">Provider reviews</p>
-          <h2 id="home-providers-heading">See how the four providers really differ</h2>
-          <p>The same label can describe four different products. Review what each provider documents before comparing its price.</p>
+          <p className="eyebrow">Independent provider reviews</p>
+          <h2 id="home-providers-heading">Know what each provider includes</h2>
+          <p>Plans with similar names can differ. Check each provider’s published services, limits, and evidence before comparing prices.</p>
         </div>
         <div className="home-provider-grid">
           {providerPages.map((provider) => {
@@ -180,27 +180,27 @@ export default function HomePage() {
       <section className="home-section home-method" aria-labelledby="home-method-heading" data-home-section="methodology">
         <div className="home-method-panel">
           <div className="home-section-heading">
-            <p className="eyebrow">The reasoning is visible</p>
-            <h2 id="home-method-heading">See why one offer ranks above another</h2>
-            <p>Every recommendation must trace back to comparable services, published evidence and visible limitations.</p>
+          <p className="eyebrow">How we rank</p>
+          <h2 id="home-method-heading">See how every offer earns its place</h2>
+          <p>We compare like-for-like services and published evidence. If a price or allowance is missing, we mark it unknown—not guess.</p>
           </div>
           <dl className="home-method-grid">
-            <div><dt>Like-for-like comparisons</dt><dd>Address plans compete with address plans. Receptionist plans compete with receptionist plans.</dd></div>
-            <div><dt>Unknown stays unknown</dt><dd>Missing prices or allowances do not become estimates.</dd></div>
-            <div><dt>Rankings cannot access affiliate data</dt><dd>Commercial relationships remain outside the scoring domain.</dd></div>
+            <div><dt>Compare like with like</dt><dd>Address plans are ranked against address plans; receptionist plans against receptionist plans.</dd></div>
+            <div><dt>Missing details stay missing</dt><dd>If a provider hasn’t published a price or allowance, we don’t fill the gap with an estimate.</dd></div>
+            <div><dt>Affiliate relationships stay separate</dt><dd>Commercial relationships don’t change the scoring or rankings.</dd></div>
           </dl>
           <div className="home-method-actions">
-            <HomeTrackedLink href="/methodology" journey="methodology">Review the ranking method <span aria-hidden="true">→</span></HomeTrackedLink>
-            <HomeTrackedLink href="/affiliate-disclosure" journey="affiliate-disclosure">See how affiliate links work</HomeTrackedLink>
+            <HomeTrackedLink href="/methodology" journey="methodology">See our ranking method <span aria-hidden="true">→</span></HomeTrackedLink>
+            <HomeTrackedLink href="/affiliate-disclosure" journey="affiliate-disclosure">Read our affiliate disclosure</HomeTrackedLink>
           </div>
         </div>
       </section>
 
       <section className="home-section home-guides" aria-labelledby="home-guides-heading" data-home-section="guides">
         <div className="home-section-heading">
-          <p className="eyebrow">Prepare your comparison</p>
-          <h2 id="home-guides-heading">Compare with a checklist, not a guess</h2>
-          <p>Know which questions change the bill, the contract and the service you receive.</p>
+          <p className="eyebrow">Make an informed choice</p>
+          <h2 id="home-guides-heading">Know what to ask before you compare</h2>
+          <p>Get clear on the fees, terms, and service details that can change what you pay and what you receive.</p>
         </div>
         <ul className="home-guide-list">
           {guidePages.map((guide, index) => (
@@ -208,14 +208,14 @@ export default function HomePage() {
               <span>0{index + 1}</span>
               <HomeTrackedLink href={`/guides/${guide.slug}`} journey={homepageJourneyFor(guideJourneyBySlug, guide.slug)}>
                 <strong>{guide.title}</strong>
-                <span>Read the guide <span aria-hidden="true">→</span></span>
+                <span>Read guide <span aria-hidden="true">→</span></span>
               </HomeTrackedLink>
             </li>
           ))}
         </ul>
         <div className="home-final-cta">
-          <div><h3>Ready to compare?</h3><p>Choose a Florida city and see which offers match the service you need.</p></div>
-          <Link className="button-link button-link--primary" href="/florida">Compare Florida options <span aria-hidden="true">→</span></Link>
+          <div><h3>Find a plan that fits your business</h3><p>Compare Florida options by service, cost, and contract flexibility. No contact form required.</p></div>
+          <Link className="button-link button-link--primary" href="/florida">Compare virtual offices <span aria-hidden="true">→</span></Link>
         </div>
       </section>
     </>

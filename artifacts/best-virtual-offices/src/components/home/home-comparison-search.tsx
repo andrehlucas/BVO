@@ -162,7 +162,7 @@ export function HomeComparisonSearch({ cities }: { cities: CityOption[] }) {
       />
       <HomeSelect
         defaultValue="address-mail"
-        label="Service needed"
+        label="Service"
         name="need"
         options={[
           { label: 'Address & mail', value: 'address-mail' },
@@ -172,14 +172,14 @@ export function HomeComparisonSearch({ cities }: { cities: CityOption[] }) {
       />
       <HomeSelect
         defaultValue="no"
-        label="Plan flexibility"
+        label="Contract term"
         name="monthToMonth"
         options={[
-          { label: 'Any contract', value: 'no' },
+          { label: 'Any contract term', value: 'no' },
           { label: 'Month-to-month only', value: 'yes' },
         ]}
       />
-      <button aria-label="Compare selected options" className="home-search-submit" type="submit"><span aria-hidden="true" /></button>
+      <button aria-label="Find matching virtual offices" className="home-search-submit" type="submit"><span aria-hidden="true" /></button>
     </form>
   )
 }
