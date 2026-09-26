@@ -710,10 +710,11 @@ body:has(.home-intro) .home-intro { margin-top: -4.85rem; }
 .comparison-card.is-selected .comparison-card-action-icon { background: var(--color-accent); }
 .comparison-carousel-controls { display: none; }
 
-.home-need-cities { margin-top: clamp(1.25rem, 3vw, 2rem); border: 1px solid rgb(15 52 96 / 10%); border-radius: 1.15rem; background: #fff; box-shadow: 0 1.2rem 2.5rem rgb(15 52 96 / 8%); padding: clamp(1.25rem, 3vw, 2rem); }
+.home-need-cities { margin-top: clamp(1.25rem, 3vw, 2rem); border: 1px solid rgb(15 52 96 / 10%); border-radius: 1.15rem; background: #fff; box-shadow: 0 1.2rem 2.5rem rgb(15 52 96 / 8%); padding: clamp(1.25rem, 3vw, 2rem); scroll-margin-top: 7rem; }
+.home-need-cities[hidden] { display: none; }
 .home-need-cities-heading { display: flex; align-items: end; justify-content: space-between; gap: var(--space-5); margin-bottom: var(--space-5); }
 .home-need-step { color: var(--color-accent-strong); font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-.home-need-cities-heading p { margin: 0.35rem 0 0; color: #101820; font-size: clamp(1.2rem, 2vw, 1.55rem); font-weight: 720; letter-spacing: -0.035em; line-height: 1.1; }
+.home-need-cities-heading h3 { margin: 0.35rem 0 0; color: #101820; font-size: clamp(1.2rem, 2vw, 1.55rem); font-weight: 720; letter-spacing: -0.035em; line-height: 1.1; }
 .home-need-cities-heading > span { max-width: 36ch; color: #647386; font-size: var(--text-sm); text-align: right; text-wrap: pretty; }
 .home-need-cities ul { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
 .home-need-cities a { display: grid; min-height: 7rem; grid-template-rows: auto 1fr auto; gap: var(--space-2); border: 1px solid rgb(15 52 96 / 9%); border-radius: 0.9rem; background: #f7f9fc; color: var(--color-ink); padding: var(--space-4); text-decoration: none; transition: transform 180ms var(--ease-fluid), border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease; }

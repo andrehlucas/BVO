@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import type { ProductTrack } from '@/analytics/events'
 import { HomeTrackedLink } from '@/components/home/home-tracked-link'
 import AppleCardCarousel from '@/components/ui/carousel-08'
@@ -45,39 +45,63 @@ const needs: NeedOption[] = [
 ]
 
 export function HomeNeedJourney({ cities }: { cities: CityOption[] }) {
-  const [selectedNeed, setSelectedNeed] = useState<NeedOption>(needs[0])
+  const [selectedNeed, setSelectedNeed] = useState<NeedOption | null>(null)
+  const citiesRef = useRef<HTMLDivElement>(null)
+  const headingRef = useRef<HTMLHeadingElement>(null)
+
+  const selectNeed = (need: NeedOption) => {
+    setSelectedNeed(need)
+    window.requestAnimationFrame(() => {
+      headingRef.current?.focus({ preventScroll: true })
+      citiesRef.current?.scrollIntoView({
+        behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'start',
+      })
+    })
+  }
 
   return (
     <div className="home-need-journey">
       <AppleCardCarousel
         cards={needs}
         controlsId="home-need-cities"
-        onSelect={(need: NeedOption) => setSelectedNeed(need)}
-        selectedId={selectedNeed.id}
+        onSelect={selectNeed}
+        selectedId={selectedNeed?.id ?? null}
       />
-      <div aria-labelledby="home-need-cities-heading" className="home-need-cities" id="home-need-cities" role="region">
-        <div className="home-need-cities-heading">
-          <div>
-            <span className="home-need-step">Next / choose a city</span>
-            <p id="home-need-cities-heading">Which city do you want to compare?</p>
-          </div>
-          <span aria-live="polite">Showing {selectedNeed.linkLabel} by city.</span>
-        </div>
-        <ul>
-          {cities.map((city) => (
-            <li key={city.slug}>
-              <HomeTrackedLink
-                href={`/cities/${city.slug}?need=${selectedNeed.id}`}
-                journey={`city:${city.slug}`}
-              >
-                <span>{city.name}</span>
-                <strong>Compare {selectedNeed.linkLabel}</strong>
-                <span aria-hidden="true">→</span>
-              </HomeTrackedLink>
-            </li>
-          ))}
-        </ul>
-        <p className="home-need-privacy">No signup. No contact details required.</p>
+      <div
+        aria-labelledby="home-need-cities-heading"
+        className="home-need-cities"
+        hidden={!selectedNeed}
+        id="home-need-cities"
+        ref={citiesRef}
+        role="region"
+      >
+        {selectedNeed && (
+          <>
+            <div className="home-need-cities-heading">
+              <div>
+                <span className="home-need-step">Step 2 of 2 / Choose a city</span>
+                <h3 id="home-need-cities-heading" ref={headingRef} tabIndex={-1}>Which city do you want to compare?</h3>
+              </div>
+              <span aria-live="polite">Selected: {selectedNeed.category}. Choose a city to see plans.</span>
+            </div>
+            <ul>
+              {cities.map((city) => (
+                <li key={city.slug}>
+                  <HomeTrackedLink
+                    href={`/cities/${city.slug}?need=${selectedNeed.id}`}
+                    journey={`city:${city.slug}`}
+                  >
+                    <span>{city.name}</span>
+                    <strong>Compare {selectedNeed.linkLabel}</strong>
+                    <span aria-hidden="true">→</span>
+                  </HomeTrackedLink>
+                </li>
+              ))}
+            </ul>
+            <p className="home-need-privacy">No signup. No contact details required.</p>
+          </>
+        )}
       </div>
     </div>
   )

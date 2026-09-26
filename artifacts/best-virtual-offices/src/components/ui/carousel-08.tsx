@@ -20,7 +20,7 @@ interface AppleCardCarouselProps<T extends CarouselCardItem> {
   cards: T[]
   controlsId: string
   onSelect: (card: T) => void
-  selectedId: T['id']
+  selectedId: T['id'] | null
 }
 
 export default function AppleCardCarousel<T extends CarouselCardItem>({
