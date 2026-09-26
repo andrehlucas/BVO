@@ -99,9 +99,25 @@ export default function HomePage() {
               <Image alt="Modern waterfront office building in Miami" fill sizes="(max-width: 767px) 82vw, 22rem" src="/images/miami-building-3.jpg" />
             </div>
             <div className="home-featured-copy">
+              <p className="home-featured-location">
+                <svg aria-hidden="true" viewBox="0 0 16 16">
+                  <path d="M12 6.5c0 4-4 7-4 7s-4-3-4-7a4 4 0 1 1 8 0Z" />
+                  <circle cx="8" cy="6.5" r="1.25" />
+                </svg>
+                Miami, Florida
+              </p>
               <h2>Virtual office options in Miami</h2>
-              <p>Compare local address, mail, phone, and workspace services side by side.</p>
-              <Link href="/cities/miami">Compare Miami options <span aria-hidden="true">→</span></Link>
+              <p>Compare address, mail, phone, and workspace services side by side.</p>
+              <ul aria-label="Services to compare" className="home-featured-services">
+                <li>Address</li>
+                <li>Mail</li>
+                <li>Phone</li>
+                <li>Workspace</li>
+              </ul>
+              <Link className="home-featured-link" href="/cities/miami">
+                <span>Compare Miami options</span>
+                <span aria-hidden="true" className="home-featured-link-icon">→</span>
+              </Link>
             </div>
           </article>
         </div>
