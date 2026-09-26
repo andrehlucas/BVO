@@ -1,0 +1,1 @@
+- [Generated image framing](generated-image-framing.md) — landscape prompts may still produce square files; inspect dimensions and crop intentionally.

@@ -1,0 +1,58 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "flRtn3TKTAWfPpXjM4yO_"
+uri = "file://artifacts/best-virtual-offices/public/images/bvo-miami-feature.jpg"
+type = "image"
+title = "Miami — imagem ilustrativa"
+description = "Imagem de contexto para o card de Miami; não representa um fornecedor específico."
+logical_id = "4cc5799f-fcfb-4bbb-98ea-cf014d7856f0"
+content_hash = "sha256:072b6c0c54e7f97c4c7c1ad69bcc6e6c9406b877626d634b3db3603b728672f1"
+size = 154933
+mtime_ms = 1790383384090
+storage_uri = "gcs://replit-rams-assets-picard/rams/assets/repl:925d7cfe-be73-4fef-ae7b-05d2af43ac1e/4cc5799f-fcfb-4bbb-98ea-cf014d7856f0/306955a5-749c-4a8d-a417-d8d2b7810bc6"
+storage_version_token = "1790383542840101"
+content_type = "image/jpeg"
+
+[[outputs]]
+id = "9-4w1zcf0ia_NjrnKtJiw"
+uri = "file://artifacts/best-virtual-offices/public/images/bvo-home-need-address-mail.jpg"
+type = "image"
+title = "Endereço e correspondência"
+description = "Cena ilustrativa para a opção de endereço comercial e correspondência."
+logical_id = "034e751f-3aca-459c-917c-89a76256a0ff"
+content_hash = "sha256:9e781e10dbb2eec52e778aebe0350c31edd9a3f88bceeb0cce6e72e8424d9dad"
+size = 131268
+mtime_ms = 1790383384090
+storage_uri = "gcs://replit-rams-assets-picard/rams/assets/repl:925d7cfe-be73-4fef-ae7b-05d2af43ac1e/034e751f-3aca-459c-917c-89a76256a0ff/5acc5e5a-a671-40c1-bc16-5fd261dcbb0a"
+storage_version_token = "1790383543465301"
+content_type = "image/jpeg"
+
+[[outputs]]
+id = "xzDEHuejnFrF3VkmMugFv"
+uri = "file://artifacts/best-virtual-offices/public/images/bvo-home-need-receptionist.jpg"
+type = "image"
+title = "Atendimento telefônico"
+description = "Cena ilustrativa para a opção de recepcionista e telefone."
+logical_id = "6894b596-32a0-441c-8e86-ff6e329baca5"
+content_hash = "sha256:87947a7089f03e5327953fc2ab7bdf1bf1ec2a8a33b78b00eacb32d3abf341c8"
+size = 113424
+mtime_ms = 1790383384090
+storage_uri = "gcs://replit-rams-assets-picard/rams/assets/repl:925d7cfe-be73-4fef-ae7b-05d2af43ac1e/6894b596-32a0-441c-8e86-ff6e329baca5/d4b54b10-d036-4e00-8b05-202735268179"
+storage_version_token = "1790383543973430"
+content_type = "image/jpeg"
+
+[[outputs]]
+id = "sn3Bkyp0Ap5fEnHUgoiR_"
+uri = "file://artifacts/best-virtual-offices/public/images/bvo-home-need-full-office.jpg"
+type = "image"
+title = "Espaço de trabalho"
+description = "Cena ilustrativa para a opção de serviços combinados."
+logical_id = "f14b3687-33ca-4a71-a489-fa87c3d3a900"
+content_hash = "sha256:6e21da6a635dc6906302ba8af8e493b904b5efc0c094b692ecb54dafb1188e26"
+size = 132958
+mtime_ms = 1790383384090
+storage_uri = "gcs://replit-rams-assets-picard/rams/assets/repl:925d7cfe-be73-4fef-ae7b-05d2af43ac1e/f14b3687-33ca-4a71-a489-fa87c3d3a900/22b39fe6-8ad5-4417-9354-456d9b70c5d5"
+storage_version_token = "1790383544584589"
+content_type = "image/jpeg"
