@@ -79,7 +79,6 @@ export default function HomePage() {
           <p className="home-intro-kicker"><span aria-hidden="true">●</span> Make a more informed choice</p>
           <h1>Compare virtual offices by the services your business needs</h1>
           <p>See what’s included, spot extra fees, and know where provider details are still missing.</p>
-          <HomeComparisonSearch cities={cities.map(([slug, name]) => ({ slug, name }))} />
         </div>
         <div className="home-map" aria-label="Illustrated map of Miami with office buildings">
           <Image
@@ -136,6 +135,16 @@ export default function HomePage() {
             <p>See local providers, what each plan includes, and where details are missing.</p>
           </div>
           <HomeNeedJourney cities={cities.map(([slug, name]) => ({ slug, name }))} />
+        </div>
+      </section>
+
+      <section className="home-section home-quick-compare" aria-labelledby="home-quick-compare-heading" data-home-section="quick-compare">
+        <div className="home-quick-compare-inner">
+          <div className="home-quick-compare-copy">
+            <h2 id="home-quick-compare-heading">Quick compare</h2>
+            <p>Already know your city, service, and contract preference? Go straight to matching Florida plans.</p>
+          </div>
+          <HomeComparisonSearch cities={cities.map(([slug, name]) => ({ slug, name }))} />
         </div>
       </section>
 

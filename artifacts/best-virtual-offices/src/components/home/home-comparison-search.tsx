@@ -19,6 +19,19 @@ interface HomeSelectProps {
   options: SelectOption[]
 }
 
+interface ComparisonDestinationInput {
+  city: string
+  monthToMonth: string
+  need: string
+}
+
+export function comparisonDestination({ city, monthToMonth, need }: ComparisonDestinationInput) {
+  const params = new URLSearchParams({ need })
+  if (monthToMonth === 'yes') params.set('monthToMonth', 'yes')
+  const query = params.toString()
+  return city === 'all' ? `/florida?${query}` : `/cities/${city}?${query}`
+}
+
 function HomeSelect({ defaultValue, label, name, options }: HomeSelectProps) {
   const id = useId()
   const fieldRef = useRef<HTMLDivElement>(null)
@@ -147,13 +160,11 @@ export function HomeComparisonSearch({ cities }: { cities: CityOption[] }) {
     const city = String(form.get('city') ?? 'all')
     const need = String(form.get('need') ?? 'address-mail')
     const monthToMonth = String(form.get('monthToMonth') ?? 'no')
-    const params = new URLSearchParams({ need })
-    if (monthToMonth === 'yes') params.set('monthToMonth', 'yes')
-    window.location.assign(city === 'all' ? '/florida' : `/cities/${city}?${params.toString()}`)
+    window.location.assign(comparisonDestination({ city, need, monthToMonth }))
   }
 
   return (
-    <form className="home-search" onSubmit={submit}>
+    <form aria-label="Quick compare" className="home-search" onSubmit={submit}>
       <HomeSelect
         defaultValue="all"
         label="City"
@@ -179,7 +190,7 @@ export function HomeComparisonSearch({ cities }: { cities: CityOption[] }) {
           { label: 'Month-to-month only', value: 'yes' },
         ]}
       />
-      <button aria-label="Find matching virtual offices" className="home-search-submit" type="submit"><span aria-hidden="true" /></button>
+      <button aria-label="Compare matching virtual offices" className="home-search-submit" type="submit">Compare</button>
     </form>
   )
 }
